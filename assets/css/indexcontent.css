@@ -1,0 +1,27 @@
+ /*carousell*/
+ .my-4 {
+    margin-top: 0 !important;
+  }
+  .container-fluid-no{
+    padding-left: 0;
+    padding-right: 0;
+
+  }
+  /* Container holding the image and the text */
+.merk-button{
+  position: relative;
+  text-align: center;
+  color: white;
+background-color: whitesmoke;
+}
+.merk-button img{
+  float: right;
+}
+/* Bottom left text */
+.bottom-left-merk {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  color: black;
+}
+ 

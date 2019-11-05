@@ -1,0 +1,124 @@
+nav {
+    background-color: #023373;
+    padding: 0;
+    margin: 0;
+  }
+
+  button:active {
+    border: none;
+    border-style: none;
+  }
+
+  /*SEARCHBAR*/
+  * {
+    box-sizing: border-box;
+  }
+
+  form.example input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+  }
+
+  /*style sidebar */
+  /*style dropdown submenu sidebar */
+  .link-list{
+    list-style-type:none;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+
+  /* On mouse-over */
+  .sidenav a:hover, .dropdown-btn:hover {
+   color: #023373;
+   font-weight: bold;
+  }
+
+  /* Style the submit button */
+  
+  form.example button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #2196F3;
+    color: black;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    /* Prevent double borders */
+    cursor: pointer;
+  }
+
+  form.example button:hover {
+    background: #0b7dda;
+  }
+
+  /* Clear floats */
+  form.example::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  /*sidebar*/
+ 
+  .roboto {
+    font-family: 'Roboto', sans-serif;
+    font-size: 105%;
+  }
+  .link-list > li{
+    list-style-type:none;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  
+  }
+  /* On mouse-over */
+  .sidenav a:hover, .dropdown-btn:hover {
+   color: #023373;
+   font-weight: bold;
+  }
+  .sidenav a:focus,.dropdown-btn:focus{
+    color: black;
+  }
+
+ 
+#carouselExampleIndicators{
+  margin: 0 !important;
+}
+
+.card-footer button{
+  background-color: white;
+  border: none;
+}
+.card-footer button:hover{
+	color: #fff;
+	background: #023373;
+	box-shadow: none;
+}
+
+/*style footer */
+.footer{
+  background-color: #023373;
+  padding: 50px;
+  position: relative;
+}
+
+.footer-heading{
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.list-unstyled a{
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+}
+.list-unstyled a:hover{
+text-decoration: underline;
+}
