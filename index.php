@@ -1,8 +1,16 @@
+<?php
+    /*
+    Author: Javed Ur Rehman
+    Website: http://www.allphptricks.com/
+    */
+    require_once('config.php');
+   
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+<base href='<?php echo $base_url; ?>'>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -11,15 +19,15 @@
   <title>Welcome to TokoJamQ!</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/FONTAWESOME/css/all.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/FONTAWESOME/css/all.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-  <link href="assets/css/indexcontent.css" rel="stylesheet">
-  <link href="assets/css/itemcard.css" rel="stylesheet">
+  <link href="/assets/css/indexcontent.css" rel="stylesheet">
+  <link href="/assets/css/itemcard.css" rel="stylesheet">
   <!-- Custom styles for this template -->
-  <link href="assets/css/simple-sidebar.css" rel="stylesheet">
-  <link href="assets/css/shop-homepage.css" rel="stylesheet">
-  <link href="assets/css/headerfooter.css" rel="stylesheet">
+  <link href="/assets/css/simple-sidebar.css" rel="stylesheet">
+  <link href="/assets/css/shop-homepage.css" rel="stylesheet">
+  <link href="/assets/css/headerfooter.css" rel="stylesheet">
 </head>
 
 <body>
@@ -102,7 +110,7 @@
                 <a class="dropdown-item" href="login.html">LOG IN</a>
 
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="signin.html">SIGN UP</a>
+                <a class="dropdown-item" href="signup.php">SIGN UP</a>
               </div>
             </li>
           </ul>

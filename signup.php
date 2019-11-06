@@ -1,23 +1,52 @@
+<?php
+    require_once('config.php')
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title> TokoJamQ Privacy Policy </title>
     <!-- Bootstrap core CSS -->
+    <base href='<?php echo $base_url; ?>'>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/FONTAWESOME/css/all.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-  <link href="assets/css/headerfooter.css" rel="stylesheet">
-  <link href="assets/css/login.css" rel="stylesheet">
-  <link href="assets/css/signin.css" rel="stylesheet">
+  <link href="assets/css/headerfooter.css" rel="stylesheet" type="text/css">
+  <link href="assets/css/signup.css" rel="stylesheet">
   <!-- Custom styles for this template -->
   <link href="assets/css/simple-sidebar.css" rel="stylesheet">
   <link href="assets/css/shop-homepage.css" rel="stylesheet">
 </head>
 
 <body>
-    <div class="d-flex" id="wrapper">
+    <div>
+<?php
+             require('db.php');
+            // If form submitted, insert values into the database.
+            if (isset($_REQUEST['email'])){
+                $firstname = stripslashes($_REQUEST['firstname']); // removes backslashes
+                $firstname = mysqli_real_escape_string($con,$firstname); //escapes special characters in a string
+                $lastname = stripslashes($_REQUEST['lastname']);
+                $lastname = mysqli_real_escape_string($con,$lastname);
+                $email = stripslashes($_REQUEST['email']);
+                $email = mysqli_real_escape_string($con,$email);
+                $password = stripslashes($_REQUEST['password']);
+                $password = mysqli_real_escape_string($con,$password);
+
+                $trn_date = date("Y-m-d H:i:s");
+                $query = "INSERT into `users` (username, password, email, trn_date) VALUES ('$username', '".sha1($password)."', '$email', '$trn_date')";
+                $result = mysqli_query($con,$query);
+                if($result){
+                    echo "<div class='form'><h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+                }
+            }else{
+
+        ?>
+    </div>    
+<div class="d-flex" id="wrapper">
 
         <!-- Sidebar -->
         <div class="bg-light border-right" id="sidebar-wrapper">
@@ -118,7 +147,7 @@
 
       <!-- Registeration Form -->
       <div class="col-md-7 col-lg-6 ml-auto">
-          <form action="#">
+          <form action="">
               <div class="row">
 
                   <!-- First Name -->
@@ -158,12 +187,12 @@
                               <i class="fa fa-phone-square text-muted"></i>
                           </span>
                       </div>
-                      <select id="countryCode" name="countryCode" style="max-width: 80px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
+                      <!--<select id="countryCode" name="countryCode" style="max-width: 80px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
                           <option value="">+12</option>
                           <option value="">+10</option>
                           <option value="">+15</option>
                           <option value="">+18</option>
-                      </select>
+                      </select>-->
                       <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3">
                   </div>.
 
@@ -184,7 +213,7 @@
                               <i class="fa fa-lock text-muted"></i>
                           </span>
                       </div>
-                      <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
+                      <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
                   </div>
 
                   <!-- Submit Button -->
@@ -195,28 +224,28 @@
                   </div>
 
                   <!-- Divider Text -->
-                  <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
+                 <!-- <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
                       <div class="border-bottom w-100 ml-5"></div>
                       <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
                       <div class="border-bottom w-100 mr-5"></div>
                   </div>
 
-                  <!-- Social Login -->
+                   Social Login
                   <div class="form-group col-lg-12 mx-auto">
-                      <!--<a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
+                      <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
                           <i class="fa fa-facebook-f mr-2"></i>
                           <span class="font-weight-bold">Continue with Facebook</span>
                       </a>
                       <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
                           <i class="fa fa-twitter mr-2"></i>
                           <span class="font-weight-bold">Continue with Twitter</span>
-                      </a>-->
+                      </a>
                       <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
                       <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
-                  </div>
+                  </div>-->
 
                   <!-- Already Registered -->
-                  <div class="text-center w-100">
+                  <div class="text-center w-100 p-2" >
                       <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
                   </div>
 
@@ -280,6 +309,11 @@ $(function () {
     <div class="col-12">
     <div class="copyright">
     <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019 All rights reserved  </p>
-    </div></div></div></div></div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+    <?php } ?>
 </body>
 </html>
