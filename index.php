@@ -19,15 +19,15 @@
   <title>Welcome to TokoJamQ!</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/FONTAWESOME/css/all.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/FONTAWESOME/css/all.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-  <link href="/assets/css/indexcontent.css" rel="stylesheet">
-  <link href="/assets/css/itemcard.css" rel="stylesheet">
+  <link href="assets/css/indexcontent.css" rel="stylesheet">
+  <link href="assets/css/itemcard.css" rel="stylesheet">
   <!-- Custom styles for this template -->
-  <link href="/assets/css/simple-sidebar.css" rel="stylesheet">
-  <link href="/assets/css/shop-homepage.css" rel="stylesheet">
-  <link href="/assets/css/headerfooter.css" rel="stylesheet">
+  <link href="assets/css/simple-sidebar.css" rel="stylesheet">
+  <link href="assets/css/shop-homepage.css" rel="stylesheet">
+  <link href="assets/css/headerfooter.css" rel="stylesheet">
 </head>
 
 <body>
@@ -107,7 +107,7 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                 style="text-align: center;">
 
-                <a class="dropdown-item" href="login.html">LOG IN</a>
+                <a class="dropdown-item" href="login.php">LOG IN</a>
 
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="signup.php">SIGN UP</a>

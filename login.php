@@ -1,3 +1,7 @@
+<?php
+    require_once('config.php')
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -5,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title> TokoJamQ Privacy Policy </title>
     <!-- Bootstrap core CSS -->
+    <base href='<?php echo $base_url; ?>'>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/FONTAWESOME/css/all.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -17,6 +22,29 @@
 </head>
 
 <body>
+<?php
+	
+			session_start();
+			// If form submitted, insert values into the database.
+			if (isset($_POST['email'])){
+				
+				$email = stripslashes($_REQUEST['email']); // removes backslashes
+				$email = mysqli_real_escape_string($con,$email); //escapes special characters in a string
+				$password = stripslashes($_REQUEST['password']);
+				$password = mysqli_real_escape_string($con,$password);
+				
+				//Checking is user existing in the database or not
+				$query = "SELECT * FROM `user` WHERE email='$email' and password='".sha1($password)."'";
+				$result = mysqli_query($con,$query) or die(mysql_error());
+				$rows = mysqli_num_rows($result);
+				if($rows==1){
+					$_SESSION['email'] = $email;
+					header("Location: index.php"); // Redirect user to index.php
+				} else {
+					echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+				}
+			} else {
+		?>
     <div class="d-flex" id="wrapper">
 
         <!-- Sidebar -->
@@ -109,14 +137,14 @@
                     <div class="card card-signin my-5">
                       <div class="card-body">
                         <h5 class="card-title text-center">Sign In</h5>
-                        <form class="form-signin">
+                        <form class="form-signin" action="" method="post" name="login">
                           <div class="form-label-group">
-                            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                             <label for="inputEmail">Email address</label>
                           </div>
             
                           <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
                             <label for="inputPassword">Password</label>
                           </div>
             
@@ -124,10 +152,10 @@
                             <input type="checkbox" class="custom-control-input" id="customCheck1">
                             <label class="custom-control-label" for="customCheck1">Remember password</label>
                           </div>
-                          <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-                          <hr class="my-4">
-                          <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
-                          <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+           
+                          <input name="submit" type="submit" value="Login" class="btn btn-lg btn-primary btn-block text-uppercase" />
+                          <br>
+                          <p style="text-align:Center;">Not registered yet? <a href='signup.php'>Register Here</a></p>
                         </form>
                       </div>
                     </div>
@@ -179,5 +207,6 @@
   <div class="copyright">
   <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019 All rights reserved  </p>
   </div></div></div></div></div>  
+  <?php } ?>
 </body>
 </html>

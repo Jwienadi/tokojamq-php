@@ -24,7 +24,7 @@
 <body>
     <div>
 <?php
-             require('db.php');
+
             // If form submitted, insert values into the database.
             if (isset($_REQUEST['email'])){
                 $firstname = stripslashes($_REQUEST['firstname']); // removes backslashes
@@ -33,16 +33,19 @@
                 $lastname = mysqli_real_escape_string($con,$lastname);
                 $email = stripslashes($_REQUEST['email']);
                 $email = mysqli_real_escape_string($con,$email);
+                $phone = stripslashes($_REQUEST['phone']);
+                $phone = mysqli_real_escape_string($con,$phone);
                 $password = stripslashes($_REQUEST['password']);
                 $password = mysqli_real_escape_string($con,$password);
 
-                $trn_date = date("Y-m-d H:i:s");
-                $query = "INSERT into `users` (username, password, email, trn_date) VALUES ('$username', '".sha1($password)."', '$email', '$trn_date')";
+             
+                $query = "INSERT into `user` (email, first_name, last_name, phone_number,password) VALUES ('$email','$firstname','$lastname','$phone','".sha1($password)."')";
                 $result = mysqli_query($con,$query);
                 if($result){
                     echo "<div class='form'><h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
                 }
             }else{
+                "<div class='form'><h3>FAILLLLL.</h3><br/>Click here to <a href='login.php'>Login</a></div>"
 
         ?>
     </div>    
@@ -146,8 +149,9 @@
       </div>
 
       <!-- Registeration Form -->
+   
       <div class="col-md-7 col-lg-6 ml-auto">
-          <form action="">
+          <form name="registration" action="" method="post">
               <div class="row">
 
                   <!-- First Name -->
@@ -157,7 +161,7 @@
                               <i class="fa fa-user text-muted"></i>
                           </span>
                       </div>
-                      <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md">
+                      <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md" required>
                   </div>
 
                   <!-- Last Name -->
@@ -167,7 +171,7 @@
                               <i class="fa fa-user text-muted"></i>
                           </span>
                       </div>
-                      <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md">
+                      <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md" required>
                   </div>
 
                   <!-- Email Address -->
@@ -177,7 +181,7 @@
                               <i class="fa fa-envelope text-muted"></i>
                           </span>
                       </div>
-                      <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
+                      <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md" required>
                   </div>
 
                   <!-- Phone Number -->
@@ -193,8 +197,8 @@
                           <option value="">+15</option>
                           <option value="">+18</option>
                       </select>-->
-                      <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3">
-                  </div>.
+                      <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3" required>
+                  </div>
 
                   <!-- Password -->
                   <div class="input-group col-lg-6 mb-4">
@@ -203,7 +207,7 @@
                               <i class="fa fa-lock text-muted"></i>
                           </span>
                       </div>
-                      <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                      <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md" required>
                   </div>
 
                   <!-- Password Confirmation -->
@@ -213,40 +217,20 @@
                               <i class="fa fa-lock text-muted"></i>
                           </span>
                       </div>
-                      <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md">
+                      <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required>
                   </div>
 
                   <!-- Submit Button -->
                   <div class="form-group col-lg-12 mx-auto mb-0">
-                      <a href="#" class="btn btn-primary btn-block py-2">
-                          <span class="font-weight-bold">Create your account</span>
-                      </a>
+    
+                      <input type="submit" name="submit" value="Register" class="btn btn-primary btn-block py-2">
+                      
                   </div>
 
-                  <!-- Divider Text -->
-                 <!-- <div class="form-group col-lg-12 mx-auto d-flex align-items-center my-4">
-                      <div class="border-bottom w-100 ml-5"></div>
-                      <span class="px-2 small text-muted font-weight-bold text-muted">OR</span>
-                      <div class="border-bottom w-100 mr-5"></div>
-                  </div>
-
-                   Social Login
-                  <div class="form-group col-lg-12 mx-auto">
-                      <a href="#" class="btn btn-primary btn-block py-2 btn-facebook">
-                          <i class="fa fa-facebook-f mr-2"></i>
-                          <span class="font-weight-bold">Continue with Facebook</span>
-                      </a>
-                      <a href="#" class="btn btn-primary btn-block py-2 btn-twitter">
-                          <i class="fa fa-twitter mr-2"></i>
-                          <span class="font-weight-bold">Continue with Twitter</span>
-                      </a>
-                      <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
-                      <button class="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i class="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
-                  </div>-->
-
+                 
                   <!-- Already Registered -->
                   <div class="text-center w-100 p-2" >
-                      <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
+                      <p class="text-muted font-weight-bold">Already Registered? <a href="login.php" class="text-primary ml-2">Login</a></p>
                   </div>
 
               </div>
@@ -280,39 +264,42 @@ $(function () {
    <!--footer kita-->
 <div class="footer">
     <div class="container">
-    <div class="row">
-    <div class="col-lg-2">
-    <p class="mb-4"><img src="assets/img/q putih.png" alt="Image" class="img-fluid"></p>
+        <div class="row">
+            <div class="col-lg-2">
+                <p class="mb-4"><img src="assets/img/q putih.png" alt="Image" class="img-fluid"></p>
+            </div>
+            <div class="col-lg-3">
+                <h3 class="footer-heading"><span>Our Products</span></h3>
+                <ul class="list-unstyled">
+                    <li><a href="#">Pioneer</a></li>
+                    <li><a href="#">Esti Loren</a></li>
+                    <li><a href="#">Asako</a></li>
+                    <li><a href="#">Esa</a></li>
+                    <li><a href="#">Edison</a></li>
+                    <li><a href="#">Dekko</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3">
+                <h3 class="footer-heading"><span>Contact</span></h3>
+                <ul class="list-unstyled">
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="privacy policy.html">Privacy Policy</a></li>
+                    <li><a href="tnc.html">Terms and Condition</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="copyright">
+                    <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019 All rights
+                        reserved </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-lg-3">
-    <h3 class="footer-heading"><span>Our Products</span></h3>
-    <ul class="list-unstyled">
-    <li><a href="#">Pioneer</a></li>
-    <li><a href="#">Esti Loren</a></li>
-    <li><a href="#">Asako</a></li>
-    <li><a href="#">Esa</a></li>
-    <li><a href="#">Edison</a></li>
-    <li><a href="#">Dekko</a></li>
-    </ul>
-    </div>
-  
-    <div class="col-lg-3">
-    <h3 class="footer-heading"><span>Contact</span></h3>
-    <ul class="list-unstyled">
-    <li><a href="contact.html">Contact Us</a></li>
-    <li><a href="privacy policy.html">Privacy Policy</a></li>
-    <li><a href="tnc.html">Terms and Condition</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    </ul></div></div>
-  
-    <div class="row">
-    <div class="col-12">
-    <div class="copyright">
-    <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019 All rights reserved  </p>
-    </div>
-</div>
-</div>
-</div>
 </div>
     <?php } ?>
 </body>
