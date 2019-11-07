@@ -45,7 +45,7 @@
         </button>
         <div class="dropdown-container">
           <ul class="link-list">
-            <li><a href="#">Pioneer</a></li> <br>
+            <li><a href="pioneer.html">Pioneer</a></li> <br>
             <li><a href="#">Esti Loren</a></li><br>
             <li><a href="#">Asako</a></li><br>
             <li><a href="#">Esa</a></li><br>
@@ -437,7 +437,7 @@
             <div class="col-lg-3">
               <h3 class="footer-heading"><span>Our Products</span></h3>
               <ul class="list-unstyled">
-                <li><a href="#">Pioneer</a></li>
+                <li><a href="pioneer.html">Pioneer</a></li>
                 <li><a href="#">Esti Loren</a></li>
                 <li><a href="#">Asako</a></li>
                 <li><a href="#">Esa</a></li>
@@ -469,8 +469,6 @@
       </div>
     </div>
     <!-- /#page-content-wrapper -->
-
-
 
   </div>
   <!-- /#wrapper -->
@@ -512,8 +510,5 @@
       });
     }
   </script>
-
-
 </body>
-
 </html>
