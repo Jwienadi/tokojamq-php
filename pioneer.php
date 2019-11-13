@@ -1,6 +1,35 @@
-<?php
+<?php 
 require_once('config.php');
+$con=mysqli_connect("localhost","root","","tokojamqfix");
+$halaman = 2; //batasan halaman
+$page = isset($_GET['4'])? (int)$_GET["2"]:1;
+$mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
+$query = mysqli_query($con,"select * from product LIMIT $mulai, $halaman");
+$sql = mysqli_query($con,"select * from product");
+$total = mysqli_num_rows($sql);
+$pages = ceil($total/$halaman); 
+for ($i=1; $i<=$pages ; $i++){ ?>
+
+ <a href="?halaman=<?php echo $i; ?>"><?php echo $i; ?></a>
+ <?php } 
 ?>
+
+
+
+<?php
+$sql = mysqli_query($con,"select * from product");
+$result = $con -> query($sql);
+if ($result -> num_rows >0 {
+    while ($row = $result -> fetch_assoc()){
+    $id = $row['id'];
+    //echo "<img src='assets/img/pioneer".$id.".jpg'>";
+    }
+    } else {
+    echo "Error: ". $sql. "<br>" . $con->error;
+    }
+    ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -21,6 +50,7 @@ require_once('config.php');
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <title> Toko JamQ Products </title>
+
 </head>
 
 <body>
@@ -148,7 +178,7 @@ require_once('config.php');
             </div>
             <div class="col-lg-3 col-md-3 mb-4">
                 <div class="card h-100">
-                  <a href="#"><img class="card-img-top" src="assets/img/pioneer/2110dark.png" alt=""></a>
+                  <a href="#"><img class="card-img-top" src="assets/img/pioneer/2110dark.jpg" alt=""></a>
                   <div class="card-body">
                     <h4 class="card-title">
                       <a href="#">Pioneer 2110 Dark Wood Motif</a>
@@ -180,7 +210,7 @@ require_once('config.php');
       </div>
       <div class="col-lg-3 col-md-3 mb-4">
         <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134black.png" alt=""></a>
+          <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134black.jpg" alt=""></a>
           <div class="card-body">
             <h4 class="card-title">
               <a href="#">Pioneer 2134 black</a>
@@ -210,56 +240,56 @@ require_once('config.php');
       </div>
   </div>
 </div>
+<div class="col-lg-3 col-md-3 mb-4">
+    <div class="card h-100">
+      <a href="#"><img class="card-img-top" src="assets/img/pioneer/2042red.jpg" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">Pioneer 2042 Red</a>
+        </h4>
+        <h5>Rp 85.000</h5>
+      </div>
+      <div class="card-footer middle">
+          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+          <span class="vertical-line"></span>
+          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+      </div>
+  </div>
+</div>
+<div class="col-lg-3 col-md-3 mb-4">
+    <div class="card h-100">
+      <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095o.jpg" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">Pioneer 2095 Orange</a>
+        </h4>
+        <h5>Rp 85.000</h5>
+      </div>
+      <div class="card-footer middle">
+          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+          <span class="vertical-line"></span>
+          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+      </div>
+  </div>
+</div>
+<div class="col-lg-3 col-md-3 mb-4">
+    <div class="card h-100">
+      <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134white.jpg" alt=""></a>
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="#">Pioneer 2134 White</a>
+        </h4>
+        <h5>Rp 80.000</h5>
+      </div>
+      <div class="card-footer middle">
+          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+          <span class="vertical-line"></span>
+          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+      </div>
+  </div>
+</div>
 
 
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/pioneer/" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2110 Wood Motif</a>
-        </h4>
-        <h5>Rp 65.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2110 Wood Motif</a>
-        </h4>
-        <h5>Rp 65.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2110 Wood Motif</a>
-        </h4>
-        <h5>Rp 65.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
 <div class="col-lg-3 col-md-3 mb-4">
     <div class="card h-100">
       <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
