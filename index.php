@@ -45,7 +45,7 @@
         </button>
         <div class="dropdown-container">
           <ul class="link-list">
-            <li><a href="pioneer.html">Pioneer</a></li> <br>
+            <li><a href="pioneer.php">Pioneer</a></li> <br>
             <li><a href="#">Esti Loren</a></li><br>
             <li><a href="#">Asako</a></li><br>
             <li><a href="#">Esa</a></li><br>
@@ -54,10 +54,10 @@
           </ul>
 
         </div>
-        <a href="privacy policy.html" class="list-group-item list-group-item-action bg-light">Privacy Policy</a>
-        <a href="tnc.html" class="list-group-item list-group-item-action bg-light">Terms and Condition</a>
-        <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-        <a href="contact.html" class="list-group-item list-group-item-action bg-light">Contact Us</a>
+        <a href="privacy policy.php" class="list-group-item list-group-item-action bg-light">Privacy Policy</a>
+        <a href="tnc.php" class="list-group-item list-group-item-action bg-light">Terms and Condition</a>
+        <a href="faq.php" class="list-group-item list-group-item-action bg-light">FAQ</a>
+        <a href="contact.php" class="list-group-item list-group-item-action bg-light">Contact Us</a>
       </div>
     </div>
     <!-- /#sidebar-wrapper -->
@@ -76,7 +76,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <!--logo-->
-        <a href="index.html" class="col-md-3"><img src="assets/img/logo.png" style="width: 100%;"></a>
+        <a href="index.php" class="col-md-3"><img src="assets/img/logo.png" style="width: 100%;"></a>
         <!--SEARCH BAR-->
         <!-- Load icon library -->
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
@@ -437,7 +437,7 @@
             <div class="col-lg-3">
               <h3 class="footer-heading"><span>Our Products</span></h3>
               <ul class="list-unstyled">
-                <li><a href="pioneer.html">Pioneer</a></li>
+                <li><a href="pioneer.php">Pioneer</a></li>
                 <li><a href="#">Esti Loren</a></li>
                 <li><a href="#">Asako</a></li>
                 <li><a href="#">Esa</a></li>
@@ -449,10 +449,10 @@
             <div class="col-lg-3">
               <h3 class="footer-heading"><span>Contact</span></h3>
               <ul class="list-unstyled">
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="privacy policy.html">Privacy Policy</a></li>
-                <li><a href="tnc.html">Terms and Condition</a></li>
-                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.php">Contact Us</a></li>
+                <li><a href="privacy policy.php">Privacy Policy</a></li>
+                <li><a href="tnc.php">Terms and Condition</a></li>
+                <li><a href="faq.php">FAQ</a></li>
               </ul>
             </div>
           </div>
