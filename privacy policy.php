@@ -1,24 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Contact Us TokoJamQ!</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title> TokoJamQ Privacy Policy </title>
     <!-- Bootstrap core CSS -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/FONTAWESOME/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="assets/css/headerfooter.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="assets/css/simple-sidebar.css" rel="stylesheet">
     <link href="assets/css/shop-homepage.css" rel="stylesheet">
-
+    <link href="assets/css/headerfooter.css" rel="stylesheet">
 </head>
 
 <body>
@@ -44,10 +37,10 @@
                     </ul>
 
                 </div>
-                <a href="privacy policy.html" class="list-group-item list-group-item-action bg-light">Privacy Policy</a>
-                <a href="tnc.html" class="list-group-item list-group-item-action bg-light">Terms and Condition</a>
-                <a href="faq.html" class="list-group-item list-group-item-action bg-light">FAQ</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Contact Us</a>
+                <a href="privacy policy.php" class="list-group-item list-group-item-action bg-light">Privacy Policy</a>
+                <a href="tnc.php" class="list-group-item list-group-item-action bg-light">Terms and Condition</a>
+                <a href="faq.php" class="list-group-item list-group-item-action bg-light">FAQ</a>
+                <a href="contact.php" class="list-group-item list-group-item-action bg-light">Contact Us</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -67,7 +60,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!--logo-->
-                <a href="index.html" class="col-md-3"><img src="assets/img/logo.png" style="width: 100%;"></a>
+                <a href="index.php" class="col-md-3" ><img src="assets/img/logo.png" style="width: 100%;"></a>
                 <!--SEARCH BAR-->
                 <!-- Load icon library -->
                 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
@@ -91,121 +84,86 @@
                                     class="fas fa-shopping-cart"></i></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                style="color: white;font-size: 150%;">
-                                <i class="fas fa-user"></i>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                              aria-haspopup="true" aria-expanded="false"
+                              style="color: white;font-size: 150%;">
+                              <i class="fas fa-user"></i>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
-                                style="text-align: center;">
-
-                                <a class="dropdown-item" href="login.html">LOG IN</a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="signin.html">SIGN UP</a>
+                              style="text-align: center;">
+                             
+                              <a class="dropdown-item" href="login.php">LOG IN</a>
+                          
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="signin.php">SIGN UP</a>
                             </div>
-                        </li>
+                          </li>
                     </ul>
                 </div>
             </nav>
-
             <div class="isipp" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
-                <h1>Contact Us</h1>
-                <img style="float:right;" src="assets/img/kartunamafix.jpg">
-                <h4>Address: <br>
-                    Pusat Grosir Surabaya (PGS)
-                    </br>Lantai Dasar Blok H5 No 6-8 Surabaya</h4>
-                <h4> Phone Number: (031) 52405089
-                    <br> Whatsapp: 08159686049</h4>
-                <h4> Email: tokojamq@gmail.com</h4>
-                <h4> Website: tokojamq.co.id</h4>
-                <h2>Get in Touch with us! :)</h2>
-                <div class="row block-9">
-                    <div class="col-md-6 pr-md-5">
-                        <form action="#">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Name">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Email">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Subject">
-                            </div>
-                            <div class="form-group">
-                                <textarea name="" id="" cols="30" rows="7" class="form-control"
-                                    placeholder="Message"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Send Message" class="btn btn-primary py-3 px-5">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-md-6 d-flex">
-                        <div class="mapouter">
-                            <div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas"
-                                    src="https://maps.google.com/maps?q=pgs&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>Google Maps
-                                Generator by <a href="https://www.embedgooglemap.net">embedgooglemap.net</a></div>
-                            <style>
-                                .mapouter {
-                                    position: relative;
-                                    text-align: right;
-                                    height: 500px;
-                                    width: 600px;
-                                }
-
-                                .gmap_canvas {
-                                    overflow: hidden;
-                                    background: none !important;
-                                    height: 500px;
-                                    width: 600px;
-                                }
-                            </style>
-                        </div>
-                    </div>
-                </div>
+                <h1>Privacy Policy</h1>
+                <p>TokoJamQ is committed to protecting the privacy of visitors to the site. Your use of the site
+                    confirms
+                    your acceptance of the site.
+                    On registering and during the process of your shopping on our website, we are collecting personal
+                    information such as your phone number, billing and shipping address, credit card information, buying
+                    preferences etc.
+                    We also collect other information as browsing history on the site, through the use of cookies and
+                    other
+                    technologies.
+                    <p>You can also invite your friends by giving name and email address amongst other information. We
+                        use
+                        all this information to try and better our services and shopping experience
+                        for you as well as notify you on future sales to enhance your experience with us.</p>
+                    <p>We are committed to protecting the information that you provide and while we cannot guarantee the
+                        protection of this information,
+                        we will take all reasonable steps to ensure that we do our best towards protecting the
+                        confidentiality of data stored.
+                        Our payment gateway partner will ensure stringent security measures to ensure that critically
+                        sensitive information, such as personal information and credit card details, are extremely well
+                        protected.</p>
+                    <p>The information is encrypted before it is transmitted over the internet to the payment gateway
+                        and
+                        the payment gateway partner does not store any credit card details for security reasons.
+                        If you have any queries about this Privacy Policy, please feel free to contact us anytime at
+                        tokojamq@gmail.com</p>
             </div>
+
             <!--footer kita-->
-            <div class="footer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <p class="mb-4"><img src="assets/img/q putih.png" alt="Image" class="img-fluid"></p>
-                        </div>
-                        <div class="col-lg-3">
-                            <h3 class="footer-heading"><span>Our Products</span></h3>
-                            <ul class="list-unstyled">
-                                <li><a href="#">Pioneer</a></li>
-                                <li><a href="#">Esti Loren</a></li>
-                                <li><a href="#">Asako</a></li>
-                                <li><a href="#">Esa</a></li>
-                                <li><a href="#">Edison</a></li>
-                                <li><a href="#">Dekko</a></li>
-                            </ul>
-                        </div>
+<div class="footer">
+    <div class="container">
+    <div class="row">
+    <div class="col-lg-2">
+    <p class="mb-4"><img src="assets/img/q putih.png" alt="Image" class="img-fluid"></p>
+    </div>
+    <div class="col-lg-3">
+    <h3 class="footer-heading"><span>Our Products</span></h3>
+    <ul class="list-unstyled">
+    <li><a href="#">Pioneer</a></li>
+    <li><a href="#">Esti Loren</a></li>
+    <li><a href="#">Asako</a></li>
+    <li><a href="#">Esa</a></li>
+    <li><a href="#">Edison</a></li>
+    <li><a href="#">Dekko</a></li>
+    </ul>
+    </div>
+  
+    <div class="col-lg-3">
+    <h3 class="footer-heading"><span>Contact</span></h3>
+    <ul class="list-unstyled">
+    <li><a href="contact.php">Contact Us</a></li>
+    <li><a href="privacy policy.php">Privacy Policy</a></li>
+    <li><a href="tnc.php">Terms and Condition</a></li>
+    <li><a href="faq.php">FAQ</a></li>
+    </ul></div></div>
+  
+    <div class="row">
+    <div class="col-12">
+    <div class="copyright">
+    <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019 All rights reserved  </p>
+    </div></div></div></div></div>
 
-                        <div class="col-lg-3">
-                            <h3 class="footer-heading"><span>Contact</span></h3>
-                            <ul class="list-unstyled">
-                                <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="privacy policy.html">Privacy Policy</a></li>
-                                <li><a href="tnc.html">Terms and Condition</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="copyright">
-                                <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019
-                                    All rights reserved </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!-- Bootstrap core JavaScript -->
             <script src="assets/vendor/jquery/jquery.min.js"></script>
             <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -335,5 +293,4 @@
                 }
             </style>
 </body>
-
 </html>
