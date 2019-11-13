@@ -171,10 +171,10 @@
               <div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2110.png" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="detail product.html">Pioneer 2110 Wood Motif</a>
                       </h4>
                       <h5>Rp 65.000</h5>
                     </div>
@@ -187,12 +187,12 @@
                 </div>
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2042blue.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Pioneer 2042 Blue</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 85.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -203,12 +203,12 @@
                 </div>
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095m.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Pioneer 2095 Red</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 85.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -219,12 +219,12 @@
                 </div>
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134black.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Pioneer 2134 Black</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 85.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -243,12 +243,12 @@
               <div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/esti loren/2043black.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Esti Loren 2043 Black</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 75.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -259,12 +259,12 @@
                 </div>
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095o.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Pioneer 2095 Orange</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 85.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -275,12 +275,12 @@
                 </div>
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/esti loren/2088 white.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Esti Loren 2088 White</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 85.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -291,12 +291,12 @@
                 </div>
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134white.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Pioneer 2134 White</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 85.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -314,10 +314,42 @@
               <div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/esti loren/2043gold.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Esti Loren 2043 Gold</a>
+                      </h4>
+                      <h5>Rp 75.000</h5>
+                    </div>
+                    <div class="card-footer middle">
+                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                      <span class="vertical-line"></span>
+                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-4">
+                  <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="assets/img/esti loren/2027.jpg" alt=""></a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <a href="#">Esti Loren 2027 White </a>
+                      </h4>
+                      <h5>Rp 105.000</h5>
+                    </div>
+                    <div class="card-footer middle">
+                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                      <span class="vertical-line"></span>
+                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-4">
+                  <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095b.jpg" alt=""></a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <a href="#">Pioneer 2095 Blue</a>
                       </h4>
                       <h5>Rp 65.000</h5>
                     </div>
@@ -330,44 +362,12 @@
                 </div>
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2132white.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
+                        <a href="#">Pioneer 2132 White</a>
                       </h4>
-                      <h5>Rp 65.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
-                      </h4>
-                      <h5>Rp 65.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2110 Wood Motif</a>
-                      </h4>
-                      <h5>Rp 65.000</h5>
+                      <h5>Rp 70.000</h5>
                     </div>
                     <div class="card-footer middle">
                       <button class="item-card-button" href><i class="fas fa-heart"></i></button>

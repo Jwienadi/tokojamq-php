@@ -1,3 +1,7 @@
+<?php
+require_once('config.php');
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -96,10 +100,10 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                                 style="text-align: center;">
 
-                                <a class="dropdown-item" href="login.html">LOG IN</a>
+                                <a class="dropdown-item" href="login.php">LOG IN</a>
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="signin.html">SIGN UP</a>
+                                <a class="dropdown-item" href="signup.php">SIGN UP</a>
                             </div>
                         </li>
                     </ul>
@@ -449,7 +453,7 @@
                         <div class="col-lg-3">
                             <h3 class="footer-heading"><span>Our Products</span></h3>
                             <ul class="list-unstyled">
-                                <li><a href="pioneer.html">Pioneer</a></li>
+                                <li><a href="pioneer.php">Pioneer</a></li>
                                 <li><a href="#">Esti Loren</a></li>
                                 <li><a href="#">Asako</a></li>
                                 <li><a href="#">Esa</a></li>
