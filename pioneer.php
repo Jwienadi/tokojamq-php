@@ -1,6 +1,5 @@
 <?php 
 require_once('config.php');
-$con=mysqli_connect("localhost","root","","tokojamqfix");
 $halaman = 2; //batasan halaman
 $page = isset($_GET['4'])? (int)$_GET["2"]:1;
 $mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
@@ -24,9 +23,9 @@ if ($result -> num_rows >0 {
     $id = $row['id'];
     //echo "<img src='assets/img/pioneer".$id.".jpg'>";
     }
-    } else {
+    }/* else {
     echo "Error: ". $sql. "<br>" . $con->error;
-    }
+    }*/
     ?>
 
 

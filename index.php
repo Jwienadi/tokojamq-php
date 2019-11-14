@@ -31,9 +31,7 @@
 </head>
 
 <body>
-<?php
-if(isset($_SESSION["name"])){
-?>
+
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
@@ -109,7 +107,9 @@ if(isset($_SESSION["name"])){
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                 style="text-align: center;">
                 <?php
-                echo "<span class='roboto'> <b>Welcome,".$_SESSION['name']."!</b></span><a class='dropdown-item' href='logout.php'>LOG OUT</a>";}
+                if(isset($_SESSION["name"])){
+                echo "<span class='roboto'> <b>Welcome,".$_SESSION['name']."!</b></span><a class='dropdown-item' href='logout.php'>LOG OUT</a>";
+              }
                 else {
                   echo "<a class='dropdown-item' href='login.php'>LOG IN</a> <div class='dropdown-divider'></div><a class='dropdown-item' href='signup.php'>SIGN UP</a>";
                 } 
