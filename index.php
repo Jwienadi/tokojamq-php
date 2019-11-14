@@ -4,7 +4,7 @@
     Website: http://www.allphptricks.com/
     */
     require_once('config.php');
-   
+    include("auth.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,9 @@
 </head>
 
 <body>
-
+<?php
+if(isset($_SESSION["name"])){
+?>
   <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
@@ -106,11 +108,13 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                 style="text-align: center;">
-
-                <a class="dropdown-item" href="login.php">LOG IN</a>
-
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="signup.php">SIGN UP</a>
+                <?php
+                echo "<span class='roboto'> <b>Welcome,".$_SESSION['name']."!</b></span><a class='dropdown-item' href='logout.php'>LOG OUT</a>";}
+                else {
+                  echo "<a class='dropdown-item' href='login.php'>LOG IN</a> <div class='dropdown-divider'></div><a class='dropdown-item' href='signup.php'>SIGN UP</a>";
+                } 
+                ?>
+               
               </div>
             </li>
           </ul>
