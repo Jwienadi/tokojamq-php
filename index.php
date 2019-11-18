@@ -96,7 +96,7 @@
                   class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
+              <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
                   class="fas fa-shopping-cart"></i></a>
             </li>
             <li class="nav-item dropdown">

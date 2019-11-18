@@ -11,7 +11,7 @@
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/FONTAWESOME/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="assets/css/override.css" rel="stylesheet">
+    <link href="assets/css/headerfooter.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="assets/css/simple-sidebar.css" rel="stylesheet">
     <link href="assets/css/shop-homepage.css" rel="stylesheet">
@@ -111,7 +111,7 @@
       <div class="pb-5">
             <div class="container">
               <div class="row">
-                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+                <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5 mt-5">
         
                   <!-- Shopping cart table -->
                   <div class="table-responsive">

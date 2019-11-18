@@ -45,7 +45,7 @@
                     echo "<div class='form'><h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
                 }
             }else{
-                "<div class='form'><h3>FAILLLLL.</h3><br/>Click here to <a href='login.php'>Login</a></div>"
+                "<div class='form'><h3>SIGN UP FAIL</h3><br/>Click here to <a href='signup.php'>retry</a></div>"
 
         ?>
     </div>    
