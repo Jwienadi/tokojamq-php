@@ -8,7 +8,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title> TokoJamQ Privacy Policy </title>
+    <title> TokoJamQ Log In </title>
     <!-- Bootstrap core CSS -->
     <base href='<?php echo $base_url; ?>'>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

@@ -1,13 +1,55 @@
 <?php 
+session_start();
 require_once('config.php');
-$halaman = 2; //batasan halaman
-$page = isset($_GET['4'])? (int)$_GET["2"]:1;
-$mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-$query = mysqli_query($con,"select * from product LIMIT $mulai, $halaman");
-$sql = mysqli_query($con,"select * from product");
-$total = mysqli_num_rows($sql);
-$pages = ceil($total/$halaman); 
-for ($i=1; $i<=$pages ; $i++){ ?>
+$con=mysqli_connect("localhost","root","","tokojamqfix");
+
+$brand = strtolower($_GET["merk"]);
+	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
+	$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
+    from product p, merk m
+    where p.merk_id=m.merk_id; $cmd_extra";
+	
+	$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
+	$count_all_item = mysqli_num_rows($all_result);
+
+	$max_item 		= 10; //Max item in one page
+	$page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+	//echo $page;
+	$start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+	//echo $start;
+	
+	$cmd 			= $cmd." LIMIT $start, $max_item";
+    //echo $cmd;
+    $limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
+
+	$count_pages 	= ceil($count_all_item / $max_item); 
+
+	$products = null;
+	if ($count_all_item >= 1){
+		while($row = mysqli_fetch_assoc($limit_result)) {
+			$products[] = $row;
+		}
+    }
+//True Type
+$brand_truetype = "";
+$cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
+$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
+$total_item = mysqli_num_rows($temp_result);
+if ($total_item ==1){
+    $item = mysqli_fetch_assoc($temp_result);
+    $brand_truetype = $item['name'];
+}
+?>
+
+<?php
+//$halaman = 2; //batasan halaman
+//$page = isset($_GET['4'])? (int)$_GET["2"]:1;
+//$mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
+//$query = mysqli_query($con,"select * from product LIMIT $mulai, $halaman");
+//$sql = mysqli_query($con,"select * from product");
+//$total = mysqli_num_rows($sql);
+//$pages = ceil($total/$halaman); 
+//for ($i=1; $i<=$pages ; $i++){ ?>
 
  <a href="?halaman=<?php echo $i; ?>"><?php echo $i; ?></a>
  <?php } 
@@ -16,16 +58,16 @@ for ($i=1; $i<=$pages ; $i++){ ?>
 
 
 <?php
-$sql = mysqli_query($con,"select * from product");
-$result = $con -> query($sql);
-if ($result -> num_rows >0 {
-    while ($row = $result -> fetch_assoc()){
-    $id = $row['id'];
+//$sql = mysqli_query($con,"select * from product");
+//$result = $con -> query($sql);
+//if ($result -> num_rows >0) {
+ //   while ($row = $result -> fetch_assoc()){
+   // $id = $row['id'];
     //echo "<img src='assets/img/pioneer".$id.".jpg'>";
-    }
-    }/* else {
-    echo "Error: ". $sql. "<br>" . $con->error;
-    }*/
+   // }
+   // } else {
+   // echo "Error: ". $sql. "<br>" . $con->error;
+   // }
     ?>
 
 
