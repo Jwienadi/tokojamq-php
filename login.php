@@ -1,5 +1,6 @@
 <?php
-    require_once('config.php')
+    require_once('config.php');
+    
 ?>
 
 <!DOCTYPE html>
@@ -34,14 +35,17 @@
 				$password = mysqli_real_escape_string($con,$password);
 				
 				//Checking is user existing in the database or not
-				$query = "SELECT * FROM `user` WHERE email='$email' and password='".sha1($password)."'";
+				$query = "SELECT first_name FROM `user` WHERE email='$email' and password='".sha1($password)."'";
 				$result = mysqli_query($con,$query) or die(mysql_error());
 				$rows = mysqli_num_rows($result);
 				if($rows==1){
-					$_SESSION['email'] = $email;
-					header("Location: index.php"); // Redirect user to index.php
+          while ($row = $result->fetch_assoc()) {
+            $_SESSION['name'] = $row['first_name'];
+        }
+          header("Location: index.php"); // Redirect user to index.php
+          
 				} else {
-					echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+					echo "<div class='form'><h3>Email/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
 				}
 			} else {
 		?>
