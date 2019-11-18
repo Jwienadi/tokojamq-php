@@ -3,11 +3,17 @@ session_start();
 require_once('config.php');
 $con=mysqli_connect("localhost","root","","tokojamqfix");
 
+if(isset($_GET['merk'])){
+    //..
+} else{
+    header('Location: pioneer.php?merk=pioneer');
+}
+
 $brand = strtolower($_GET["merk"]);
 	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
 	$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
     from product p, merk m
-    where p.merk_id=m.merk_id; $cmd_extra";
+    where p.merk_id=m.merk_id $cmd_extra";
 	
 	$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 	$count_all_item = mysqli_num_rows($all_result);
@@ -33,12 +39,13 @@ $brand = strtolower($_GET["merk"]);
 //True Type
 $brand_truetype = "";
 $cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
-$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
+echo $cmd2
+/*$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
 $total_item = mysqli_num_rows($temp_result);
 if ($total_item ==1){
     $item = mysqli_fetch_assoc($temp_result);
     $brand_truetype = $item['name'];
-}
+}*/
 ?>
 
 <?php
@@ -51,12 +58,6 @@ if ($total_item ==1){
 //$pages = ceil($total/$halaman); 
 //for ($i=1; $i<=$pages ; $i++){ ?>
 
- <a href="?halaman=<?php echo $i; ?>"><?php echo $i; ?></a>
- <?php } 
-?>
-
-
-
 <?php
 //$sql = mysqli_query($con,"select * from product");
 //$result = $con -> query($sql);
@@ -67,10 +68,7 @@ if ($total_item ==1){
    // }
    // } else {
    // echo "Error: ". $sql. "<br>" . $con->error;
-   // }
-    ?>
-
-
+   // }    ?>
 
 <!DOCTYPE html>
 <html>
@@ -91,7 +89,6 @@ if ($total_item ==1){
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <title> Toko JamQ Products </title>
-
 </head>
 
 <body>
@@ -182,6 +179,19 @@ if ($total_item ==1){
             </nav>
 
             <!--products woee-->
+            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
+                    <ul class="nav navbar-nav">
+                        <li class='<?php echo ($brand=='pioneer') ? "active" : "" ?>'>
+							<a href="product.php?brand=pioneer">Pioneer</a>
+						</li>
+                        <li class='<?php echo ($brand=='lg') ? "active" : "" ?>'>
+							<a href="product.php?brand=lg">LG</a>
+						</li>
+                        <li class='<?php echo ($brand=='sharp') ? "active" : "" ?>'>
+                            <a href="product.php?brand=sharp">Sharp</a>
+                        </li>
+                    </ul>
+
             <div class="isipp" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
                 <h1>Products > Pioneer</h1>
             <div class="row">
