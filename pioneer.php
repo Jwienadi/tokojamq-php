@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once('config.php');
 $con=mysqli_connect("localhost","root","","tokojamqfix");
 $halaman = 2; //batasan halaman
@@ -17,9 +18,10 @@ for ($i=1; $i<=$pages ; $i++){ ?>
 
 
 <?php
+
 $sql = mysqli_query($con,"select * from product");
 $result = $con -> query($sql);
-if ($result -> num_rows >0 {
+if ($result -> num_rows >0) {
     while ($row = $result -> fetch_assoc()){
     $id = $row['id'];
     //echo "<img src='assets/img/pioneer".$id.".jpg'>";
