@@ -95,7 +95,7 @@
                                 <a class="dropdown-item" href="login.php">LOG IN</a>
 
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="signin.php">SIGN UP</a>
+                                <a class="dropdown-item" href="signup.php">SIGN UP</a>
                             </div>
                         </li>
                     </ul>

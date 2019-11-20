@@ -25,8 +25,17 @@
 <body>
 <?php
 	
+
 			session_start();
-			// If form submitted, insert values into the database.
+      // If form submitted, insert values into the database.
+      if(isset($_SESSION['name'])){
+      //header("Location: login.php");
+      //} else {
+       
+        header("Location: index.php");
+      } else {
+      
+      
 			if (isset($_POST['email'])){
 				
 				$email = stripslashes($_REQUEST['email']); // removes backslashes
@@ -211,6 +220,6 @@
   <div class="copyright">
   <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019 All rights reserved  </p>
   </div></div></div></div></div>  
-  <?php } ?>
+  <?php }}?>
 </body>
 </html>

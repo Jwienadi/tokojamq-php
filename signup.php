@@ -129,14 +129,14 @@
                               <a class="dropdown-item" href="login.php">LOG IN</a>
                           
                               <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="signin.php">SIGN UP</a>
+                              <a class="dropdown-item" href="signup.php">SIGN UP</a>
                             </div>
                           </li>
                     </ul>
                 </div>
             </nav>
          
-<!--signin-->
+<!--signup-->
 <!-- Navbar-->
 
 <div class="container">
@@ -239,7 +239,7 @@
   </div>
 </div>
 
-<!--signin-wrapper-->
+<!--signup-wrapper-->
             <!-- Bootstrap core JavaScript -->
             <script src="assets/vendor/jquery/jquery.min.js"></script>
             <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

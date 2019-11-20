@@ -19,9 +19,10 @@ if(isset($_GET['merk'])){
     
     $brand = strtolower($_GET["merk"]);
 	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
-	$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
+	/*$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
     from product p, merk m
-    where p.merk_id=m.merk_id $cmd_extra";
+    where p.merk_id=m.merk_id $cmd_extra";*/
+    $cmd="select product_warna_id, concat(m.nama_merk,' ',p.product_name,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' from product_warna pw, product p,warna w,merk m where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
 	
 	$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 	$count_all_item = mysqli_num_rows($all_result);
@@ -189,47 +190,41 @@ if ($total_item ==1){
                 </div>
             </nav>
 
-            <!--products woee-->
-            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                    <ul class="nav navbar-nav">
-                        <li class='<?php echo ($brand=='pioneer') ? "active" : "" ?>'>
-							<a href="product.php?brand=pioneer">Pioneer</a>
-						</li>
-                        <li class='<?php echo ($brand=='esti loren') ? "active" : "" ?>'>
-							<a href="product.php?brand=estiloren">Esti Loren</a>
-						</li>
-                        <li class='<?php echo ($brand=='timestar') ? "active" : "" ?>'>
-                            <a href="product.php?brand=timestar">Time Star</a>
-                        </li>
-                        <li class='<?php echo ($brand=='dekko') ? "active" : "" ?>'>
-                            <a href="product.php?brand=dekko">Dekko</a>
-                        </li>
-                        <li class='<?php echo ($brand=='asako') ? "active" : "" ?>'>
-                            <a href="product.php?brand=asako">Asako</a>
-                        </li>
-                        <li class='<?php echo ($brand=='edison') ? "active" : "" ?>'>
-                            <a href="product.php?brand=edison">Edison</a>
-                        </li>
-                        <li class='<?php echo ($brand=='pagol') ? "active" : "" ?>'>
-                            <a href="product.php?brand=pagol">Pagol</a>
-                        </li>
-                        <li class='<?php echo ($brand=='sakana') ? "active" : "" ?>'>
-                            <a href="product.php?brand=sakana">Sakana</a>
-                        </li>
-                    </ul>
+            <!--<!- -products woee-->
+           
 
             <div class="container" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
             <div class='row col-md-12'>
                 <h1>Products of <?php echo $brand_truetype; ?></h1>
             </div>
+            <!--PRODUK CARD-->
 			<div class='row' style='margin:0px auto;'>
 				<?php 
 					foreach($products as $product){
 						$id = $product['product_warna_id'];
 				?>
-					<div class='col-md-2 col-xs-offset-1 text-center border-list'>
+                 <div class="col-lg-3 col-md-3 mb-4">
+                  <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/<?php echo $id; ?>.jpg" alt=""></a>
+                    <div class="card-body">
+                      <h4 class="card-title">
+                        <a href="detail product.html"><?php echo $product['judul_barang']; ?> </a>
+                      </h4>
+                      <h5><?php 
+								$price = $product['harga_barang'];
+								echo number_format($price,2); 
+							?></h5>
+                    </div>
+                    <div class="card-footer middle">
+                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                      <span class="vertical-line"></span>
+                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                    </div>
+                  </div>
+                </div>
+					<!--<div class='col-md-2 col-xs-offset-1 text-center border-list'>
 						<img src='assets/img/products/<?php echo $id; ?>.jpg' class='img-responsive object-fit'/>
-						<h4><?php echo $product['product.product_name']; ?></h4>
+						<h4><?php echo $product['nama_produk']; ?></h4>
 						<p class='small'>
 							<?php echo $product['merk.nama_merk']; ?>
 						</p>
@@ -240,7 +235,7 @@ if ($total_item ==1){
 								echo number_format($price,2); 
 							?>
 						</p>
-					</div>
+					</div>-->
 				<?php } ?>
 			</div>
 			<div class='row text-center'>
