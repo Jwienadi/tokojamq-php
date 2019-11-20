@@ -19,9 +19,9 @@ if(isset($_GET['merk'])){
     
     $brand = strtolower($_GET["merk"]);
 	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
-	$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
-    from product p, merk m
-    where p.merk_id=m.merk_id $cmd_extra";
+	$cmd = "SELECT p.product_id, p.product_name, p.harga_jual, m.nama_merk, warna
+    from product p, merk m, product_warna pw, warna w
+    where p.merk_id=m.merk_id and pw.warna_id=w.warna_id and pw.product_id=p.product_id $cmd_extra";
 	
 	$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 	$count_all_item = mysqli_num_rows($all_result);
@@ -115,12 +115,16 @@ if ($total_item ==1){
                 </button>
                 <div class="dropdown-container">
                     <ul class="link-list">
-                        <li><a href="pioneer.html">Pioneer</a></li> <br>
-                        <li><a href="#">Esti Loren</a></li><br>
-                        <li><a href="#">Asako</a></li><br>
-                        <li><a href="#">Esa</a></li><br>
-                        <li><a href="#">Edison</a></li><br>
-                        <li><a href="#">Esa</a></li>
+                        <li class='<?php echo ($brand=='pioneer') ? "active" : "" ?>'>
+							<a href="product.php?brand=pioneer">Pioneer</a></li><br>
+                        <li class='<?php echo ($brand=='estiloren') ? "active" : "" ?>'>
+							<a href="product.php?brand=estiloren">Esti Loren</a></li><br>
+                        <li class='<?php echo ($brand=='timestar') ? "active" : "" ?>'>
+                            <a href="product.php?brand=timestar">Time Star</a></li><br>
+                        <li class='<?php echo ($brand=='asako') ? "active" : "" ?>'>
+                            <a href="product.php?brand=asako">Asako</a></li><br>
+                        <li class='<?php echo ($brand=='dekko') ? "active" : "" ?>'>
+                            <a href="product.php?brand=dekko">Dekko</a></li><br>
                     </ul>
 
                 </div>
@@ -190,34 +194,6 @@ if ($total_item ==1){
             </nav>
 
             <!--products woee-->
-            <div id="navbar" class="navbar-collapse collapse" aria-expanded="false" style="height: 1px;">
-                    <ul class="nav navbar-nav">
-                        <li class='<?php echo ($brand=='pioneer') ? "active" : "" ?>'>
-							<a href="product.php?brand=pioneer">Pioneer</a>
-						</li>
-                        <li class='<?php echo ($brand=='esti loren') ? "active" : "" ?>'>
-							<a href="product.php?brand=estiloren">Esti Loren</a>
-						</li>
-                        <li class='<?php echo ($brand=='timestar') ? "active" : "" ?>'>
-                            <a href="product.php?brand=timestar">Time Star</a>
-                        </li>
-                        <li class='<?php echo ($brand=='dekko') ? "active" : "" ?>'>
-                            <a href="product.php?brand=dekko">Dekko</a>
-                        </li>
-                        <li class='<?php echo ($brand=='asako') ? "active" : "" ?>'>
-                            <a href="product.php?brand=asako">Asako</a>
-                        </li>
-                        <li class='<?php echo ($brand=='edison') ? "active" : "" ?>'>
-                            <a href="product.php?brand=edison">Edison</a>
-                        </li>
-                        <li class='<?php echo ($brand=='pagol') ? "active" : "" ?>'>
-                            <a href="product.php?brand=pagol">Pagol</a>
-                        </li>
-                        <li class='<?php echo ($brand=='sakana') ? "active" : "" ?>'>
-                            <a href="product.php?brand=sakana">Sakana</a>
-                        </li>
-                    </ul>
-
             <div class="container" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
             <div class='row col-md-12'>
                 <h1>Products of <?php echo $brand_truetype; ?></h1>
