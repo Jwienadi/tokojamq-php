@@ -39,13 +39,13 @@ $brand = strtolower($_GET["merk"]);
 //True Type
 $brand_truetype = "";
 $cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
-echo $cmd2
-/*$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
+//echo $cmd2
+$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
 $total_item = mysqli_num_rows($temp_result);
 if ($total_item ==1){
     $item = mysqli_fetch_assoc($temp_result);
-    $brand_truetype = $item['name'];
-}*/
+    $brand_truetype = $item['nama_merk'];
+}
 ?>
 
 <?php
