@@ -207,8 +207,85 @@ if ($total_item ==1){
                         </li>
                     </ul>
 
-            <div class="isipp" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
-                <h1>Products > Pioneer</h1>
+            <div class="container" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
+            <div class='row col-md-12'>
+                <h1>Products of <?php echo $brand_truetype; ?></h1>
+            </div>
+			<div class='row' style='margin:0px auto;'>
+				<?php 
+					foreach($products as $product){
+						$id = $product['product_warna_id'];
+				?>
+					<div class='col-md-2 col-xs-offset-1 text-center border-list'>
+						<img src='assets/img/products/<?php echo $id; ?>.jpg' class='img-responsive object-fit'/>
+						<h4><?php echo $product['product.product_name']; ?></h4>
+						<p class='small'>
+							<?php echo $product['merk.nama_merk']; ?>
+						</p>
+						<p>
+							Rp. 
+							<?php 
+								$price = $product['harga_jual'];
+								echo number_format($price,2); 
+							?>
+						</p>
+					</div>
+				<?php } ?>
+			</div>
+			<div class='row text-center'>
+				<div class="btn-group">
+					<?php
+						if ($page>1){
+							$prev_page = $page-1;
+							//echo "Prev: ".$prev_page;
+					?>
+						<a href='product.php?brand=<?php echo $brand; ?>&page=<?php echo $prev_page; ?>' class="btn btn-default" title='Previous'>
+							<i class='glyphicon glyphicon-chevron-left'></i>
+							Previous
+						</a>
+					<?php } ?>
+					<?php
+						for ($i=1; $i<=$count_pages; $i++){
+							$flag_class = "";
+							if ($page==$i){
+								$flag_class = "active";
+							}
+							if($i==1){
+								echo "<a href='product.php?brand=$brand&page=$i' class='btn btn-default $flag_class' title='First'>$i</a>";
+							} else if($i==$count_pages) {
+								echo "<a href='product.php?brand=$brand&page=$i' class='btn btn-default $flag_class' title='Last'>$i</a>";
+							} else {
+								echo "<a href='product.php?brand=$brand&page=$i' class='btn btn-default $flag_class' title='Page $i'>$i</a>";
+							}
+						}
+					?>
+					<?php
+						if ($page<$count_pages){
+							$next_page = $page+1;
+							//echo "Next: ".$next_page;
+							echo "<a href='product.php?brand=$brand&page=$next_page' class='btn btn-default' title='Next'>
+										Next
+										<i class='glyphicon glyphicon-chevron-right'></i>
+									</a>";
+						}
+					?>
+				</div>
+				<?php
+                    echo "<p>&nbsp;</p>";
+                    echo "Brand = ".$brand_truetype."<br/>";
+					echo "Current Page = ".$page."<br/>";
+					echo "Next Page = ".$next_page."<br/>";
+					echo "Prev Page = ".$prev_page."<br/>";
+				?>
+			</div>
+			
+            <script>
+			$(document).ready(function(){
+				//alert('ready');
+			});
+		</script>
+                
+              <!--  <h1>Products > Pioneer</h1>
             <div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
@@ -225,186 +302,8 @@ if ($total_item ==1){
                         <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                     </div>
                 </div>
-            </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2042blue.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2042 Blue</a>
-                      </h4>
-                      <h5>Rp 85.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                        <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                        <span class="vertical-line"></span>
-                        <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 mb-4">
-                <div class="card h-100">
-                  <a href="#"><img class="card-img-top" src="assets/img/pioneer/2110dark.jpg" alt=""></a>
-                  <div class="card-body">
-                    <h4 class="card-title">
-                      <a href="#">Pioneer 2110 Dark Wood Motif</a>
-                    </h4>
-                    <h5>Rp 65.000</h5>
-                  </div>
-                  <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-md-3 mb-4">
-            <div class="card h-100">
-              <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095i.jpg" alt=""></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Pioneer 2095 green</a>
-                </h4>
-                <h5>Rp 85.000</h5>
-              </div>
-              <div class="card-footer middle">
-                  <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                  <span class="vertical-line"></span>
-                  <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-              </div>
-          </div>
-      </div>
-      <div class="col-lg-3 col-md-3 mb-4">
-        <div class="card h-100">
-          <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134black.jpg" alt=""></a>
-          <div class="card-body">
-            <h4 class="card-title">
-              <a href="#">Pioneer 2134 black</a>
-            </h4>
-            <h5>Rp 85.000</h5>
-          </div>
-          <div class="card-footer middle">
-              <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-              <span class="vertical-line"></span>
-              <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-          </div>
-      </div>
-  </div>
-  <div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/pioneer/2132white.jpg" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2132 white</a>
-        </h4>
-        <h5>Rp 80.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/pioneer/2042red.jpg" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2042 Red</a>
-        </h4>
-        <h5>Rp 85.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095o.jpg" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2095 Orange</a>
-        </h4>
-        <h5>Rp 85.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134white.jpg" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2134 White</a>
-        </h4>
-        <h5>Rp 80.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-
-
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2110 Wood Motif</a>
-        </h4>
-        <h5>Rp 65.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2110 Wood Motif</a>
-        </h4>
-        <h5>Rp 65.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-<div class="col-lg-3 col-md-3 mb-4">
-    <div class="card h-100">
-      <a href="#"><img class="card-img-top" src="assets/img/2110.png" alt=""></a>
-      <div class="card-body">
-        <h4 class="card-title">
-          <a href="#">Pioneer 2110 Wood Motif</a>
-        </h4>
-        <h5>Rp 65.000</h5>
-      </div>
-      <div class="card-footer middle">
-          <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-          <span class="vertical-line"></span>
-          <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-      </div>
-  </div>
-</div>
-    </div></div>
+            </div> -->
+                
 
             <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
             <div class="container">
@@ -705,6 +604,21 @@ if ($total_item ==1){
                         justify-content: center;
                         float: initial;
                     }
+
+                    body {
+	padding-top: 70px;
+}
+
+.border-list{
+	box-shadow: 0px 0px 3px 0px #d4d4d4;
+	margin: 0px 18px 20px;
+}
+
+.object-fit{
+	/*object-fit:cover;
+	overflow: hidden;*/
+	width:100%;
+}
                 </style>
 </body>
 </html>
