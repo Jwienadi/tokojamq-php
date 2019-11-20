@@ -184,11 +184,26 @@ if ($total_item ==1){
                         <li class='<?php echo ($brand=='pioneer') ? "active" : "" ?>'>
 							<a href="product.php?brand=pioneer">Pioneer</a>
 						</li>
-                        <li class='<?php echo ($brand=='lg') ? "active" : "" ?>'>
-							<a href="product.php?brand=lg">LG</a>
+                        <li class='<?php echo ($brand=='esti loren') ? "active" : "" ?>'>
+							<a href="product.php?brand=estiloren">Esti Loren</a>
 						</li>
-                        <li class='<?php echo ($brand=='sharp') ? "active" : "" ?>'>
-                            <a href="product.php?brand=sharp">Sharp</a>
+                        <li class='<?php echo ($brand=='timestar') ? "active" : "" ?>'>
+                            <a href="product.php?brand=timestar">Time Star</a>
+                        </li>
+                        <li class='<?php echo ($brand=='dekko') ? "active" : "" ?>'>
+                            <a href="product.php?brand=dekko">Dekko</a>
+                        </li>
+                        <li class='<?php echo ($brand=='asako') ? "active" : "" ?>'>
+                            <a href="product.php?brand=asako">Asako</a>
+                        </li>
+                        <li class='<?php echo ($brand=='edison') ? "active" : "" ?>'>
+                            <a href="product.php?brand=edison">Edison</a>
+                        </li>
+                        <li class='<?php echo ($brand=='pagol') ? "active" : "" ?>'>
+                            <a href="product.php?brand=pagol">Pagol</a>
+                        </li>
+                        <li class='<?php echo ($brand=='sakana') ? "active" : "" ?>'>
+                            <a href="product.php?brand=sakana">Sakana</a>
                         </li>
                     </ul>
 
