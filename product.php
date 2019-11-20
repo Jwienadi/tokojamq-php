@@ -1,66 +1,9 @@
 <?php 
 session_start();
 require_once('config.php');
-
-
-/*if(isset($_GET['merk'])){
-    $brand = strtolower($_GET["merk"]);
-	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
-	$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
-    from product p, merk m
-    where p.merk_id=m.merk_id $cmd_extra";
-	
-	$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
-	$count_all_item = mysqli_num_rows($all_result);
-
-	$max_item 		= 10; //Max item in one page
-	$page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
-    //echo $page;
-    
-    $brand = strtolower($_GET["merk"]);
-	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
-	/*$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
-    from product p, merk m
-    where p.merk_id=m.merk_id $cmd_extra";
-    $cmd="select product_warna_id, concat(m.nama_merk,' ',p.product_name,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' from product_warna pw, product p,warna w,merk m where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
-	
-	$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
-	$count_all_item = mysqli_num_rows($all_result);
-
-	$max_item 		= 10; //Max item in one page
-	$page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
-	//echo $page;
-	$start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
-	//echo $start;
-	
-	$cmd 			= $cmd." LIMIT $start, $max_item";
-    //echo $cmd;
-    $limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
-
-    $count_pages 	= ceil($count_all_item / $max_item);
-    $products = null;
-	if ($count_all_item >= 1){
-		while($row = mysqli_fetch_assoc($limit_result)) {
-			$products[] = $row;
-		}
-    }
-}else{
-    header('Location: pioneer.php?merk=pioneer');
-}
- 	
-//True Type
-$brand_truetype = "";
-$cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
-//echo $cmd2
-$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
-$total_item = mysqli_num_rows($temp_result);
-if ($total_item ==1){
-    $item = mysqli_fetch_assoc($temp_result);
-    $brand_truetype = $item['nama_merk'];
-}*/
 ?>
 <?php
- $brand = strtolower($_GET["brand"]);
+ //$brand = strtolower($_GET["brand"]);
  //$cmd_extra = "AND lower(b.name)='".$brand."'";
  $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.product_name,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
         FROM product_warna pw, product p,warna w,merk m 
@@ -89,39 +32,20 @@ if ($total_item ==1){
  }
  
  //True Type
- $brand_truetype = "";
- $cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
- $temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
- $total_item = mysqli_num_rows($temp_result);
- if ($total_item ==1){
+ //$brand_truetype = "";
+ //$cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
+ //$cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
+ //$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
+// $total_item = mysqli_num_rows($temp_result);
+ /*if ($total_item ==1){
      //BACA: https://stackoverflow.com/questions/10605456/selecting-one-row-from-mysql-query-php
      $item = mysqli_fetch_assoc($temp_result);
-     $brand_truetype = $item['name'];
- }
+     //$brand_truetype = $item['name'];
+ }*/
 ?>
-<?php
-//$halaman = 2; //batasan halaman
-//$page = isset($_GET['4'])? (int)$_GET["2"]:1;
-//$mulai = ($page>1) ? ($page * $halaman) - $halaman : 0;
-//$query = mysqli_query($con,"select * from product LIMIT $mulai, $halaman");
-//$sql = mysqli_query($con,"select * from product");
-//$total = mysqli_num_rows($sql);
-//$pages = ceil($total/$halaman); 
-//for ($i=1; $i<=$pages ; $i++){ ?>
 
-<?php
-//$sql = mysqli_query($con,"select * from product");
-//$result = $con -> query($sql);
-//if ($result -> num_rows >0) {
- //   while ($row = $result -> fetch_assoc()){
-   // $id = $row['id'];
-    //echo "<img src='assets/img/pioneer".$id.".jpg'>";
-   // }
-   // } else {
-   // echo "Error: ". $sql. "<br>" . $con->error;
-   // }    ?>
 
-<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -134,10 +58,12 @@ if ($total_item ==1){
     <link href="assets/css/simple-sidebar.css" rel="stylesheet">
     <link href="assets/css/shop-homepage.css" rel="stylesheet">
     <link href="assets/css/headerfooter.css" rel="stylesheet">
-
+    <link href="assets/css/itemcard.css" rel="stylesheet">
+    <link href="assets/css/products.css" rel="stylesheet">
+    
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <title> Toko JamQ Products </title>
 </head>
@@ -155,12 +81,12 @@ if ($total_item ==1){
                 </button>
                 <div class="dropdown-container">
                     <ul class="link-list">
-                        <li><a href="pioneer.html">Pioneer</a></li> <br>
+                        <li><a href="pioneer.php">Pioneer</a></li> <br>
                         <li><a href="#">Esti Loren</a></li><br>
                         <li><a href="#">Asako</a></li><br>
                         <li><a href="#">Esa</a></li><br>
                         <li><a href="#">Edison</a></li><br>
-                        <li><a href="#">Esa</a></li>
+                        <li><a href="#">Dekko</a></li>
                     </ul>
 
                 </div>
@@ -230,93 +156,106 @@ if ($total_item ==1){
             </nav>
 
             <!--<!- -products woee-->
-           
 
-            <div class="container" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
-            <div class='row col-md-12'>
-                <h1>Products</h1>
-            </div>
-            <!--PRODUK CARD-->
-			<div class='row' style='margin:0px auto;'>
-				<?php 
+
+            <div class="container"
+                style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
+                <div class='row col-md-12'>
+                    <h1>Products</h1>
+                </div>
+                <!--PRODUK CARD-->
+                <div class='row' style='margin:0px auto;'>
+                    <?php 
 					foreach($products as $product){
 						$id = $product['product_warna_id'];
 				?>
-                 <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/<?php echo $id; ?>.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="detail product.html"><?php echo $product['judul_barang']; ?> </a>
-                      </h4>
-                      <h5><?php 
+                    <div class="col-lg-3 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
+                                    alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="detail product.html"><?php echo $product['judul_barang']; ?> </a>
+                                </h4>
+                                <h5>Rp. <?php 
 								$price = $product['harga_barang'];
 								echo number_format($price,2); 
 							?></h5>
+                            </div>
+                            <div class="card-footer middle" style="background-color: white;">
+                                <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                                <span class="vertical-line"></span>
+                                <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
+                    <?php } ?>
                 </div>
-				<?php } ?>
-			</div>
-			<div class='row text-center'>
-				<div class="btn-group">
-					<?php
+                <div class='row text-center'>
+                    <div class="btn-group">
+                    <?php
 						if ($page>1){
 							$prev_page = $page-1;
-							//echo "Prev: ".$prev_page;
+                            //echo "Prev: ".$prev_page;
+                        
 					?>
-						<a href='product.php?brand=<?php echo $brand; ?>&page=<?php echo $prev_page; ?>' class="btn btn-default" title='Previous'>
-							<i class='glyphicon glyphicon-chevron-left'></i>
-							Previous
-						</a>
-					<?php } ?>
-					<?php
+
+                        <a href='product.php?page=<?php echo $prev_page; ?>' class="btn btn-default" title='Previous'>
+                            <i class='glyphicon glyphicon-chevron-left'></i>
+                            Previous
+                        </a>
+
+                        <?php } ?>
+                        <?php
 						for ($i=1; $i<=$count_pages; $i++){
 							$flag_class = "";
 							if ($page==$i){
 								$flag_class = "active";
 							}
-							if($i==1){
+							/*if($i==1){
 								echo "<a href='product.php?brand=$brand&page=$i' class='btn btn-default $flag_class' title='First'>$i</a>";
 							} else if($i==$count_pages) {
 								echo "<a href='product.php?brand=$brand&page=$i' class='btn btn-default $flag_class' title='Last'>$i</a>";
 							} else {
 								echo "<a href='product.php?brand=$brand&page=$i' class='btn btn-default $flag_class' title='Page $i'>$i</a>";
+                            }*/
+                            if($i==1){
+								echo "<a href='product.php?page=$i' class='btn btn-default $flag_class' title='First'>$i</a>";
+							} else if($i==$count_pages) {
+								echo "<a href='product.php?page=$i' class='btn btn-default $flag_class' title='Last'>$i</a>";
+							} else {
+								echo "<a href='product.php?page=$i' class='btn btn-default $flag_class' title='Page $i'>$i</a>";
 							}
 						}
 					?>
-					<?php
-						if ($page<$count_pages){
+                        <?php
+                        if ($page<$count_pages){
 							$next_page = $page+1;
 							//echo "Next: ".$next_page;
-							echo "<a href='product.php?brand=$brand&page=$next_page' class='btn btn-default' title='Next'>
+							echo "<a href='product.php?page=$next_page' class='btn btn-default' title='Next'>
 										Next
 										<i class='glyphicon glyphicon-chevron-right'></i>
 									</a>";
 						}
-					?>
-				</div>
-				<?php
+						?>
+                    </div>
+                    <?php
                     echo "<p>&nbsp;</p>";
-                    echo "Brand = ".$brand_truetype."<br/>";
-					echo "Current Page = ".$page."<br/>";
+                   // echo "Brand = ".$brand_truetype."<br/>";
+					/*echo "Current Page = ".$page."<br/>";
 					echo "Next Page = ".$next_page."<br/>";
-					echo "Prev Page = ".$prev_page."<br/>";
+					echo "Prev Page = ".$prev_page."<br/>";*/
 				?>
-			</div></div>
+                </div>
+            </div>
             <script>
-			$(document).ready(function(){
-				//alert('ready');
-			});
-            /*extra*/
-		</script>
-                
-              <!--  <h1>Products > Pioneer</h1>
+                $(document).ready(function () {
+                    //alert('ready');
+                });
+                /*extra*/
+            </script>
+
+            <!--  <h1>Products > Pioneer</h1>
             <div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
@@ -334,7 +273,7 @@ if ($total_item ==1){
                     </div>
                 </div>
             </div> -->
-                
+
 
             <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
             <div class="container">
@@ -469,7 +408,7 @@ if ($total_item ==1){
             </div>
             <hr> -->
 
-        <!--footer kita-->
+            <!--footer kita-->
             <div class="footer">
                 <div class="container">
                     <div class="row">
@@ -511,7 +450,7 @@ if ($total_item ==1){
                 <!-- Bootstrap core JavaScript -->
                 <script src="assets/vendor/jquery/jquery.min.js"></script>
                 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                
+
                 <!-- Menu Toggle Script -->
                 <script>
                     $("#menu-toggle").click(function (e) {
@@ -519,122 +458,7 @@ if ($total_item ==1){
                         $("#wrapper").toggleClass("toggled");
                     });
                 </script>
-                <style>
-                    nav {
-                        background-color: #023373;
-                        padding: 0;
-                        margin: 0;
-                    }
-
-                    button:active {
-                        border: none;
-                        border-style: none;
-                    }
-
-                    /*SEARCHBAR*/
-                    * {
-                        box-sizing: border-box;
-                    }
-
-                    form.example input[type=text] {
-                        padding: 10px;
-                        font-size: 17px;
-                        border: 1px solid grey;
-                        float: left;
-                        width: 80%;
-                        background: #f1f1f1;
-                    }
-
-                    /*style sidebar */
-                    /*style dropdown submenu sidebar */
-                    .link-list {
-                        list-style-type: none;
-                        text-decoration: none;
-                        display: block;
-                        text-align: left;
-                    }
-
-                    /* On mouse-over */
-                    .sidenav a:hover,
-                    .dropdown-btn:hover {
-                        color: #023373;
-                        font-weight: bold;
-                    }
-
-                    /* Style the submit button */
-
-                    form.example button {
-                        float: left;
-                        width: 20%;
-                        padding: 10px;
-                        background: #2196F3;
-                        color: black;
-                        font-size: 17px;
-                        border: 1px solid grey;
-                        border-left: none;
-                        /* Prevent double borders */
-                        cursor: pointer;
-                    }
-
-                    form.example button:hover {
-                        background: #0b7dda;
-                    }
-
-                    /* Clear floats */
-                    form.example::after {
-                        content: "";
-                        clear: both;
-                        display: table;
-                    }
-
-                    /*sidebar*/
-
-                    .roboto {
-                        font-family: 'Roboto', sans-serif;
-                        font-size: 105%;
-                    }
-
-                    .link-list>li {
-                        list-style-type: none;
-                        text-decoration: none;
-                        display: block;
-                        text-align: left;
-
-                    }
-
-                    /* On mouse-over */
-                    .sidenav a:hover,
-                    .dropdown-btn:hover {
-                        color: #023373;
-                        font-weight: bold;
-                    }
-
-                    .sidenav a:focus,
-                    .dropdown-btn:focus {
-                        color: black;
-                    }
-
-                    /*carousell*/
-                    .my-4 {
-                        margin-top: 0 !important;
-                    }
-
-                    .container-fluid-no {
-                        padding-left: 0;
-
-                    }
-
-                    .addtocart {
-                        background-color: #5984bd;
-                    }
-
-                    .btn-floating {
-                        font-size: 25px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        float: initial;
-                    }
+                
                 </style>
 </body>
 </html>

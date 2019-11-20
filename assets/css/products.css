@@ -1,0 +1,12 @@
+.btn-group{
+    align-items: center;
+    padding: 0 10px;
+}
+a.btn-default:hover{
+    border-bottom: 20px solid #023373;
+    
+}
+
+a.btn-default:active{
+    font-weight: bolder;
+}

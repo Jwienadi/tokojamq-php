@@ -44,11 +44,14 @@
     font-size: 150%;
   }
   .vertical-line{
-    border-left: 1px solid #ccc;
+    border-left: 1px solid white;
     margin: 0 30px;
     height: 40px;
 }
 .card-body{
   text-align: center;
   padding-bottom: 0;
+}
+.item-card-button{
+  background-color: white;
 }
