@@ -1,7 +1,7 @@
 <?php 
 session_start();
 require_once('config.php');
-$con=mysqli_connect("localhost","root","","tokojamqfix");
+$con=mysqli_connect("jmswijaya.com","isb18","Isb_2018","store18_1");
 
 if(isset($_GET['merk'])){
     $brand = strtolower($_GET["merk"]);
@@ -288,8 +288,7 @@ if ($total_item ==1){
 					echo "Next Page = ".$next_page."<br/>";
 					echo "Prev Page = ".$prev_page."<br/>";
 				?>
-			</div>
-			
+			</div></div>
             <script>
 			$(document).ready(function(){
 				//alert('ready');
@@ -491,7 +490,7 @@ if ($total_item ==1){
                 <!-- Bootstrap core JavaScript -->
                 <script src="assets/vendor/jquery/jquery.min.js"></script>
                 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+                
                 <!-- Menu Toggle Script -->
                 <script>
                     $("#menu-toggle").click(function (e) {
@@ -615,21 +614,6 @@ if ($total_item ==1){
                         justify-content: center;
                         float: initial;
                     }
-
-                    body {
-	padding-top: 70px;
-}
-
-.border-list{
-	box-shadow: 0px 0px 3px 0px #d4d4d4;
-	margin: 0px 18px 20px;
-}
-
-.object-fit{
-	/*object-fit:cover;
-	overflow: hidden;*/
-	width:100%;
-}
                 </style>
 </body>
 </html>
