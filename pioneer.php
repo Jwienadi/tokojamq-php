@@ -4,12 +4,20 @@ require_once('config.php');
 $con=mysqli_connect("localhost","root","","tokojamqfix");
 
 if(isset($_GET['merk'])){
-    //..
-} else{
-    header('Location: pioneer.php?merk=pioneer');
-}
+    $brand = strtolower($_GET["merk"]);
+	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
+	$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
+    from product p, merk m
+    where p.merk_id=m.merk_id $cmd_extra";
+	
+	$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
+	$count_all_item = mysqli_num_rows($all_result);
 
-$brand = strtolower($_GET["merk"]);
+	$max_item 		= 10; //Max item in one page
+	$page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+    //echo $page;
+    
+    $brand = strtolower($_GET["merk"]);
 	$cmd_extra = "AND lower(nama_merk)='".$brand."'";
 	$cmd = "SELECT p.product_id, p.product_name, p.hpp, m.nama_merk
     from product p, merk m
@@ -28,14 +36,17 @@ $brand = strtolower($_GET["merk"]);
     //echo $cmd;
     $limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 
-	$count_pages 	= ceil($count_all_item / $max_item); 
-
-	$products = null;
+    $count_pages 	= ceil($count_all_item / $max_item);
+    $products = null;
 	if ($count_all_item >= 1){
 		while($row = mysqli_fetch_assoc($limit_result)) {
 			$products[] = $row;
 		}
     }
+} else{
+    header('Location: pioneer.php?merk=pioneer');
+}
+ 	
 //True Type
 $brand_truetype = "";
 $cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
