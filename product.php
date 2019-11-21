@@ -43,9 +43,6 @@ require_once('config.php');
      //$brand_truetype = $item['name'];
  }*/
 ?>
-
-
-
 <html>
 
 <head>
@@ -77,11 +74,12 @@ require_once('config.php');
                 <!--<a href="#" class="list-group-item list-group-item-action bg-light">Products</a>-->
                 <button class="dropdown-btn list-group-item list-group-item-action bg-light"
                     style="background-color: transparent; border: 0;"> Products
+                <a href="product.php"></a>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-container">
                     <ul class="link-list">
-                        <li><a href="pioneer.php">Pioneer</a></li> <br>
+                        <li><a href="pioneer.php">Pioneer</a></li><br>
                         <li><a href="#">Esti Loren</a></li><br>
                         <li><a href="#">Asako</a></li><br>
                         <li><a href="#">Esa</a></li><br>
