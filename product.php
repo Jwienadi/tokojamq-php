@@ -5,7 +5,7 @@ require_once('config.php');
 <?php
  //$brand = strtolower($_GET["brand"]);
  //$cmd_extra = "AND lower(b.name)='".$brand."'";
- $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.product_name,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+ $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
         FROM product_warna pw, product p,warna w,merk m 
         WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
  

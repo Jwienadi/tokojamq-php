@@ -44,7 +44,7 @@
           style="background-color: transparent; border: 0;"> Products
           <i class="fa fa-caret-down"></i>
         </button>
-        <div class="dropdown-container">
+        <div class="dropdown-container" style="display: none;">
           <ul class="link-list">
             <li><a href="pioneer.php">Pioneer</a></li> <br>
             <li><a href="#">Esti Loren</a></li><br>
