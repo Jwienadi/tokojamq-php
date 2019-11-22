@@ -134,9 +134,14 @@ $count_all_item = mysqli_num_rows($all_result);
                         <h3 class="my-3">Product Description</h3>
                         <p>Jam Dinding <?php echo $product['judul_barang']; ?></p>
                         <h5>Rp. <?php $price = $product['harga_barang'];echo number_format($price,2); ?></h5>
-                        <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                        <h5 class="colors">colors:
+							<span class="color red not-available" data-toggle="tooltip" title="Not In store"></span>
+							<span class="color green"></span>
+							<span class="color blue"></span>
+						</h5>
+                        <button class="item-card-button" href><i class="fas fa-heart">Wishlist</i></button>
                         <span class="vertical-line"></span>
-                        <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                        <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button>
                         <h3 class="my-3">Product Details</h3>
                         <br> Diameter: <?php echo $product['diameter'];?> cm </br>
                         <br> <?php echo $product['deskripsi']; ?> </br>
