@@ -172,6 +172,8 @@ $product=null;
                   ?>
                     <!--<th>Name</th>
                     <th>Position</th>
+                    <th>Id product</th>
+                    <th>Nama Product</th>
                     <th>Office</th>
                     <th>Age</th>
                     <th>Start date</th>

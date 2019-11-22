@@ -3,6 +3,16 @@ session_start();
 require_once('config.php');
 ?>
 
+<?php
+$cmd = "SELECT product_warna_id,
+concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', diameter, deskripsi
+FROM product_warna pw, product p,warna w,merk m
+WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id"
+
+$all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
+$count_all_item = mysqli_num_rows($all_result);
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -108,67 +118,63 @@ require_once('config.php');
             <!-- Page Content -->
             <div class="container">
 
-                <!-- Portfolio Item Heading -->
-                <h1 class="my-4">Detail Product
-                    <small>.: Pioneer 2110 :.</small>
-                </h1>
+                <!-- isi page detail product woee -->
+                
+                <h1 class="my-4">Detail Product</h1>
 
                 <!-- Portfolio Item Row -->
-                <div class="row">
-
+                <div class="row"style='margin:0px auto;'>
+                <?php 
+					foreach($products as $product){
+						$id = $product['product_warna_id'];
+				?>
                     <div class="col-md-6">
-                        <img class="img-fluid" src="assets/img/pioneer/2110.png" style="width: 500px; height: 500px;" alt="">
+                        <img class="img-fluid" src="assets/img/products/<?php echo $id; ?>.jpg style="width: 500px; height: 500px; alt="">
                     </div>
 
                     <div class="col-md-5">
                         <h3 class="my-3">Product Description</h3>
-                        <p>Jam Dinding Pioneer Tipe 2110 Wood Brown</p>
+                        <p>Jam Dinding <?php echo $product['judul_barang']; ?></p>
+                        <h5>Rp. <?php $price = $product['harga_barang'];echo number_format($price,2); ?></h5>
+                        <h3 class="my-3">Product Details</h3>
+                        <br> Diameter: <?php echo $product['diameter']; cm ?> 
+                        <br> <?php echo $product['deskripsi']; ?> 
                         <br>Reseller welcome untuk Surabaya dan sekitarnya, luar kota, luar pulau juga bisa.
                         Pengiriman luar kota dan pulau mengunakan expedisi yang di tunjuk pembeli.
                         Untuk info dan pemesanan bisa menghubungi:
                         Toko JamQ
                         Telp/wa: 08159686049
-                        <h3 class="my-3">Product Details</h3>
-                        <ul>
-                            <li>Diameter Luar : 32 cm</li>
-                            <li>Diameter Dalam : 28 cm</li>
-                            <li>Tebal : 4 cm</li>
-                            <li>Bahan : Plastik dan kaca</li>
-                            <li>Jenis Mesin : Quartz </li>
-                            <li>Musik : Tidak Ada</li>
-                            <li>Kemasan : Dos ukuran 34 cm x 34 cm x 5.5 cm</li>
-                        </ul>
                     </div>
                 </div>
-                <!-- /.row -->
                 <!-- Related Projects Row -->
                 <h3 class="my-4">Related Products</h3>
-                <div class="row">
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <a href="#">
-                            <img class="img-fluid" src="assets/img/2110dark.jpg" alt="">
-                        </a>
+                <div class='row' style='margin:0px auto;'>
+                    <?php 
+					foreach($products as $product){
+						$id = $product['product_warna_id'];
+				?>
+                    <div class="col-lg-3 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href="#"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
+                                    alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="detail product.html"><?php echo $product['judul_barang']; ?> </a>
+                                </h4>
+                                <h5>Rp. <?php 
+								$price = $product['harga_barang'];
+								echo number_format($price,2); 
+							?></h5>
+                            </div>
+                            <div class="card-footer middle" style="background-color: white;">
+                                <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                                <span class="vertical-line"></span>
+                                <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <a href="#">
-                            <img class="img-fluid" src="assets/img/1202 b.png" alt="">
-                        </a>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <a href="#">
-                            <img class="img-fluid" src="assets/img/2132white.jpg" alt="">
-                        </a>
-                    </div>
-
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <a href="#">
-                            <img class="img-fluid" src="assets/img/2132black.jpg" alt="">
-                        </a>
-                    </div>
+                    <?php } ?>
                 </div>
-            </div>
             <!--footer kita-->
             <div class="footer">
                 <div class="container">
@@ -337,5 +343,4 @@ require_once('config.php');
                     }
                 </style>
 </body>
-
 </html>
