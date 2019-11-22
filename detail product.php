@@ -10,6 +10,23 @@ WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk
 
 $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 $count_all_item = mysqli_num_rows($all_result);
+
+$max_item 		= 10; //Max item in one page
+	$page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+	//echo $page;
+	$start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+	//echo $start;
+
+$cmd 			= $cmd." LIMIT $start, $max_item";
+	//echo $cmd;
+	$limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
+
+$products = null;
+	if ($count_all_item >= 1){
+		while($row = mysqli_fetch_assoc($limit_result)) {
+			$products[] = $row;
+		}
+    }
 ?>
 
 <!DOCTYPE html>
@@ -151,6 +168,7 @@ $count_all_item = mysqli_num_rows($all_result);
                         Toko JamQ
                         Telp/wa: 08159686049 </br>
                     </div>
+                    <?php } ?>
                 </div>
                 <!-- Related Projects Row -->
                 <h3 class="my-4">Related Products</h3>
@@ -178,6 +196,7 @@ $count_all_item = mysqli_num_rows($all_result);
                     </div>
                     <?php } ?>
                 </div>
+            </div>
             <!--footer kita-->
             <div class="footer">
                 <div class="container">
