@@ -2,12 +2,11 @@
 session_start();
 require_once('config.php');
 ?>
-
 <?php
 $cmd = "SELECT product_warna_id,
 concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', diameter, deskripsi
 FROM product_warna pw, product p,warna w,merk m
-WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id"
+WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
 
 $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 $count_all_item = mysqli_num_rows($all_result);
@@ -126,8 +125,7 @@ $count_all_item = mysqli_num_rows($all_result);
                 <div class="row"style='margin:0px auto;'>
                 <?php 
 					foreach($products as $product){
-						$id = $product['product_warna_id'];
-				?>
+						$id = $product['product_warna_id'];?>
                     <div class="col-md-6">
                         <img class="img-fluid" src="assets/img/products/<?php echo $id; ?>.jpg style="width: 500px; height: 500px; alt="">
                     </div>
@@ -136,14 +134,17 @@ $count_all_item = mysqli_num_rows($all_result);
                         <h3 class="my-3">Product Description</h3>
                         <p>Jam Dinding <?php echo $product['judul_barang']; ?></p>
                         <h5>Rp. <?php $price = $product['harga_barang'];echo number_format($price,2); ?></h5>
+                        <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                        <span class="vertical-line"></span>
+                        <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                         <h3 class="my-3">Product Details</h3>
-                        <br> Diameter: <?php echo $product['diameter']; cm ?> 
-                        <br> <?php echo $product['deskripsi']; ?> 
+                        <br> Diameter: <?php echo $product['diameter'];?> cm </br>
+                        <br> <?php echo $product['deskripsi']; ?> </br>
                         <br>Reseller welcome untuk Surabaya dan sekitarnya, luar kota, luar pulau juga bisa.
                         Pengiriman luar kota dan pulau mengunakan expedisi yang di tunjuk pembeli.
                         Untuk info dan pemesanan bisa menghubungi:
                         Toko JamQ
-                        Telp/wa: 08159686049
+                        Telp/wa: 08159686049 </br>
                     </div>
                 </div>
                 <!-- Related Projects Row -->
@@ -161,10 +162,7 @@ $count_all_item = mysqli_num_rows($all_result);
                                 <h4 class="card-title">
                                     <a href="detail product.html"><?php echo $product['judul_barang']; ?> </a>
                                 </h4>
-                                <h5>Rp. <?php 
-								$price = $product['harga_barang'];
-								echo number_format($price,2); 
-							?></h5>
+                                <h5>Rp. <?php $price = $product['harga_barang']; echo number_format($price,2); ?></h5>
                             </div>
                             <div class="card-footer middle" style="background-color: white;">
                                 <button class="item-card-button" href><i class="fas fa-heart"></i></button>
@@ -342,5 +340,5 @@ $count_all_item = mysqli_num_rows($all_result);
                         float: initial;
                     }
                 </style>
-</body>
-</html>
+    </body>
+    </html>
