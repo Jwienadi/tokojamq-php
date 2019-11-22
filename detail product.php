@@ -4,7 +4,10 @@ require_once('config.php');
 ?>
 
 <?php
-$cmd = ""
+$cmd = "SELECT product_warna_id,
+concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', diameter, deskripsi
+FROM product_warna pw, product p,warna w,merk m
+WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id"
 
 $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 $count_all_item = mysqli_num_rows($all_result);
@@ -134,7 +137,7 @@ $count_all_item = mysqli_num_rows($all_result);
                         <p>Jam Dinding <?php echo $product['judul_barang']; ?></p>
                         <h5>Rp. <?php $price = $product['harga_barang'];echo number_format($price,2); ?></h5>
                         <h3 class="my-3">Product Details</h3>
-                        <br> Diameter: <?php echo $product['diameter']; ?> 
+                        <br> Diameter: <?php echo $product['diameter']; cm ?> 
                         <br> <?php echo $product['deskripsi']; ?> 
                         <br>Reseller welcome untuk Surabaya dan sekitarnya, luar kota, luar pulau juga bisa.
                         Pengiriman luar kota dan pulau mengunakan expedisi yang di tunjuk pembeli.
