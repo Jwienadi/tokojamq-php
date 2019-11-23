@@ -174,7 +174,7 @@
                     <a href="#"><img class="card-img-top" src="assets/img/pioneer/2110.png" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
-                        <a href="detail product.html">Pioneer 2110 Wood Motif</a>
+                        <a href="detail product.php">Pioneer 2110 Wood Motif</a>
                       </h4>
                       <h5>Rp 65.000</h5>
                     </div>

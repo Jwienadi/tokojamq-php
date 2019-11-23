@@ -40,7 +40,7 @@
                 <a href="privacy policy.php" class="list-group-item list-group-item-action bg-light">Privacy Policy</a>
                 <a href="tnc.php" class="list-group-item list-group-item-action bg-light">Terms and Condition</a>
                 <a href="faq.php" class="list-group-item list-group-item-action bg-light">FAQ</a>
-                <a href="#" class="list-group-item list-group-item-action bg-light">Contact Us</a>
+                <a href="contact.php" class="list-group-item list-group-item-action bg-light">Contact Us</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
