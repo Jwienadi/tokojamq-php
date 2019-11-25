@@ -7,7 +7,7 @@ require_once('config.php');
  //$cmd_extra = "AND lower(b.name)='".$brand."'";
  $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
         FROM product_warna pw, product p,warna w,merk m 
-        WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and m.nama_merk='Pioneer'";
+        WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and m.nama_merk='Esti Loren'";
  
  $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
  $count_all_item = mysqli_num_rows($all_result);
@@ -81,10 +81,9 @@ require_once('config.php');
                     <ul class="link-list">
                         <li><a href="pioneer.php">Pioneer</a></li><br>
                         <li><a href="estiloren.php">Esti Loren</a></li><br>
-                        <li><a href="#">Asako</a></li><br>
-                        <li><a href="#">Esa</a></li><br>
-                        <li><a href="#">Edison</a></li><br>
-                        <li><a href="#">Dekko</a></li>
+                        <li><a href="asako.php">Asako</a></li><br>
+                        <li><a href="pagol.php">Pagol</a></li><br>
+                        <li><a href="edison.php">Edison</a></li><br>
                     </ul>
 
                 </div>
@@ -418,10 +417,9 @@ require_once('config.php');
                             <ul class="list-unstyled">
                                 <li><a href="pioneer.php">Pioneer</a></li>
                                 <li><a href="estiloren.php">Esti Loren</a></li>
-                                <li><a href="#">Asako</a></li>
-                                <li><a href="#">Esa</a></li>
-                                <li><a href="#">Edison</a></li>
-                                <li><a href="#">Dekko</a></li>
+                                <li><a href="asako.php">Asako</a></li>
+                                <li><a href="pagol.php">Pagol</a></li>
+                                <li><a href="edison.php">Edison</a></li>
                             </ul>
                         </div>
 

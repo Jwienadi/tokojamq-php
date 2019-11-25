@@ -37,18 +37,17 @@ require_once('config.php');
             <div class="list-group list-group-flush">
                 <!--<a href="#" class="list-group-item list-group-item-action bg-light">Products</a>-->
                 <button class="dropdown-btn list-group-item list-group-item-action bg-light"
-                    style="background-color: transparent; border: 0;"> Products
-                <a href="product.php"></a>
+                    style="background-color: transparent; border: 0;">
+                <a href="product.php">Products</a>
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <div class="dropdown-container">
                     <ul class="link-list">
                         <li><a href="pioneer.php">Pioneer</a></li><br>
-                        <li><a href="#">Esti Loren</a></li><br>
-                        <li><a href="#">Asako</a></li><br>
-                        <li><a href="#">Esa</a></li><br>
-                        <li><a href="#">Edison</a></li><br>
-                        <li><a href="#">Dekko</a></li>
+                        <li><a href="estiloren.php">Esti Loren</a></li><br>
+                        <li><a href="asako.php">Asako</a></li><br>
+                        <li><a href="pagol.php">Pagol</a></li><br>
+                        <li><a href="edison.php">Edison</a></li><br>
                     </ul>
 
                 </div>
@@ -196,7 +195,7 @@ require_once('config.php');
               </div>
             </div>
 
-            <div class="mb-3">
+            <!--<div class="mb-3">
               <label for="username">Username</label>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -207,7 +206,7 @@ require_once('config.php');
                   Your username is required.
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div class="mb-3">
               <label for="email">Email <span class="text-muted">(Optional)</span></label>
@@ -225,10 +224,10 @@ require_once('config.php');
               </div>
             </div>
 
-            <div class="mb-3">
+            <!--<div class="mb-3">
               <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
               <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-            </div>
+            </div>-->
 
             <div class="row">
               <div class="col-md-5 mb-3">
@@ -242,20 +241,38 @@ require_once('config.php');
                 </div>
               </div>
               <div class="col-md-4 mb-3">
-                <label for="state">State</label>
+                <label for="state">State/Province</label>
                 <select class="custom-select d-block w-100" id="state" required>
                   <option value="">Choose...</option>
                   <option>California</option>
                 </select>
                 <div class="invalid-feedback">
-                  Please provide a valid state.
+                  Please provide a valid state/province.
+                </div>
+              </div>
+              <div class="col-md-5 mb-3">
+                <label for="state">City</label>
+                <select class="custom-select d-block w-100" id="state" required>
+                  <option value="">Choose...</option>
+                  <option>Surabaya</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
                 </div>
               </div>
               <div class="col-md-3 mb-3">
-                <label for="zip">Zip</label>
+                <label for="zip">Postal Code</label>
                 <input type="text" class="form-control" id="zip" placeholder="" required>
                 <div class="invalid-feedback">
-                  Zip code required.
+                  Postal code required.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="zip">Recipient Mobile Phone</label>
+                <input type="text" class="form-control" id="zip" placeholder="" required>
+                <div class="invalid-feedback">
+                Recipient Mobile Phone required.
                 </div>
               </div>
             </div>
@@ -270,22 +287,23 @@ require_once('config.php');
             </div>
             <hr class="mb-4">
 
-            <h4 class="mb-3">Payment</h4>
+            <h4 class="mb-3">Select Courier</h4>
 
             <div class="d-block my-3">
               <div class="custom-control custom-radio">
                 <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                <label class="custom-control-label" for="credit">Credit card</label>
+                <label class="custom-control-label" for="credit">JNE</label>
               </div>
               <div class="custom-control custom-radio">
                 <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                <label class="custom-control-label" for="debit">Debit card</label>
+                <label class="custom-control-label" for="debit">Wahana</label>
               </div>
               <div class="custom-control custom-radio">
                 <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                <label class="custom-control-label" for="paypal">Paypal</label>
+                <label class="custom-control-label" for="paypal">Pos Indonesia</label>
               </div>
             </div>
+            
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="cc-name">Name on card</label>
@@ -334,14 +352,13 @@ require_once('config.php');
                             <p class="mb-4"><img src="assets/img/q putih.png" alt="Image" class="img-fluid"></p>
                         </div>
                         <div class="col-lg-3">
-                            <h3 class="footer-heading"><span>Our Products</span></h3>
+                            <h3 class="footer-heading"><span><a href="product.php">Our Products</a></span></h3>
                             <ul class="list-unstyled">
                                 <li><a href="pioneer.php">Pioneer</a></li>
-                                <li><a href="#">Esti Loren</a></li>
-                                <li><a href="#">Asako</a></li>
-                                <li><a href="#">Esa</a></li>
-                                <li><a href="#">Edison</a></li>
-                                <li><a href="#">Dekko</a></li>
+                                <li><a href="estiloren.php">Esti Loren</a></li>
+                                <li><a href="asako.php">Asako</a></li>
+                                <li><a href="pagol.php">Pagol</a></li>
+                                <li><a href="edison.php">Edison</a></li>
                             </ul>
                         </div>
 
