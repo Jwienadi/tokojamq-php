@@ -1,3 +1,8 @@
+<?php 
+session_start();
+require_once('config.php');
+include("function.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,11 +103,11 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                                 style="text-align: center;">
-
-                                <a class="dropdown-item" href="login.php">LOG IN</a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="signup.php">SIGN UP</a>
+                                <?php
+                                isloggedin(); 
+                                ?>
+                              
+                            
                             </div>
                         </li>
                     </ul>

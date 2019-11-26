@@ -1,3 +1,36 @@
+<?php 
+session_start();
+require_once('config.php');
+?>
+<?php
+ //$brand = strtolower($_GET["brand"]);
+ //$cmd_extra = "AND lower(b.name)='".$brand."'";
+ $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+        FROM product_warna pw, product p,warna w,merk m 
+        WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
+ 
+ $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
+ $count_all_item = mysqli_num_rows($all_result);
+
+ $max_item 		= 10; //Max item in one page
+ $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+ //echo $page;
+ $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+ //echo $start;
+ 
+ $cmd 			= $cmd." LIMIT $start, $max_item";
+
+ $limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
+
+ $count_pages 	= ceil($count_all_item / $max_item); 
+
+ $products = null;
+ if ($count_all_item >= 1){
+     while($row = mysqli_fetch_assoc($limit_result)) {
+         $products[] = $row;
+     }
+ }
+?>
 <head>
 
     <meta charset="utf-8">
@@ -146,7 +179,7 @@
                           <td class="border-0 align-middle"><strong>3</strong></td>
                           <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <th scope="row">
                             <div class="p-2">
                               <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-3_cexmhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
@@ -172,7 +205,7 @@
                             <td class="align-middle"><strong>3</strong></td>
                             <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
                             </td>
-                        </tr>
+                        </tr> -->
                       </tbody>
                     </table>
                   </div>
@@ -180,7 +213,7 @@
                 </div>
               </div>
         
-              <div class="row py-5 p-4 bg-white rounded shadow-sm">
+              <!--<div class="row py-5 p-4 bg-white rounded shadow-sm">
                 <div class="col-lg-6">
                   <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
                   <div class="p-4">
@@ -212,7 +245,7 @@
                     </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
                   </div>
                 </div>
-              </div>
+              </div>-->
         
             </div>
           </div>
