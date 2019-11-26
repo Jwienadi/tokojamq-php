@@ -60,17 +60,17 @@ require_once('config.php');
     <div class="sidebar-heading"> <img src="assets/img/q hitam.png"> </div>
     <div class="list-group list-group-flush">
       <!--<a href="#" class="list-group-item list-group-item-action bg-light">Products</a>-->
-      <button class="dropdown-btn list-group-item list-group-item-action bg-light" style="background-color: transparent; border: 0;"> Products
+      <button class="dropdown-btn list-group-item list-group-item-action bg-light" style="background-color: transparent; border: 0;"> 
+      <a href="product.php">Products</a>
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-container" >
         <ul class="link-list">
-           <li><a href="#">Pioneer</a></li> <br>
-           <li><a href="#">Esti Loren</a></li><br>
-           <li><a href="#">Asako</a></li><br>
-           <li><a href="#">Esa</a></li><br>
-           <li><a href="#">Edison</a></li><br>
-           <li><a href="#">Esa</a></li>
+           <li><a href="pioneer.php">Pioneer</a></li> <br>
+           <li><a href="estiloren.php">Esti Loren</a></li><br>
+           <li><a href="asako.php">Asako</a></li><br>
+           <li><a href="pagol.php">Pagol</a></li><br>
+           <li><a href="edison.php">Edison</a></li><br>
         </ul>
       
       </div>
@@ -282,14 +282,13 @@ require_once('config.php');
   <p class="mb-4"><img src="assets/img/q putih.png" alt="Image" class="img-fluid"></p>
   </div>
   <div class="col-lg-3">
-  <h3 class="footer-heading"><span>Our Products</span></h3>
+  <h3 class="footer-heading"><span><a href="product.php">Our Products</a></span></h3>
   <ul class="list-unstyled">
-  <li><a href="#">Pioneer</a></li>
-  <li><a href="#">Esti Loren</a></li>
-  <li><a href="#">Asako</a></li>
-  <li><a href="#">Esa</a></li>
-  <li><a href="#">Edison</a></li>
-  <li><a href="#">Dekko</a></li>
+  <li><a href="pioneer.php">Pioneer</a></li>
+  <li><a href="estiloren.php">Esti Loren</a></li>
+  <li><a href="asako.php">Asako</a></li>
+  <li><a href="pagol.php">Pagol</a></li>
+  <li><a href="edison.php">Edison</a></li>
   </ul>
   </div>
 

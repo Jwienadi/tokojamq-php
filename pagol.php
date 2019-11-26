@@ -158,7 +158,7 @@ require_once('config.php');
             <div class="container"
                 style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
                 <div class='row col-md-12'>
-                    <h1>Products</h1>
+                    <h1>Products > Pagol</h1>
                 </div>
                 <!--PRODUK CARD-->
                 <div class='row' style='margin:0px auto;'>
