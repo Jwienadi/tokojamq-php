@@ -81,10 +81,9 @@ require_once('config.php');
                     <ul class="link-list">
                         <li><a href="pioneer.php">Pioneer</a></li><br>
                         <li><a href="estiloren.php">Esti Loren</a></li><br>
-                        <li><a href="#">Asako</a></li><br>
-                        <li><a href="#">Esa</a></li><br>
-                        <li><a href="#">Edison</a></li><br>
-                        <li><a href="#">Dekko</a></li>
+                        <li><a href="asako.pho">Asako</a></li><br>
+                        <li><a href="pagol.php">Pagol</a></li><br>
+                        <li><a href="edison.php">Edison</a></li><br>
                     </ul>
 
                 </div>
@@ -159,7 +158,7 @@ require_once('config.php');
             <div class="container"
                 style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
                 <div class='row col-md-12'>
-                    <h1>Products</h1>
+                    <h1>Products > Pioneer </h1>
                 </div>
                 <!--PRODUK CARD-->
                 <div class='row' style='margin:0px auto;'>
@@ -418,10 +417,9 @@ require_once('config.php');
                             <ul class="list-unstyled">
                                 <li><a href="pioneer.php">Pioneer</a></li>
                                 <li><a href="estiloren.php">Esti Loren</a></li>
-                                <li><a href="#">Asako</a></li>
-                                <li><a href="#">Esa</a></li>
-                                <li><a href="#">Edison</a></li>
-                                <li><a href="#">Dekko</a></li>
+                                <li><a href="asako.php">Asako</a></li>
+                                <li><a href="pagol.php">Pagol</a></li>
+                                <li><a href="edison.php">Edison</a></li>
                             </ul>
                         </div>
 
