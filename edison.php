@@ -195,7 +195,7 @@ require_once('config.php');
                         
 					?>
 
-                        <a href='product.php?page=<?php echo $prev_page; ?>' class="btn btn-default" title='Previous'>
+                        <a href='edison.php?page=<?php echo $prev_page; ?>' class="btn btn-default" title='Previous'>
                             <i class='glyphicon glyphicon-chevron-left'></i>
                             Previous
                         </a>
@@ -215,11 +215,11 @@ require_once('config.php');
 								echo "<a href='product.php?brand=$brand&page=$i' class='btn btn-default $flag_class' title='Page $i'>$i</a>";
                             }*/
                             if($i==1){
-								echo "<a href='product.php?page=$i' class='btn btn-default $flag_class' title='First'>$i</a>";
+								echo "<a href='edison.php?page=$i' class='btn btn-default $flag_class' title='First'>$i</a>";
 							} else if($i==$count_pages) {
-								echo "<a href='product.php?page=$i' class='btn btn-default $flag_class' title='Last'>$i</a>";
+								echo "<a href='edison.php?page=$i' class='btn btn-default $flag_class' title='Last'>$i</a>";
 							} else {
-								echo "<a href='product.php?page=$i' class='btn btn-default $flag_class' title='Page $i'>$i</a>";
+								echo "<a href='edison.php?page=$i' class='btn btn-default $flag_class' title='Page $i'>$i</a>";
 							}
 						}
 					?>
@@ -227,7 +227,7 @@ require_once('config.php');
                         if ($page<$count_pages){
 							$next_page = $page+1;
 							//echo "Next: ".$next_page;
-							echo "<a href='product.php?page=$next_page' class='btn btn-default' title='Next'>
+							echo "<a href='edison.php?page=$next_page' class='btn btn-default' title='Next'>
 										Next
 										<i class='glyphicon glyphicon-chevron-right'></i>
 									</a>";
