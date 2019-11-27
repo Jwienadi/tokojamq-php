@@ -28,7 +28,7 @@
 
 			session_start();
       // If form submitted, insert values into the database.
-      if(isset($_SESSION['name'])){
+      if(isset($_SESSION['email'])){
       //header("Location: login.php");
       //} else {
        
@@ -44,12 +44,12 @@
 				$password = mysqli_real_escape_string($con,$password);
 				
 				//Checking is user existing in the database or not
-				$query = "SELECT first_name FROM `user` WHERE email='$email' and password='".sha1($password)."'";
+				$query = "SELECT email FROM `user` WHERE email='$email' and password='".sha1($password)."'";
 				$result = mysqli_query($con,$query) or die(mysql_error());
 				$rows = mysqli_num_rows($result);
 				if($rows==1){
           while ($row = $result->fetch_assoc()) {
-            $_SESSION['name'] = $row['first_name'];
+            $_SESSION['email'] = $row['email'];
         }
           header("Location: index.php"); // Redirect user to index.php
           
