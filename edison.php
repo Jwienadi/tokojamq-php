@@ -12,7 +12,7 @@ require_once('config.php');
  $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
  $count_all_item = mysqli_num_rows($all_result);
 
- $max_item 		= 10; //Max item in one page
+ $max_item 		= 12; //Max item in one page
  $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
  //echo $page;
  $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
