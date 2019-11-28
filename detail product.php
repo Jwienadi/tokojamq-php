@@ -6,7 +6,7 @@ require_once('config.php');
 $cmd = "SELECT product_warna_id,
 concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', diameter, deskripsi
 FROM product_warna pw, product p,warna w,merk m
-WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
+WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and product_warna_id='pw1'";
 
 $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 $count_all_item = mysqli_num_rows($all_result);
