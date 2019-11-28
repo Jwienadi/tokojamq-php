@@ -143,7 +143,7 @@ include("function.php");
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                                 style="text-align: center;">
                             <?php 
-                            isloggedin();
+                            isloggedin($con);
                             ?>
                             </div>
                         </li>

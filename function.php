@@ -2,8 +2,8 @@
 <?php
 function isloggedin($con){
 
-if(isset($_SESSION["email"])){
-  $query="SELECT first_name from user where email='".$_SESSION['email']."';";
+if(isset($_SESSION["user_id"])){
+  $query="SELECT first_name from user where user_id='".$_SESSION['user_id']."';";
   
   $result = mysqli_query($con,$query) or die(mysqli_error());
   $rows = mysqli_num_rows($result);

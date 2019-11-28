@@ -5,7 +5,7 @@ require_once('../config.php');
 $sql = "SELECT product_warna_id as 'id', nama_merk as 'merk',nama_product as 'nama',warna,stok 
 from product_warna pw,product p,warna w,merk m 
 where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
-order by merk,nama";
+order by length(`product_warna_id`),`product_warna_id`";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
 
 //for($i = 0; $i < mysql_num_fields($result); $i++) {
@@ -165,10 +165,17 @@ $product=null;
                  /* foreach ($field_info) {
                     echo "<th>{$field_info}</th>";
                   }*/
-                  for($i = 0; $i < mysqli_num_fields($result); $i++) {
+                  /*for($i = 0; $i < mysqli_num_fields($result); $i++) {
                     $field_info = mysqli_fetch_field($result, $i);
-                    echo "<th>".$field_info."</th>";
-                }
+                    echo "<th>".$field_info."</th>";*/
+                   /* foreach($row as $field => $value) {
+                      echo '<th>'.htmlentities($field).'</th>';
+                  }*/
+                  $fields=mysqli_fetch_fields($result);
+                  foreach ($fields as $field) {
+                    echo "<th>$field->name</th>";
+                  }
+                
                   ?>
                     <!--<th>Name</th>
                     <th>Position</th>
