@@ -193,7 +193,6 @@ include("function.php");
 						if ($page>1){
 							$prev_page = $page-1;
                             //echo "Prev: ".$prev_page;
-                        
 					?>
 
                         <a href='product.php?page=<?php echo $prev_page; ?>' class="btn btn-default" title='Previous'>

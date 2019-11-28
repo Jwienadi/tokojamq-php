@@ -119,14 +119,7 @@ require_once('config.php');
     <!-- CHECKOUT COY -->
     <div class="container">
     <h1> Checkout Form </h1>
-      <!--<div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h2>Checkout form</h2>
-        <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
-      </div>-->
-
-      <div class="row">
-        <div class="col-md-4 order-md-2 mb-4">
+    <div class="col-md-4 order-md-2 mb-4">
           <h4 class="d-flex justify-content-between align-items-center mb-3">
             <span class="text-muted">Your cart</span>
             <span class="badge badge-secondary badge-pill">3</span>
@@ -175,6 +168,14 @@ require_once('config.php');
             </div>
           </form>
         </div>
+      </div>
+      <!--<div class="py-5 text-center">
+        <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+        <h2>Checkout form</h2>
+        <p class="lead">Below is an example form built entirely with Bootstrap's form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+      </div>-->
+
+      <div class="row">
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
           <form class="needs-validation" novalidate>
@@ -273,8 +274,7 @@ require_once('config.php');
                 <input type="text" class="form-control" id="zip" placeholder="" required>
                 <div class="invalid-feedback">
                 Recipient Mobile Phone required.
-                </div>
-              </div>
+            </div>
             </div>
             <hr class="mb-4">
             <div class="custom-control custom-checkbox">
@@ -285,10 +285,11 @@ require_once('config.php');
               <input type="checkbox" class="custom-control-input" id="save-info">
               <label class="custom-control-label" for="save-info">Save this information for next time</label>
             </div>
-            <hr class="mb-4">
+          <hr class="mb-4">
+            </div>
+          </div>
 
             <h4 class="mb-3">Select Courier</h4>
-
             <div class="d-block my-3">
               <div class="custom-control custom-radio">
                 <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
@@ -342,6 +343,7 @@ require_once('config.php');
           </form>
         </div>
       </div>
+    </div>
     </div>
 
       <!--footer kita-->
