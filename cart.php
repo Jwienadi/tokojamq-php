@@ -1,35 +1,25 @@
 <?php 
 session_start();
 require_once('config.php');
+include("function.php");
 ?>
 <?php
  //$brand = strtolower($_GET["brand"]);
  //$cmd_extra = "AND lower(b.name)='".$brand."'";
- $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
-        FROM product_warna pw, product p,warna w,merk m 
-        WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
+ $cmd = " SELECT concat(m.nama_merk,' ',p.nama_product) as 'judul_barang',w.warna,p.harga_jual as 'harga_barang' ,bp.jumlah_barang, bp.product_warna_id 
+ from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
+ where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=0 and user_id=".$_SESSION['user_id'].";";
  
  $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
  $count_all_item = mysqli_num_rows($all_result);
 
- $max_item 		= 10; //Max item in one page
- $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
- //echo $page;
- $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
- //echo $start;
- 
- $cmd 			= $cmd." LIMIT $start, $max_item";
-
- $limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
-
- $count_pages 	= ceil($count_all_item / $max_item); 
-
  $products = null;
  if ($count_all_item >= 1){
-     while($row = mysqli_fetch_assoc($limit_result)) {
+     while($row = mysqli_fetch_assoc($all_result)) {
          $products[] = $row;
      }
  }
+ $_SESSION['cart']=$products;
 ?>
 <head>
 
@@ -48,6 +38,7 @@ require_once('config.php');
     <!-- Custom styles for this template -->
     <link href="assets/css/simple-sidebar.css" rel="stylesheet">
     <link href="assets/css/shop-homepage.css" rel="stylesheet">
+    <script src="assets/vendor/jquery/jquery.min.js"></script>
   
   </head>
   
@@ -122,16 +113,14 @@ require_once('config.php');
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false"
-              style="color: white;font-size: 150%;">
+              style="color: white;font-size: 150%; padding-top:0;;">
               <i class="fas fa-user"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
               style="text-align: center;">
-             
-              <a class="dropdown-item" href="login.php">LOG IN</a>
-          
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="signup.php">SIGN UP</a>
+              <?php 
+              isloggedin($con);
+              ?>
             </div>
           </li>
         </ul>
@@ -140,7 +129,8 @@ require_once('config.php');
     <!--cart-->
    
       <!-- End -->
-    
+      <div id='refresh'>
+    </div>
       <div class="pb-5">
             <div class="container">
               <div class="row">
@@ -166,18 +156,27 @@ require_once('config.php');
                         </tr>
                       </thead>
                       <tbody>
+                      <?php 
+					               foreach($products as $product){
+                                       
+	                    ?>
                         <tr>
                           <th scope="row" class="border-0">
                             <div class="p-2">
-                              <img src="https://res.cloudinary.com/mhmd/image/upload/v1556670479/product-1_zrifhn.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                              <img src="assets/img/products/<?php echo $product['product_warna_id']; ?>.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
                               <div class="ml-3 d-inline-block align-middle">
-                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">Timex Unisex Originals</a></h5><span class="text-muted font-weight-normal font-italic d-block">Category: Watches</span>
+                                <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle"><?php echo $product['judul_barang']; ?></a></h5><span class="text-muted font-weight-normal font-italic d-block"><?php echo $product['warna']; ?></span>
                               </div>
                             </div>
                           </th>
-                          <td class="border-0 align-middle"><strong>$79.00</strong></td>
-                          <td class="border-0 align-middle"><strong>3</strong></td>
-                          <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                          <td class="border-0 align-middle"><strong>Rp. <?php $price = $product['harga_barang'];
+							                	echo number_format($price,2); 
+							                  ?>
+                          </strong>
+                          </td>
+                          <td class="border-0 align-middle"><strong> <input class="nud-qty" type="number" name="quantity" min="1" max="5" value="<?php echo $product['jumlah_barang']; ?>" data-id_barang='"<?php echo $product['product_warna_id']?>"'></strong></td>
+                          <td class="border-0 align-middle"><a href="#" class="text-dark btn-refresh"><i class="fa fa-trash"></i></a></td>
+                         <?php }?>
                         </tr>
                         <!-- <tr>
                           <th scope="row">
@@ -271,7 +270,42 @@ require_once('config.php');
          e.preventDefault();
          $("#wrapper").toggleClass("toggled");
        });
-      
+      //jquery
+      $(document).ready(function () {
+          
+          $('.btn-refresh').on('click',function(){
+              alert('saya ditekan');
+              $.ajax({
+                  url:'ajax/response_ajax.php',
+                  method:'GET',
+                  //data
+                  datatype:"html",
+                  success:function(result){
+                      $('#refresh').html(result);
+                  }
+           });
+       });
+
+              $('.nud-qty').on('change',function(){
+                  alert($(this).val());
+                  var idbarang=$(this).data('id_barang');
+                  var qtybarang=$(this).val();
+                  $.ajax({
+                  url:'ajax/response_ajax.php',
+                  method:'POST',
+                  data:{
+                      id_barang: idbarang,
+                      qty: qtybarang
+                  },
+                  datatype:"html",
+                  success:function(result){
+                      $('#refresh').html(result);
+                  }
+              });
+           
+              });
+          
+       });
      </script>
 
 <!--footer kita-->
