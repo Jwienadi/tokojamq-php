@@ -32,9 +32,7 @@
 </head>
 
 <body>
-
-  <div class="d-flex" id="wrapper">
-
+<div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
       <div class="sidebar-heading"> <img src="assets/img/q hitam.png"> </div>
@@ -118,7 +116,7 @@
       </nav>
     
 
-      <!--CAROUSELL-->
+    <!--CAROUSELL-->
       <div class="container-fluid container-fluid-no">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <ol class="carousel-indicators">
@@ -392,8 +390,7 @@
         </div>
         <!--/.Carousel Wrapper-->
 
-
-      </div>
+        </div>
       <!--ITEM SLIDER WRAPPER-->
 
       <!--MERK
