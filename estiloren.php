@@ -166,11 +166,11 @@ require_once('config.php');
 				?>
                     <div class="col-lg-3 col-md-3 mb-4">
                         <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
+                        <a href= "detail product.php?id=<?php echo $id; ?>"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
                                     alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="detail product.php"><?php echo $product['judul_barang']; ?> </a>
+                                    <a href="detail product.php?id=<?php echo $id; ?>"><?php echo $product['judul_barang']; ?> </a>
                                 </h4>
                                 <h5>Rp. <?php 
 								$price = $product['harga_barang'];

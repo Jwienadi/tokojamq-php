@@ -170,7 +170,7 @@
               <div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2110.png" alt=""></a>
+                    <a href="#"><img class="card-img-top" src="assets/img/products/pw1.jpg" alt=""></a>
                     <div class="card-body">
                       <h4 class="card-title">
                         <a href="detail product.php">Pioneer 2110 Wood Motif</a>

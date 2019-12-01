@@ -129,9 +129,9 @@
                             order cancellation.</p>
                     </div>
 
-                    <a>3. How can I pay for my order at Myntra?</a></p>
+                    <a>3. How can I pay for my order at TokoJamQ?</a></p>
                     <div class="answer" style="display: block;">
-                        <p>We support the following payment options at Myntra: Cash On Delivery (available in selected
+                        <p>We support the following payment options at TokoJamQ: Cash On Delivery (available in selected
                             pin codes),Credit Card,Debit Card,Net banking,Gift Card,Wallet </p>
                     </div>
 
@@ -151,7 +151,7 @@
 
                     <a>6. If I return/cancel the purchased product will the GST/VAT amount charged be refunded?</a></p>
                     <div class="answer" style="display: block;">
-                        <p>Yes. If you return the product the applicable GST/VAT amount will also be refunded into the source account selected at the time of return initiation. However no refunds of GST/VAT shall be made in relation to shipping charges collected from the consumer under Myntra shipping policy.</p>
+                        <p>Yes. If you return the product the applicable GST/VAT amount will also be refunded into the source account selected at the time of return initiation. However no refunds of GST/VAT shall be made in relation to shipping charges collected from the consumer under TokoJamQ shipping policy.</p>
                     </div>
 
                     <a>7. Why is my returned product re-shipped??</a></p>
