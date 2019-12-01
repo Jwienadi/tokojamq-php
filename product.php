@@ -4,6 +4,15 @@ require_once('config.php');
 include("function.php");
 ?>
 <?php
+//$product_id= isset($_GET['product_warna_id']);
+//if(isset($_GET['product_warna_id'])){
+  //  $product_id = $_GET['product_warna_id'];
+  //  echo $product_id;
+ // } else {
+  //  echo $product_id;
+    //header('Location:product.php');
+ // exit;
+ // }
  //$brand = strtolower($_GET["brand"]);
  //$cmd_extra = "AND lower(b.name)='".$brand."'";
  $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
@@ -31,18 +40,6 @@ include("function.php");
          $products[] = $row;
      }
  }
- 
- //True Type
- //$brand_truetype = "";
- //$cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
- //$cmd2 = "SELECT m.nama_merk FROM merk m WHERE lower(m.nama_merk) = '$brand'";
- //$temp_result = mysqli_query($con,$cmd2) or die(mysqli_error($con));
-// $total_item = mysqli_num_rows($temp_result);
- /*if ($total_item ==1){
-     //BACA: https://stackoverflow.com/questions/10605456/selecting-one-row-from-mysql-query-php
-     $item = mysqli_fetch_assoc($temp_result);
-     //$brand_truetype = $item['name'];
- }*/
 ?>
 <html>
 
@@ -153,7 +150,6 @@ include("function.php");
 
             <!--<!- -products woee-->
 
-
             <div class="container"
                 style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
                 <div class='row col-md-12'>
@@ -167,7 +163,7 @@ include("function.php");
 				?>
                     <div class="col-lg-3 col-md-3 mb-4">
                         <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
+                            <a href="detail product.php"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
                                     alt=""></a>
                             <div class="card-body">
                                 <h4 class="card-title">
@@ -249,159 +245,6 @@ include("function.php");
                 });
                 /*extra*/
             </script>
-
-            <!--  <h1>Products > Pioneer</h1>
-            <div class="row">
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2110.png" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="detail product.html">Pioneer 2110 Wood Motif</a>
-                      </h4>
-                      <h5>Rp 65.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                        <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                        <span class="vertical-line"></span>
-                        <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                </div>
-            </div> -->
-
-
-            <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
-            <div class="container">
-                <h3 class="h3">shopping Demo-1 </h3>
-                <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product-grid">
-                            <div class="product-image">
-                                <a href="#">
-                                    <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg">
-                                    <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-2.jpg">
-                                </a>
-                                <ul class="social">
-                                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                                <span class="product-new-label">Sale</span>
-                                <span class="product-discount-label">20%</span>
-                            </div>
-                            <ul class="rating">
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star disable"></li>
-                            </ul>
-                            <div class="product-content">
-                                <h3 class="title"><a href="#">Women's Blouse</a></h3>
-                                <div class="price">$16.00
-                                    <span>$20.00</span>
-                                </div>
-                                <a class="add-to-cart" href="">+ Add To Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product-grid">
-                            <div class="product-image">
-                                <a href="#">
-                                    <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-3.jpg">
-                                    <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-4.jpg">
-                                </a>
-                                <ul class="social">
-                                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                                <span class="product-new-label">Sale</span>
-                                <span class="product-discount-label">50%</span>
-                            </div>
-                            <ul class="rating">
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                            </ul>
-                            <div class="product-content">
-                                <h3 class="title"><a href="#">Men's Plain Tshirt</a></h3>
-                                <div class="price">$5.00
-                                    <span>$10.00</span>
-                                </div>
-                                <a class="add-to-cart" href="">+ Add To Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product-grid">
-                            <div class="product-image">
-                                <a href="#">
-                                    <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-5.jpg">
-                                    <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-6.jpg">
-                                </a>
-                                <ul class="social">
-                                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                                <span class="product-new-label">Sale</span>
-                                <span class="product-discount-label">50%</span>
-                            </div>
-                            <ul class="rating">
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                            </ul>
-                            <div class="product-content">
-                                <h3 class="title"><a href="#">Men's Plain Tshirt</a></h3>
-                                <div class="price">$5.00
-                                    <span>$10.00</span>
-                                </div>
-                                <a class="add-to-cart" href="">+ Add To Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <div class="product-grid">
-                            <div class="product-image">
-                                <a href="#">
-                                    <img class="pic-1" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-7.jpg">
-                                    <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-8.jpg">
-                                </a>
-                                <ul class="social">
-                                    <li><a href="" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                                    <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
-                                    <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                                <span class="product-new-label">Sale</span>
-                                <span class="product-discount-label">50%</span>
-                            </div>
-                            <ul class="rating">
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                                <li class="fa fa-star"></li>
-                            </ul>
-                            <div class="product-content">
-                                <h3 class="title"><a href="#">Men's Plain Tshirt</a></h3>
-                                <div class="price">$5.00
-                                    <span>$10.00</span>
-                                </div>
-                                <a class="add-to-cart" href="">+ Add To Cart</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr> -->
 
             <!--footer kita-->
             <div class="footer">

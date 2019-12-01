@@ -3,10 +3,20 @@ session_start();
 require_once('config.php');
 ?>
 <?php
+$product_id= isset($_GET['product_warna_id']);
+if(isset($_GET['product_warna_id'])){
+    $product_id = $_GET['product_warna_id'];
+    echo $product_id;
+  } else {
+    echo $product_id;
+    //header('Location:product.php');
+  exit;
+  }
 $cmd = "SELECT product_warna_id,
 concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', diameter, deskripsi
 FROM product_warna pw, product p,warna w,merk m
-WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and product_warna_id='pw1'";
+WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and 
+product_warna_id= $product_id";
 
 $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 $count_all_item = mysqli_num_rows($all_result);
