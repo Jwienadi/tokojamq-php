@@ -66,7 +66,7 @@
     <!-- Page Content -->
     <div id="page-content-wrapper">
 
-      <nav class="navbar navbar-expand-lg navbar-light border-bottom">
+    <nav class="navbar navbar-expand-lg navbar-light border-bottom">
         <!--button sidebar-->
         <button class="btn btn-primary" id="menu-toggle"
           style="background-color: transparent; color: white; border: none; font-size: 150%;">
@@ -108,7 +108,7 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                 style="text-align: center;">
                 <?php
-                isloggedin($con); 
+              isloggedin($con);
                 ?>
                
               </div>
@@ -116,6 +116,7 @@
           </ul>
         </div>
       </nav>
+    
 
       <!--CAROUSELL-->
       <div class="container-fluid container-fluid-no">
@@ -483,6 +484,7 @@
       e.preventDefault();
       $("#wrapper").toggleClass("toggled");
     });
+
   </script>
   <style>
     .resize {

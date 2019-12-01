@@ -17,7 +17,7 @@ if($_POST){
 $query="UPDATE barang_penjualan bp,transaksi_penjualan tp 
 SET bp.jumlah_barang='$qtybarang' 
 where bp.id_transaksi_penjualan=tp.id_transaksi_penjualan 
-and product_warna_id=$idbarang and user_id=".$_SESSION['user_id'].";";
+and product_warna_id='$idbarang' and user_id=".$_SESSION['user_id'].";";
 //echo $query;
 if (mysqli_query($con, $query)) {
     echo "Record updated successfully";
