@@ -41,6 +41,7 @@ include("function.php");
  
  $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
  $count_all_item = mysqli_num_rows($all_result);
+ //$responsenoitem="No Item In Cart Now. <a href="">Shop Now</a>"
 
  $products = null;
  if ($count_all_item >= 1){
@@ -269,18 +270,15 @@ include("function.php");
     $(document).ready(function () {
 
       $('.btn-delete').on('click', function () {
-        // alert('saya ditekan');
+        
         var idbarang = $(this).data('id_barang');
-        //var qtybarang=$(this).val();
         var idbp = $(this).data('id_bp');
-        alert(idbarang);
+        //alert(idbarang);
         $.ajax({
           url: 'ajax/delete_ajax.php',
           method: 'POST',
-          //data
           data: {
             id_barang: idbarang,
-            // qty: qtybarang,
             id_bp: idbp
           },
           datatype: "html",
@@ -288,6 +286,7 @@ include("function.php");
             $('#refresh').html(result);
           }
         });
+        location.reload(true);
       });
 
       $('.nud-qty').on('change', function () {

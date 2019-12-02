@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once('config.php');
+include ('API/API.php');
 ?>
 
 <!doctype html>
@@ -263,6 +264,14 @@ require_once('config.php');
                 <label for="state">Province</label>
                 <select class="custom-select d-block w-100" id="state" required>
                   <option value="">Choose...</option>
+                  <?php 
+                  /*api_getprovince();
+                  foreach ($dataprovinsi as $datap){
+                    echo "<h1>".$datap['idprovinsi']."</h1>";
+                  
+                  ?>
+                  <option data-idprovinsi="<?php echo $datap['idprovinsi'];?>"><?php echo $datap['namaprovinsi'];?></option>
+                  <?php };*/ ?>
                   <option>East Java</option>
                 </select>
                 <div class="invalid-feedback">
