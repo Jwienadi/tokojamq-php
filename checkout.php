@@ -172,28 +172,15 @@ require_once('config.php');
                         <div class="payment-methods">
                             <p class="pt-4 mb-2">Payment Options</p>
                             <hr>
-                            <ul class="list-inline d-flex">
-                                <li class="mx-1 text-info">
-                                    <i class="fa-2x fa fa-cc-visa"></i>
-                                </li>
-                                <li class="mx-1 text-info">
-                                    <i class="fa-2x fa fa-cc-stripe"></i>
-                                </li>
-                                <li class="mx-1 text-info">
-                                    <i class="fa-2x fa fa-cc-paypal"></i>
-                                </li>
-                                <li class="mx-1 text-info">
-                                    <i class="fa-2x fa fa-cc-jcb"></i>
-                                </li>
-                                <li class="mx-1 text-info">
-                                    <i class="fa-2x fa fa-cc-discover"></i>
-                                </li>
-                                <li class="mx-1 text-info">
-                                    <i class="fa-2x fa fa-cc-amex"></i>
-                                </li>
-                            </ul>
+                            <label class="heading">Pilihan transfer bank:</label>
+                            <?php $query = "SELECT * FROM bank"; ?>
+                            <br> <input name="radio" type="radio" value="echo bank id">echo bank name, no rek, nama rek
+                            <br> <input name="radio" type="radio" value="Radio 2">Radio 2
+                            <br> <input name="radio" type="radio" value="Radio 3">Radio 3
+                            <?php include'radio_value.php'; ?>
+                            <!--<br> <input name="submit" type="submit" value="Get Selected Values">-->
                         </div>
-                    </div>
+</div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>
           <form class="needs-validation" novalidate>
