@@ -19,7 +19,7 @@ $response = curl_exec($curl);
 $err = curl_error($curl);
 
 curl_close($curl);
-$res = json_decode($response);
+$res = json_decode($response,true);
 echo "<pre>";
 //print_r($res->rajaongkir->results);
 echo "</pre>";
@@ -27,8 +27,8 @@ echo "</pre>";
 $ctr=0;
 foreach ($res->rajaongkir->results as $result) {
   $dataprovinsi[$ctr]=array(
-    'idprovinsi'=>$result->province_id,
-    'namaprovinsi'=>$result->province
+    'idprovinsi'=>$result['province_id'],
+    'namaprovinsi'=>$result['province']
   );
   $ctr++;
 };
