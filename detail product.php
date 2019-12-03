@@ -21,19 +21,9 @@ product_warna_id= '".$product_id."'";
 $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 $count_all_item = mysqli_num_rows($all_result);
 
-$max_item 		= 12; //Max item in one page
-	$page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
-	//echo $page;
-	$start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
-	//echo $start;
-
-$cmd 			= $cmd." LIMIT $start, $max_item";
-	//echo $cmd;
-	$limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
-
 $products = null;
 	if ($count_all_item >= 1){
-		while($row = mysqli_fetch_assoc($limit_result)) {
+		while($row = mysqli_fetch_assoc($all_result)) {
 			$products[] = $row;
 		}
     }
@@ -166,7 +156,6 @@ $products = null;
 							<span class="color green"></span>
 							<span class="color blue"></span>
 						</h5>
-                        <button class="item-card-button" href><i class="fas fa-heart">Wishlist</i></button>
                         <span class="vertical-line"></span>
                         <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button>
                         <h3 class="my-3">Product Details</h3>
