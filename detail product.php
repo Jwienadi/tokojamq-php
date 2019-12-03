@@ -154,7 +154,7 @@ $products = null;
 					foreach($products as $product){
 						$id = $product['product_warna_id'];?>
                     <div class="col-md-6">
-                        <img class="img-fluid" src="assets/img/products/<?php echo $id; ?>.jpg style="width: 500px; height: 500px; alt="">
+                        <img class="img-fluid" src="assets/img/products/<?php echo $id; ?>.jpg" style="width: 500px; height: 500px;" alt="">
                     </div>
 
                     <div class="col-md-5">
