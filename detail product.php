@@ -160,17 +160,20 @@ $products = null;
 							<span class="color blue"></span>
 						</h5>
                         <span class="vertical-line"></span>
-                        <!--<div class="col-xs-3 col-xs-offset-3">
-			                <div class="input-group number-spinner">
-				            <span class="input-group-btn">
-					        <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-				            </span>
-				        <input type="text" class="form-control text-center" value="1">
-				        <span class="input-group-btn">
-					    <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-				        </span>
-			                </div>
-		                </div> -->
+                        <!-- untuk numeric updown
+                        <div class="row">
+                            <div class="col-xs-3 col-xs-offset-3">
+			                    <div class="input-group number-spinner">
+				                    <span class="input-group-btn">
+					                <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
+				                    </span>
+				                    <input type="text" class="form-control text-center" value="1">
+				                    <span class="input-group-btn">
+					                <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
+				                    </span>
+			                    </div>
+		                    </div>
+                        </div> -->
                         <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button>
                         <h3 class="my-3">Product Details</h3>
                         <br> Diameter: <?php echo $product['diameter'];?> cm </br>
