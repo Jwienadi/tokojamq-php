@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
+-- version 4.8.4
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Nov 28, 2019 at 02:42 PM
--- Server version: 5.7.28-0ubuntu0.16.04.2
--- PHP Version: 7.0.33-6+ubuntu16.04.1+deb.sury.org+3
+-- Host: 127.0.0.1
+-- Generation Time: Dec 03, 2019 at 09:28 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `store18_1`
+-- Database: `tokojamqfix`
 --
 
 -- --------------------------------------------------------
@@ -42,11 +44,20 @@ CREATE TABLE `alamat` (
 --
 
 CREATE TABLE `bank` (
-  `bank_id` int(10) NOT NULL,
+  `bank_id` int(11) NOT NULL,
   `bank_name` varchar(20) DEFAULT NULL,
   `no_rek` int(20) DEFAULT NULL,
   `nama_rek` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bank`
+--
+
+INSERT INTO `bank` (`bank_id`, `bank_name`, `no_rek`, `nama_rek`) VALUES
+(1, 'BCA', 2147483647, 'Melisa Krisnawati'),
+(2, 'Mandiri', 2145463531, 'Jessica Wienadi'),
+(3, 'BNI', 2142871972, 'Budianto Setiawan');
 
 -- --------------------------------------------------------
 
@@ -67,9 +78,14 @@ CREATE TABLE `barang_penjualan` (
 --
 
 INSERT INTO `barang_penjualan` (`id_barang_penjualan`, `id_transaksi_penjualan`, `product_warna_id`, `jumlah_barang`, `status`) VALUES
-(3, 1, 'pw1', 3, '0'),
+(3, 1, 'pw1', 2, '0'),
 (4, 1, 'pw12', 3, '0'),
-(5, 1, 'pw5', 3, '0');
+(11, 1, 'pw2', 2, '0'),
+(12, 1, 'pw3', 2, '0'),
+(13, 1, 'pw4', 2, '0'),
+(14, 1, 'pw5', 2, '0'),
+(15, 1, 'pw6', 2, '0'),
+(16, 1, 'pw7', 2, '0');
 
 -- --------------------------------------------------------
 
@@ -156,7 +172,7 @@ INSERT INTO `product` (`product_id`, `merk_id`, `nama_product`, `hpp`, `diameter
 (8, 'm5', 'EDW 30T', '60.000', '20', '2019-11-27', '70000', 'lorem ipsum 8'),
 (9, 'm5', 'EDW 24', '65000', '23', '2019-11-27', '75.000', 'lorem ipsum 9'),
 (10, 'm4', 'PGW 342', '75000', '24', '2019-11-27', '90000', 'lorem ipsum 10'),
-(11, 'm4', 'PGW 371', '80000', '24', '2019-11-27', '95.000', 'lorem ipsum 11'),
+(11, 'm4', 'PGW 371', '80000', '24', '2019-11-27', '95000', 'lorem ipsum 11'),
 (12, 'm4', 'PGW 332', '75000', '24', '2019-11-27', '90000', 'lorem ipsum 12'),
 (13, 'm4', 'PGW 383', '75000', '25', '2019-11-27', '90000', 'lorem ipsum 13'),
 (14, 'm2', 'PT 2043', '65000', '24', '2019-11-20', '75000', 'lorem ipsum 14'),
@@ -259,7 +275,7 @@ CREATE TABLE `promo_code` (
 CREATE TABLE `transaksi_penjualan` (
   `id_transaksi_penjualan` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `tipe_pembayaran` varchar(45) DEFAULT NULL,
+  `bank_id` int(11) DEFAULT NULL,
   `status_pembayaran` varchar(45) DEFAULT NULL,
   `no_resi_pengiriman` varchar(45) DEFAULT NULL,
   `tanggal_transaksi` datetime DEFAULT NULL,
@@ -272,7 +288,7 @@ CREATE TABLE `transaksi_penjualan` (
 -- Dumping data for table `transaksi_penjualan`
 --
 
-INSERT INTO `transaksi_penjualan` (`id_transaksi_penjualan`, `user_id`, `tipe_pembayaran`, `status_pembayaran`, `no_resi_pengiriman`, `tanggal_transaksi`, `subtotal_transaksi`, `total_transaksi`, `kode_promo`) VALUES
+INSERT INTO `transaksi_penjualan` (`id_transaksi_penjualan`, `user_id`, `bank_id`, `status_pembayaran`, `no_resi_pengiriman`, `tanggal_transaksi`, `subtotal_transaksi`, `total_transaksi`, `kode_promo`) VALUES
 (1, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -408,7 +424,8 @@ ALTER TABLE `transaksi_penjualan`
   ADD PRIMARY KEY (`id_transaksi_penjualan`),
   ADD KEY `email` (`user_id`),
   ADD KEY `no_resi_pengiriman` (`no_resi_pengiriman`),
-  ADD KEY `kode_promo` (`kode_promo`);
+  ADD KEY `kode_promo` (`kode_promo`),
+  ADD KEY `bank_id` (`bank_id`);
 
 --
 -- Indexes for table `user`
@@ -436,20 +453,29 @@ ALTER TABLE `wishlist`
 --
 
 --
+-- AUTO_INCREMENT for table `bank`
+--
+ALTER TABLE `bank`
+  MODIFY `bank_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `barang_penjualan`
 --
 ALTER TABLE `barang_penjualan`
-  MODIFY `id_barang_penjualan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_barang_penjualan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
 --
 -- AUTO_INCREMENT for table `transaksi_penjualan`
 --
 ALTER TABLE `transaksi_penjualan`
   MODIFY `id_transaksi_penjualan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- Constraints for dumped tables
 --
@@ -486,7 +512,8 @@ ALTER TABLE `product_warna`
 ALTER TABLE `transaksi_penjualan`
   ADD CONSTRAINT `transaksi_penjualan_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `transaksi_penjualan_ibfk_2` FOREIGN KEY (`no_resi_pengiriman`) REFERENCES `detail_pengiriman` (`no_resi_pengiriman`),
-  ADD CONSTRAINT `transaksi_penjualan_ibfk_3` FOREIGN KEY (`kode_promo`) REFERENCES `promo_code` (`kode_promo`);
+  ADD CONSTRAINT `transaksi_penjualan_ibfk_3` FOREIGN KEY (`kode_promo`) REFERENCES `promo_code` (`kode_promo`),
+  ADD CONSTRAINT `transaksi_penjualan_ibfk_4` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`bank_id`);
 
 --
 -- Constraints for table `wishlist`
@@ -494,6 +521,7 @@ ALTER TABLE `transaksi_penjualan`
 ALTER TABLE `wishlist`
   ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`),
   ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`email`) REFERENCES `user` (`email`);
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
