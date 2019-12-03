@@ -43,8 +43,6 @@ $products = null;
     <link href="assets/css/shop-homepage.css" rel="stylesheet">
     <link href="assets/css/headerfooter.css" rel="stylesheet">
     <title> Toko JamQ Product Detail </title>
-    <!-- untuk numeric updown -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     
 </head>
 
@@ -160,20 +158,7 @@ $products = null;
 							<span class="color blue"></span>
 						</h5>
                         <span class="vertical-line"></span>
-                        <!-- untuk numeric updown
-                        <div class="row">
-                            <div class="col-xs-3 col-xs-offset-3">
-			                    <div class="input-group number-spinner">
-				                    <span class="input-group-btn">
-					                <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
-				                    </span>
-				                    <input type="text" class="form-control text-center" value="1">
-				                    <span class="input-group-btn">
-					                <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
-				                    </span>
-			                    </div>
-		                    </div>
-                        </div> -->
+                        <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"size="4">
                         <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button>
                         <h3 class="my-3">Product Details</h3>
                         <br> Diameter: <?php echo $product['diameter'];?> cm </br>
@@ -254,8 +239,6 @@ $products = null;
                 <!-- Bootstrap core JavaScript -->
                 <script src="assets/vendor/jquery/jquery.min.js"></script>
                 <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
                 <!-- Menu Toggle Script -->
                 <script>
@@ -264,25 +247,7 @@ $products = null;
                         $("#wrapper").toggleClass("toggled");
                     });
                 </script>
-                <!-- utk nudown -->
-                <script>
-                $(document).on('click', '.number-spinner button', function () {    
-            	var btn = $(this),
-		        oldValue = btn.closest('.number-spinner').find('input').val().trim(),
-		        newVal = 0;
-	
-	            if (btn.attr('data-dir') == 'up') {
-		        newVal = parseInt(oldValue) + 1;
-            	    } else {
-		        if (oldValue > 1) {
-			    newVal = parseInt(oldValue) - 1;
-		            } else {
-			    newVal = 1;
-		          }
-	            }
-	            btn.closest('.number-spinner').find('input').val(newVal);
-                });
-                </script>
+                
                 <style>
                     nav {
                         background-color: #023373;
