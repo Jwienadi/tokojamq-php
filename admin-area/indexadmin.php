@@ -120,13 +120,13 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="barangbaru.php">
+        <a class="nav-link" href="rep_barangbaru.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
           <span>Daftar Barang Baru</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
+        <a class="nav-link" href="rep_datauser.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
           <span>Daftar Data User</span>
         </a>
