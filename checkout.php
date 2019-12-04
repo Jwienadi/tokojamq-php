@@ -250,16 +250,21 @@ include ('API/API.php');
               <div class="col-md-4 mb-3">
                 <label for="state">Province</label>
                 <select class="custom-select d-block w-100" id="state" required>
-                  <option value="">Choose...</option>
-                  <?php 
-                  /*api_getprovince();
+                <?php 
+                //$api_getprovince();
+                foreach ($dataprovinsi as $dprov) {
+               
+                 ?>
+                  <option value="<?php echo $dprov['idprovinsi'];?>"><?php echo $dprov['namaprovinsi'];?></option>
+                  <?php }; ?>
+                  <?php /*api_getprovince();
                   foreach ($dataprovinsi as $datap){
                     echo "<h1>".$datap['idprovinsi']."</h1>";
                   
                   ?>
                   <option data-idprovinsi="<?php echo $datap['idprovinsi'];?>"><?php echo $datap['namaprovinsi'];?></option>
                   <?php };*/ ?>
-                  <option>East Java</option>
+                  <!--<option>East Java</option>-->
                 </select>
                 <div class="invalid-feedback">
                   Please provide a valid province.
