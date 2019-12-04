@@ -157,7 +157,7 @@ $products = null;
                         <img class="img-fluid" src="assets/img/products/<?php echo $id; ?>.jpg style="width: 500px; height: 500px; alt="">
                     </div>
 
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <h3 class="my-3">Product Description</h3>
                         <p>Jam Dinding <?php echo $product['judul_barang']; ?></p>
                         <h5>Rp. <?php $price = $product['harga_barang'];echo number_format($price,2); ?></h5>
