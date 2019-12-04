@@ -211,6 +211,8 @@ $product=null;
             <i class="fas fa-table"></i>
             Stok Barang</div>
           <div class="card-body">
+
+        
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -337,6 +339,32 @@ $product=null;
   <script src="assets/js/demo/datatables-demo.js"></script>
   <script src="assets/js/demo/chart-area-demo.js"></script>
 
+<script>
+$(document).ready(function() {
+    $('#example').DataTable( {
+        initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        }
+    } );
+} );
+</script>
 </body>
 
 </html>
