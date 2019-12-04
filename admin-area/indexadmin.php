@@ -2,7 +2,7 @@
 session_start();
 require_once('../config.php');
 
-$sql = "SELECT product_warna_id as 'id', nama_merk as 'merk',nama_product as 'nama',warna,stok 
+$sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
 from product_warna pw,product p,warna w,merk m 
 where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
 order by length(`product_warna_id`),`product_warna_id`";
@@ -254,7 +254,7 @@ $product=null;
                 <tbody>
                 <?php
                 foreach ($products as $product) {
-                  $id=$product['id'];
+              
                   $merk=$product['merk'];
                   $nama=$product['nama'];
                   $warna=$product['warna'];
@@ -262,7 +262,7 @@ $product=null;
 
                 ?>
                   <tr>
-                    <td><?php echo $id; ?></td>
+                 
                     <td><?php echo $merk; ?></td>
                     <td><?php echo $nama; ?></td>
                     <td><?php echo $warna; ?></td>
