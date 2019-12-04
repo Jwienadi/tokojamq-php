@@ -170,17 +170,17 @@ include ('API/API.php');
                                 </div>
                             </div>
                         </form>
-                        <div class="payment-methods">
+                        <!--<div class="payment-methods">
                             <p class="pt-4 mb-2">Payment Options</p>
                             <hr>
                             <label class="heading">Pilihan transfer bank:</label>
-                            <?php $query = "SELECT * FROM bank"; ?>
+                            <?php //$query = "SELECT * FROM bank"; ?>
                             <br> <input name="radio" type="radio" value="echo bank id">echo bank name, no rek, nama rek
                             <br> <input name="radio" type="radio" value="Radio 2">Radio 2
                             <br> <input name="radio" type="radio" value="Radio 3">Radio 3
-                            <?php include'radio_value.php'; ?>
-                            <!--<br> <input name="submit" type="submit" value="Get Selected Values">-->
-                        </div>
+                            <?php //include'radio_value.php'; ?>
+                            <br> <input name="submit" type="submit" value="Get Selected Values">
+                        </div> -->
 </div>
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Billing address</h4>

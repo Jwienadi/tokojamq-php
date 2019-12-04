@@ -21,19 +21,9 @@ product_warna_id= '".$product_id."'";
 $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
 $count_all_item = mysqli_num_rows($all_result);
 
-$max_item 		= 12; //Max item in one page
-	$page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
-	//echo $page;
-	$start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
-	//echo $start;
-
-$cmd 			= $cmd." LIMIT $start, $max_item";
-	//echo $cmd;
-	$limit_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
-
 $products = null;
 	if ($count_all_item >= 1){
-		while($row = mysqli_fetch_assoc($limit_result)) {
+		while($row = mysqli_fetch_assoc($all_result)) {
 			$products[] = $row;
 		}
     }
@@ -53,6 +43,7 @@ $products = null;
     <link href="assets/css/shop-homepage.css" rel="stylesheet">
     <link href="assets/css/headerfooter.css" rel="stylesheet">
     <title> Toko JamQ Product Detail </title>
+    
 </head>
 
 <body>
@@ -154,7 +145,7 @@ $products = null;
 					foreach($products as $product){
 						$id = $product['product_warna_id'];?>
                     <div class="col-md-6">
-                        <img class="img-fluid" src="assets/img/products/<?php echo $id; ?>.jpg style="width: 500px; height: 500px; alt="">
+                        <img class="img-fluid" src="assets/img/products/<?php echo $id; ?>.jpg" style="width: 500px; height: 500px;" alt="">
                     </div>
 
                     <div class="col-md-6">
@@ -166,8 +157,9 @@ $products = null;
 							<span class="color green"></span>
 							<span class="color blue"></span>
 						</h5>
-                        <button class="item-card-button" href><i class="fas fa-heart">Wishlist</i></button>
                         <span class="vertical-line"></span>
+                        <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"size="4">
+                        
                         <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button>
                         <h3 class="my-3">Product Details</h3>
                         <br> Diameter: <?php echo $product['diameter'];?> cm </br>
@@ -256,6 +248,7 @@ $products = null;
                         $("#wrapper").toggleClass("toggled");
                     });
                 </script>
+                
                 <style>
                     nav {
                         background-color: #023373;

@@ -2,24 +2,16 @@
 session_start();
 require_once('../config.php');
 
-$sql = "SELECT product_warna_id as 'id', nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
-order by length(`product_warna_id`),`product_warna_id`";
+$sql = "SELECT concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'Judul Barang', tanggal_input as 'Tanggal Masuk'
+FROM product_warna pw, product p,warna w,merk m
+WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
-
-//for($i = 0; $i < mysql_num_fields($result); $i++) {
-  //$field_info = mysql_fetch_field($result, $i);
-  //echo "<th>{$field_info}</th>";
-//}
 
 $product=null;
 //if($count_all_item>=1){
   while($row = mysqli_fetch_assoc($result)) {
     $products[] = $row;
 }
-//}
-// Print the column names as the headers of a tabl
 ?>
 
 <!DOCTYPE html>
@@ -72,39 +64,8 @@ $product=null;
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link " href="../index.php"  role="button" >
-        <i class="fas fa-globe-americas"></i> GO TO WEBSITE
-          
+        <i class="fas fa-globe-americas"></i> GO TO WEBSITE 
         </a>
-        <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-envelope fa-fw"></i>
-          <span class="badge badge-danger">7</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown no-arrow">
-        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-user-circle fa-fw"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Settings</a>
-          <a class="dropdown-item" href="#">Activity Log</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-        </div>
-      </li>-->
     </ul>
 
   </nav>
@@ -132,7 +93,7 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
+      <a class="nav-link" href="datauser.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
           <span>Report 4</span>
         </a>
@@ -173,34 +134,8 @@ $product=null;
           <span>Report 10</span>
         </a>
       </li>
-      <!--<li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-        </a>
-        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <h6 class="dropdown-header">Login Screens:</h6>
-          <a class="dropdown-item" href="login.html">Login</a>
-          <a class="dropdown-item" href="register.html">Register</a>
-          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
-          <div class="dropdown-divider"></div>
-          <h6 class="dropdown-header">Other Pages:</h6>
-          <a class="dropdown-item" href="404.html">404 Page</a>
-          <a class="dropdown-item" href="blank.html">Blank Page</a>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-      </li>-->
     </ul>
-
+       
     <div id="content-wrapper">
 
       <div class="container-fluid">
@@ -209,66 +144,32 @@ $product=null;
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Stok Barang</div>
+            Daftar Barang Baru</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                   <?php
-                 /* foreach ($field_info) {
-                    echo "<th>{$field_info}</th>";
-                  }*/
-                  /*for($i = 0; $i < mysqli_num_fields($result); $i++) {
-                    $field_info = mysqli_fetch_field($result, $i);
-                    echo "<th>".$field_info."</th>";*/
-                   /* foreach($row as $field => $value) {
-                      echo '<th>'.htmlentities($field).'</th>';
-                  }*/
                   $fields=mysqli_fetch_fields($result);
                   foreach ($fields as $field) {
                     echo "<th>$field->name</th>";
                   }
-                
                   ?>
-                    <!--<th>Name</th>
-                    <th>Position</th>
-                    <th>Id product</th>
-                    <th>Nama Product</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>-->
                   </tr>
                 </thead>
-                <!--<tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                  </tr>
-                </tfoot> -->
+        
                 <tbody>
                 <?php
                 foreach ($products as $product) {
-                  $id=$product['id'];
-                  $merk=$product['merk'];
-                  $nama=$product['nama'];
-                  $warna=$product['warna'];
-                  $stok=$product['stok']
-
+                  $nbarang=$product['Judul Barang'];
+                  $tglmsk=$product['Tanggal Masuk'];
                 ?>
                   <tr>
-                    <td><?php echo $id; ?></td>
-                    <td><?php echo $merk; ?></td>
-                    <td><?php echo $nama; ?></td>
-                    <td><?php echo $warna; ?></td>
-                    <td><?php echo $stok; ?></td>
+                    <td><?php echo $nbarang; ?></td>
+                    <td><?php echo $tglmsk; ?></td>
                   </tr>
-                  <?php } ?>
+                <?php } ?>
                 </tbody>
               </table>
             </div>
