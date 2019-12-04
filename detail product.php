@@ -159,6 +159,7 @@ $products = null;
 						</h5>
                         <span class="vertical-line"></span>
                         <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"size="4">
+                        
                         <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button>
                         <h3 class="my-3">Product Details</h3>
                         <br> Diameter: <?php echo $product['diameter'];?> cm </br>

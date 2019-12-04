@@ -2,10 +2,12 @@
 session_start();
 require_once('../config.php');
 
-$sql = "SELECT product_warna_id as 'id', nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
-order by length(`product_warna_id`),`product_warna_id`";
+$sql = "SELECT user_id as `ID User`,
+concat(first_name,' ',last_name) as `Nama Lengkap`,
+email as `Email`,
+u.password as `Password`,
+phone_number as `No. Telp`
+from user u";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
 
 //for($i = 0; $i < mysql_num_fields($result); $i++) {
@@ -209,7 +211,7 @@ $product=null;
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Stok Barang</div>
+            Data User</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -229,44 +231,25 @@ $product=null;
                   foreach ($fields as $field) {
                     echo "<th>$field->name</th>";
                   }
-                
                   ?>
-                    <!--<th>Name</th>
-                    <th>Position</th>
-                    <th>Id product</th>
-                    <th>Nama Product</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>-->
                   </tr>
                 </thead>
-                <!--<tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
-                  </tr>
-                </tfoot> -->
                 <tbody>
                 <?php
                 foreach ($products as $product) {
-                  $id=$product['id'];
-                  $merk=$product['merk'];
-                  $nama=$product['nama'];
-                  $warna=$product['warna'];
-                  $stok=$product['stok']
+                  $iduser=$product['ID User'];
+                  $nama=$product['Nama Lengkap'];
+                  $email=$product['Email'];
+                  $pwd=$product['Password'];
+                  $telp=$product['No. Telp']
 
                 ?>
                   <tr>
-                    <td><?php echo $id; ?></td>
-                    <td><?php echo $merk; ?></td>
+                    <td><?php echo $iduser; ?></td>
                     <td><?php echo $nama; ?></td>
-                    <td><?php echo $warna; ?></td>
-                    <td><?php echo $stok; ?></td>
+                    <td><?php echo $email; ?></td>
+                    <td><?php echo $pwd; ?></td>
+                    <td><?php echo $telp; ?></td>
                   </tr>
                   <?php } ?>
                 </tbody>
