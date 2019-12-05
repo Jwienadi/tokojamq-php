@@ -307,7 +307,6 @@ $product=null;
 
                 ?>
                     <tr>
-
                       <td><?php echo $merk; ?></td>
                       <td><?php echo $nama; ?></td>
                       <td><?php echo $warna; ?></td>
