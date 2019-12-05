@@ -27,6 +27,8 @@ $products = null;
 			$products[] = $row;
 		}
     }
+$_SESSION['cart']=$products;
+
 ?>
 
 <!DOCTYPE html>
