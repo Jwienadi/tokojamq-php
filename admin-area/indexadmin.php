@@ -8,6 +8,13 @@ where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna
 order by length(`product_warna_id`),`product_warna_id`";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
 
+$sql1="select * from merk;";
+$merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
+
+while ($row=mysqli_fetch_assoc($merkresult)){
+  $merks[]=$row;
+}
+
 //for($i = 0; $i < mysql_num_fields($result); $i++) {
   //$field_info = mysql_fetch_field($result, $i);
   //echo "<th>{$field_info}</th>";
@@ -71,9 +78,9 @@ $product=null;
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link " href="../index.php"  role="button" >
-        <i class="fas fa-globe-americas"></i> GO TO WEBSITE
-          
+        <a class="nav-link " href="../index.php" role="button">
+          <i class="fas fa-globe-americas"></i> GO TO WEBSITE
+
         </a>
         <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
           <a class="dropdown-item" href="#">Action</a>
@@ -211,13 +218,20 @@ $product=null;
             <i class="fas fa-table"></i>
             Stok Barang</div>
           <div class="card-body">
+            <form>
+              <Select class="mb-2">
+                <?php foreach ($merks as $merk) { ?>
+                <option value="<?php echo $merk['merk_id']; ?>"><?php echo $merk['nama_merk']; ?></option>
+                <?php }?>
 
-        
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                  <?php
+              </select>
+
+
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <?php
                  /* foreach ($field_info) {
                     echo "<th>{$field_info}</th>";
                   }*/
@@ -233,7 +247,7 @@ $product=null;
                   }
                 
                   ?>
-                    <!--<th>Name</th>
+                      <!--<th>Name</th>
                     <th>Position</th>
                     <th>Id product</th>
                     <th>Nama Product</th>
@@ -241,9 +255,9 @@ $product=null;
                     <th>Age</th>
                     <th>Start date</th>
                     <th>Salary</th>-->
-                  </tr>
-                </thead>
-                <!--<tfoot>
+                    </tr>
+                  </thead>
+                  <!--<tfoot>
                   <tr>
                     <th>Name</th>
                     <th>Position</th>
@@ -253,8 +267,8 @@ $product=null;
                     <th>Salary</th>
                   </tr>
                 </tfoot> -->
-                <tbody>
-                <?php
+                  <tbody>
+                    <?php
                 foreach ($products as $product) {
               
                   $merk=$product['merk'];
@@ -263,19 +277,21 @@ $product=null;
                   $stok=$product['stok']
 
                 ?>
-                  <tr>
-                 
-                    <td><?php echo $merk; ?></td>
-                    <td><?php echo $nama; ?></td>
-                    <td><?php echo $warna; ?></td>
-                    <td><?php echo $stok; ?></td>
-                  </tr>
-                  <?php } ?>
-                </tbody>
-              </table>
-            </div>
+                    <tr>
+
+                      <td><?php echo $merk; ?></td>
+                      <td><?php echo $nama; ?></td>
+                      <td><?php echo $warna; ?></td>
+                      <td><?php echo $stok; ?></td>
+                    </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              </div>
+              </form>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          
         </div>
 
       </div>
@@ -302,7 +318,8 @@ $product=null;
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -339,32 +356,9 @@ $product=null;
   <script src="assets/js/demo/datatables-demo.js"></script>
   <script src="assets/js/demo/chart-area-demo.js"></script>
 
-<script>
-$(document).ready(function() {
-    $('#example').DataTable( {
-        initComplete: function () {
-            this.api().columns().every( function () {
-                var column = this;
-                var select = $('<select><option value=""></option></select>')
-                    .appendTo( $(column.footer()).empty() )
-                    .on( 'change', function () {
-                        var val = $.fn.dataTable.util.escapeRegex(
-                            $(this).val()
-                        );
- 
-                        column
-                            .search( val ? '^'+val+'$' : '', true, false )
-                            .draw();
-                    } );
- 
-                column.data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="'+d+'">'+d+'</option>' )
-                } );
-            } );
-        }
-    } );
-} );
-</script>
+  <script>
+
+  </script>
 </body>
 
 </html>
