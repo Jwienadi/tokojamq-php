@@ -13,7 +13,7 @@ if(isset($_GET['id'])){
   //exit;
   }
 $cmd = "SELECT product_warna_id,
-concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', diameter, deskripsi
+concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', diameter, deskripsi, stok
 FROM product_warna pw, product p,warna w,merk m
 WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and 
 product_warna_id= '".$product_id."'";
@@ -152,15 +152,20 @@ $products = null;
                         <h3 class="my-3">Product Description</h3>
                         <p>Jam Dinding <?php echo $product['judul_barang']; ?></p>
                         <h5>Rp. <?php $price = $product['harga_barang'];echo number_format($price,2); ?></h5>
-                        <h5 class="colors">colors:
+                        <!--<h5 class="colors">colors:
 							<span class="color red not-available" data-toggle="tooltip" title="Not In store"></span>
 							<span class="color green"></span>
 							<span class="color blue"></span>
-						</h5>
-                        <span class="vertical-line"></span>
+						</h5> -->
+                        <!--<span class="vertical-line"></span>
                         <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"size="4">
-                        
-                        <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button>
+                        <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button> -->
+                        <form action="detail product.php?page=cart" method="post">
+                            <input type="number" name="stok" value="1" min="1" max="<?=$product['stok']?>" placeholder="stok" required>
+                            <input type="hidden" name="product_id" value="<?=$product['product_warna_id']?>">
+                            <input type="submit" value="Add To Cart">
+                        </form>
+
                         <h3 class="my-3">Product Details</h3>
                         <br> Diameter: <?php echo $product['diameter'];?> cm </br>
                         <br> <?php echo $product['deskripsi']; ?> </br>
