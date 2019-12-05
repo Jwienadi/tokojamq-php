@@ -303,9 +303,9 @@ if (isset($_POST)){
             id_bp: idbp
           },
           datatype: "html",
-          success: function (result) {
-            $('#refresh').html(result);
-          }
+          //success: function (result) {
+           // $('#refresh').html(result);
+         // }
         });
         location.reload(true);
       });
@@ -323,11 +323,11 @@ if (isset($_POST)){
             qty: qtybarang
           },
           datatype: "html",
-          success: function () {
-            $('#refresh').html(result);
+         // success: function () {
+            //$('#refresh').html(result);
             // location.reload(true);
-            alert("suksess bre");
-          }
+           // alert("suksess bre");
+          //}
 
         });
 
