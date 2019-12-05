@@ -1,13 +1,41 @@
 <?php 
 session_start();
 require_once('../config.php');
-
-$sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
+if (isset($_REQUEST['merk'])){
+  $hasilmerk = stripslashes($_REQUEST['merk']); 
+  $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
+  if($hasilmerk="all"){
+    echo $hasilmerk;
+    $sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
 from product_warna pw,product p,warna w,merk m 
 where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
 order by length(`product_warna_id`),`product_warna_id`";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
-
+  } else {
+    echo $hasilmerk;
+  $hasilmerk = stripslashes($_REQUEST['merk']); 
+ $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
+$sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
+from product_warna pw,product p,warna w,merk m 
+where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id and m.merk_id='$hasilmerk'
+order by length(`product_warna_id`),`product_warna_id`";
+$result = mysqli_query($con,$sql) or die(mysqli_error());
+}}
+else {
+  $sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
+  from product_warna pw,product p,warna w,merk m 
+  where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
+  order by length(`product_warna_id`),`product_warna_id`";
+  $result = mysqli_query($con,$sql) or die(mysqli_error());  
+};
+//else {
+ // echo "none";
+/*$sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
+from product_warna pw,product p,warna w,merk m 
+where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
+order by length(`product_warna_id`),`product_warna_id`";
+$result = mysqli_query($con,$sql) or die(mysqli_error());*/
+//};
 $sql1="select * from merk;";
 $merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
 
@@ -218,8 +246,9 @@ $product=null;
             <i class="fas fa-table"></i>
             Stok Barang</div>
           <div class="card-body">
-            <form>
-              <Select class="mb-2">
+            <form action='' method='POST'>
+              <Select class="mb-2" name="merk">
+                <option value="all">Show All</option>
                 <?php foreach ($merks as $merk) { ?>
                 <option value="<?php echo $merk['merk_id']; ?>"><?php echo $merk['nama_merk']; ?></option>
                 <?php }?>

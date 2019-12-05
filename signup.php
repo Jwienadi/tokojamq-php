@@ -26,6 +26,7 @@
 <?php
 
             // If form submitted, insert values into the database.
+     
             if (isset($_REQUEST['email'])){
                 $firstname = stripslashes($_REQUEST['firstname']); // removes backslashes
                 $firstname = mysqli_real_escape_string($con,$firstname); //escapes special characters in a string
