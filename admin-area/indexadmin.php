@@ -4,8 +4,20 @@ require_once('../config.php');
 if (isset($_REQUEST['merk'])){
   $hasilmerk = stripslashes($_REQUEST['merk']); 
   $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
-  if($hasilmerk="all"){
-    echo $hasilmerk;
+  $sql = "SELECT  pw.product_warna_id as 'foto',nama_merk as 'merk',nama_product as 'nama',warna,stok 
+        from product_warna pw,product p,warna w,merk m 
+        where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id";
+      if($hasilmerk!="all"){
+        $sql .=" where m.merk_id=".$hasilmerk."";
+}
+        echo $sql;
+ $result = mysqli_query($con,$sql) or die(mysqli_error());
+}
+
+//TAMBAHIN BUTTON SUBMIT , HAPUS SUBMIT DARI SELECT OPTION DROPDOWN
+
+ //$result = mysqli_query($con,$sql) or die(mysqli_error());
+    /*echo $hasilmerk;
     $sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
 from product_warna pw,product p,warna w,merk m 
 where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
@@ -26,8 +38,8 @@ else {
   from product_warna pw,product p,warna w,merk m 
   where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
   order by length(`product_warna_id`),`product_warna_id`";
-  $result = mysqli_query($con,$sql) or die(mysqli_error());  
-};
+  $result = mysqli_query($con,$sql) or die(mysqli_error()); */ 
+
 //else {
  // echo "none";
 /*$sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
@@ -92,7 +104,7 @@ $product=null;
     </button>-->
 
     <!-- Navbar Search -->
-    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+    <!--<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">-->
       <!--<div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
@@ -101,7 +113,7 @@ $product=null;
           </button>
         </div>
       </div>-->
-    </form>
+    <!--</form>-->
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
@@ -246,20 +258,20 @@ $product=null;
             <i class="fas fa-table"></i>
             Stok Barang</div>
           <div class="card-body">
-            <form action='' method='POST'>
-              <Select class="mb-2" name="merk">
+            <form action='' method='POST' class="pilihan" >
+              <Select class="mb-2" name="merk" onchange="reload(this.value)">
                 <option value="all">Show All</option>
                 <?php foreach ($merks as $merk) { ?>
                 <option value="<?php echo $merk['merk_id']; ?>"><?php echo $merk['nama_merk']; ?></option>
                 <?php }?>
-
               </select>
-
+              <button type="submit">Filter</button>
 
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                    
                       <?php
                  /* foreach ($field_info) {
                     echo "<th>{$field_info}</th>";
@@ -270,13 +282,14 @@ $product=null;
                    /* foreach($row as $field => $value) {
                       echo '<th>'.htmlentities($field).'</th>';
                   }*/
+                
                   $fields=mysqli_fetch_fields($result);
                   foreach ($fields as $field) {
                     echo "<th>$field->name</th>";
                   }
                 
                   ?>
-                      <!--<th>Name</th>
+                      <!--<th>
                     <th>Position</th>
                     <th>Id product</th>
                     <th>Nama Product</th>
@@ -299,7 +312,7 @@ $product=null;
                   <tbody>
                     <?php
                 foreach ($products as $product) {
-              
+                  $id=$product['foto'];
                   $merk=$product['merk'];
                   $nama=$product['nama'];
                   $warna=$product['warna'];
@@ -307,7 +320,7 @@ $product=null;
 
                 ?>
                     <tr>
-
+                      <td><img src="../assets/img/products/<?php echo $id;?>.jpg" alt="Image" style="width:60px; height:60px;"></td>
                       <td><?php echo $merk; ?></td>
                       <td><?php echo $nama; ?></td>
                       <td><?php echo $warna; ?></td>
@@ -387,6 +400,9 @@ $product=null;
 
   <script>
 
+  function reload(val){
+      location.reload(true);
+    }
   </script>
 </body>
 
