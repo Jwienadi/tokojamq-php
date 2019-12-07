@@ -25,6 +25,38 @@
 <body>
 <?php
 	
+
+			session_start();
+      // If form submitted, insert values into the database.
+      if(isset($_SESSION['user_id'])){
+      //header("Location: login.php");
+      //} else {
+       
+        header("Location: index.php");
+      } else {
+      
+      
+			if (isset($_POST['email'])){
+				
+				$email = stripslashes($_REQUEST['email']); // removes backslashes
+				$email = mysqli_real_escape_string($con,$email); //escapes special characters in a string
+				$password = stripslashes($_REQUEST['password']);
+				$password = mysqli_real_escape_string($con,$password);
+				
+				//Checking is user existing in the database or not
+				$query = "SELECT user_id FROM `user` WHERE email='$email' and password='".sha1($password)."'";
+				$result = mysqli_query($con,$query) or die(mysql_error());
+				$rows = mysqli_num_rows($result);
+				if($rows==1){
+          while ($row = $result->fetch_assoc()) {
+            $_SESSION['user_id'] = $row['user_id'];
+        }
+          header("Location: index.php"); // Redirect user to index.php
+          
+				} else {
+					echo "<div class='form'><h3>Email/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+				}
+			} else {
 		?>
     <div class="d-flex" id="wrapper">
 
@@ -118,7 +150,7 @@
                     <div class="card card-signin my-5">
                       <div class="card-body">
                         <h5 class="card-title text-center">Sign In</h5>
-                        <form class="form-signin" id="form-signin-ajax" action="" method="post" name="login">
+                        <form class="form-signin" action="" method="post" name="login">
                           <div class="form-label-group">
                             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                             <label for="inputEmail">Email address</label>
@@ -129,8 +161,8 @@
                             <label for="inputPassword">Password</label>
                           </div>
             
-                          <div id="error_notif" >
-                            Username/Password Salah!
+                          <div id="error_notif">
+                          Username/Password Salah!
                           </div>
            
                           <input name="submit" type="submit" value="Login" class="btn btn-lg btn-primary btn-block text-uppercase" />
@@ -146,7 +178,7 @@
             <!-- Bootstrap core JavaScript -->
             <script src="assets/vendor/jquery/jquery.min.js"></script>
             <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="assets/vendor/jquery/jquery.min.js"></script>
+            <script src="assets/vendor/bootstrap/jquery/jquery.min.js"></script>
             <!-- Menu Toggle Script -->
             <script>
                 $("#menu-toggle").click(function (e) {
@@ -156,28 +188,26 @@
 
                 $(document).ready(function () {
 
-              $('#form-signin-ajax').submit(function(e) {
-              var form = this;
-              //alert("woi");
+              $('#ajax-login-form').submit(function(e) {
+             var form = this;
+
              e.preventDefault();
-              var email = $("#inputEmail").val();
-              var password = $("#inputPassword").val();
-          
+            var email = $("#inputEmail").val();
+              var password = $("#inputPass").val();
+
               $.ajax({
                  type: 'POST',
-                 url: 'ajax/login_ajax.php',
+                 url: 'Your-login-url',
                   data: {
-                  email: email,
-                  password: password
+               email: email,
+               password: password
                  },
                  success: function(data) {
-                  // alert(data);
             // do your PHP login and echo 1 if authentication was successfull
-            if(data === "1") {
-              location.href="index.php";
+            if(data === 1) {
+                form.submit();
             } else {
             // show alert or something that user has wrong credentials ...
-           
                 $("#error_notif").show();
             }
         }
@@ -186,15 +216,6 @@
 
 });
             </script>
-
-            <style>
-              #error_notif{
-    display: none;
-    color: red;
-    text-align: center;
-    padding-bottom:10px;
-  }
-              </style>
   <!--footer kita-->
 <div class="footer">
   <div class="container">
@@ -227,6 +248,6 @@
   <div class="copyright">
   <p style="text-align:center; color:white; font-weight: 500;">Copyright TokoJamQ ©2019 All rights reserved  </p>
   </div></div></div></div></div>  
-  <?php ?>
+  <?php }}?>
 </body>
 </html>

@@ -225,7 +225,7 @@ include ('API/API.php');
 
             <div class="mb-3">
               <label for="address">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="Jalan blablabla" required>
+              <input type="text" class="form-control" id="address" placeholder="Adress..." required>
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
@@ -237,8 +237,8 @@ include ('API/API.php');
             </div>-->
 
             <div class="row">
-              <div class="col-md-5 mb-3">
-                <label for="country">Country</label>
+               <!-- <div class="col-md-5 mb-3">
+              <label for="country">Country</label>
                 <select class="custom-select d-block w-100" id="country" required>
                   <option value="">Choose...</option>
                   <option>Indonesia</option>
@@ -246,7 +246,7 @@ include ('API/API.php');
                 <div class="invalid-feedback">
                   Please select a valid country.
                 </div>
-              </div>
+              </div>-->
               <div class="col-md-4 mb-3">
                 <label for="state">Province</label>
                 <select class="custom-select d-block w-100" id="state" required>
@@ -280,13 +280,13 @@ include ('API/API.php');
                   Please provide a valid city.
                 </div>
               </div>
-              <div class="col-md-3 mb-3">
+             <!-- <div class="col-md-3 mb-3">
                 <label for="zip">Postal Code</label>
                 <input type="text" class="form-control" id="zip" placeholder="" required>
                 <div class="invalid-feedback">
                   Postal code required.
                 </div>
-              </div>
+              </div>-->
               <div class="col-md-5 mb-3">
                 <label for="phone">Recipient Mobile Phone</label>
                 <input type="text" class="form-control" id="phone" placeholder="" required>
@@ -438,6 +438,18 @@ include ('API/API.php');
           });
         }, false);
       })();
+
+//rajaongkir
+$(document).ready(function () {
+
+$('#state').change(function () {
+var state =$('#state').val(
+  alert(state);
+)
+
+})
+});
+
     </script>
   </body>
 </html>

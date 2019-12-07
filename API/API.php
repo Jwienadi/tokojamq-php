@@ -20,10 +20,10 @@ $err = curl_error($curl);
 
 curl_close($curl);
 $res = json_decode($response,true);
-echo "<pre>";
+//echo "<pre>";
 //print_r($res);
 //print_r($res->rajaongkir->results);
-echo "</pre>";
+//echo "</pre>";
 //die();
 $ctr=0;
 foreach ($res['rajaongkir']['results'] as $result) {
@@ -39,5 +39,31 @@ print_r($dataprovinsi);
 echo "</pre>";*/
 //echo "</pre>";
 //}
+/*
+$curl = curl_init();
 
+curl_setopt_array($curl, array(
+  CURLOPT_URL => "https://api.rajaongkir.com/starter/city?province=5",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "GET",
+  CURLOPT_HTTPHEADER => array(
+    "key: your-api-key"
+  ),
+));
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+
+if ($err) {
+  echo "cURL Error #:" . $err;
+} else {
+  echo $response;
+}
+*/
 ?>
