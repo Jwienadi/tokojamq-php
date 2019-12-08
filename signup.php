@@ -301,6 +301,6 @@ $(function () {
         </div>
     </div>
 </div>
-    <?php } ?>
+<?php }?>
 </body>
 </html>

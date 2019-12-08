@@ -7,7 +7,15 @@ include("function.php");
     if(!isset($_SESSION['user_id'])){
       header("Location: index.php");
     } else {
+  $qtot="SELECT if(sum(harga_jual*jumlah_barang) is null,0,sum(harga_jual*jumlah_barang)) as 'total_harga'
+  from barang_penjualan bp,product_warna pw, product p,`user` u,transaksi_penjualan tp
+  where bp.product_warna_id=pw.product_warna_id and pw.product_id=p.product_id
+  and tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id=u.user_id and bp.status=0 and tp.user_id=".$_SESSION['user_id'].";";
+   $qhtot 	= mysqli_query($con,$qtot) or die(mysqli_error($con));
   
+$htot=mysqli_fetch_assoc($qhtot);
+
+
    $cmd = " SELECT concat(m.nama_merk,' ',p.nama_product) as 'judul_barang',w.warna,p.harga_jual as 'harga_barang' ,bp.jumlah_barang, bp.product_warna_id ,bp.id_barang_penjualan 
    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
    where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=0 and user_id=".$_SESSION['user_id'].";";
@@ -201,25 +209,25 @@ include("function.php");
             </div>
           </div>
 
-          <div class="row py-5 p-4 bg-white rounded shadow-sm">
+          <div class=" py-5 p-4 bg-white rounded shadow-sm">
 
-            <div class="col-lg-6">
+            <div class="col-lg-6 offset-3">
               <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
               <div class="p-4">
-                <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have
-                  entered.</p>
+               <!-- <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have
+                  entered.</p>-->
                 <ul class="list-unstyled mb-4">
                   <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order
-                      Subtotal </strong><strong>$390.00</strong></li>
-                  <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and
+                      Subtotal </strong><strong>Rp. <?php 	echo number_format($htot['total_harga']); ?></strong></li>
+                 <!-- <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and
                       handling</strong><strong>$10.00</strong></li>
                   <li class="d-flex justify-content-between py-3 border-bottom"><strong
                       class="text-muted">Tax</strong><strong>$0.00</strong></li>
                   <li class="d-flex justify-content-between py-3 border-bottom"><strong
                       class="text-muted">Total</strong>
                     <h5 class="font-weight-bold">$400.00</h5>
-                  </li>
-                </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+                  </li>-->
+                </ul><a href="checkout.php" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
               </div>
             </div>
           </div>
@@ -281,9 +289,7 @@ include("function.php");
             id_bp: idbp
           },
           datatype: "html",
-          //success: function (result) {
-           // $('#refresh').html(result);
-         // }
+     
         });
         location.reload(true);
       });
@@ -301,14 +307,8 @@ include("function.php");
             qty: qtybarang
           },
           datatype: "html",
-         // success: function () {
-            //$('#refresh').html(result);
-            // location.reload(true);
-           // alert("suksess bre");
-          //}
-
         });
-
+          location.reload(true);
       });
 
     });
