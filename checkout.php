@@ -6,7 +6,7 @@ include('API/API.php');
 ?>
 
 <?php
-$queryuser="select first_name,last_name,email from user where user_id='".$_SESSION['user_id']."'";
+$queryuser="select first_name,last_name,email,phone_number from user where user_id='".$_SESSION['user_id']."'";
 $hqueryuser=mysqli_query($con,$queryuser) or die(mysqli_error($con));
 $userinfo=mysqli_fetch_assoc($hqueryuser);
 $querysubtotal="SELECT if(sum(harga_jual*jumlah_barang) is null,0,sum(harga_jual*jumlah_barang)) as 'total_harga'
@@ -96,7 +96,7 @@ $subtotal=mysqli_fetch_assoc($hqueryuser);
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
         <!-- The form 2-->
-        <form class="example col-md-6" action="action_page.php">
+        <form class="example col-md-6" action="product.php" method="GET">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit"><i class="fa fa-search" style="font-size: 130%;"></i></button>
         </form>
@@ -107,7 +107,7 @@ $subtotal=mysqli_fetch_assoc($hqueryuser);
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
           
             <li class="nav-item">
-              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
+              <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
                   class="fas fa-shopping-cart"></i></a>
             </li>
             <li class="nav-item dropdown">
@@ -156,10 +156,10 @@ isloggedin($con);
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <h6 class="my-0">Third item</h6>
-                      <small class="text-muted">Brief description</small>
+                      <h6 class="my-0" >Promo</h6>
+                      <small class="text-muted" id="tampilpromo">Brief description</small>
                     </div>
-                    <span class="text-muted">$5</span>
+                    <span class="text-muted" id="tampilharga">$5</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
@@ -175,11 +175,14 @@ isloggedin($con);
                 </ul>
                 <form class="card p-2">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
+                    <input type="text" class="form-control" placeholder="Promo code" id="promocodenya">
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-secondary">Redeem</button>
+                      <button type="submit" class="btn btn-secondary" id="redeembtn">Redeem</button>
                     </div>
                   </div>
+                  <div id="error_notif" >
+                            Promo tidak tersedia
+                   </div>
                 </form>
                 <!--<div class="payment-methods">
                             <p class="pt-4 mb-2">Payment Options</p>
@@ -303,7 +306,7 @@ isloggedin($con);
               </div>-->
                 <div class="col-md-5 mb-3">
                   <label for="phone">Recipient Mobile Phone</label>
-                  <input type="text" class="form-control" id="phone" placeholder="" required>
+                  <input type="text" class="form-control" id="phone" placeholder="" value="<?php echo $userinfo['phone_number']; ?>" required>
                   <div class="invalid-feedback">
                     Recipient Mobile Phone required.
                   </div>
@@ -524,48 +527,45 @@ isloggedin($con);
                //alert(JSON.stringify(data));
               }
             })
-    })
     });
-    /*
-     function ajaxfunction{
-      var cat_id=document.getElementById('state').value;
+
+    //promocode
+    $('#redeembtn').click(function () {
+    var promo =$('#promocodenya').text();
+    echo promo;
+    //alert(city);
       
-      }
-
-      $(document).ready(function () {
-            $('#state').change(function () {
-              //Mengambil value dari option select provinsi kemudian parameternya
-              //dikirim menggunakan ajax
-              var prov = $('#state').val();
-             // $('#provinsi_nama').val($('#state option:selected').text());
-              $("#kurir").prop('selectedIndex', 0);
-             // $("#jenis").html('');
-              //$("#harga").val('');
-              //$("#estimasi").val('');
-              //$("#totalkeseluruhan").val('');
-              $.ajax({
-                type: 'GET',
-                url: 'http://localhost:88/dapursalamku/c/cek_kabupaten.php',
-                data: 'province_id=' + prov,
-                success: function (data) {
-
-                  $("#provinsiku").val(prov);
-                  //jika data berhasil didapatkan, tampilkan ke dalam option select
-                  kabupaten
-                  $("#kabupaten").html(data);
-                  $('#kabupaten_nama').val($('#kabupaten option:selected').text());
-                }
-              });
-            });
-            $("#kabupaten").change(function () {
-              $('#kabupaten_nama').val($('#kabupaten option:selected').text());
-              $("#kurir").prop('selectedIndex', 0);
-              $("#jenis").html('');
-              $("#harga").val('');
-              $("#estimasi").val('');
-              $("#totalkeseluruhan").val('');
-            });*/
+      $.ajax({
+              url: 'ajax/promo_ajax.php',
+              method: 'POST',
+              data: {
+                promo:promo
+              },
+              success: function(data) {
+                if(data.success == true) {
+                  echo $data;
+                  //$('#tampilharga').text("-Rp. "+data);
+              //location.href="index.php";
+            } else {
+            // show alert or something that user has wrong credentials ...
+           
+                $("#error_notif").show();
+            }
+   
+    }
+    })
+   
+    });
+    
   </script>
+  <style>
+              #error_notif{
+    display: none;
+    color: red;
+    text-align: center;
+    padding-bottom:10px;
+  }
+              </style>
 </body>
 
 </html>

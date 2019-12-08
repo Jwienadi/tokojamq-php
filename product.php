@@ -15,10 +15,17 @@ include("function.php");
  // }
  //$brand = strtolower($_GET["brand"]);
  //$cmd_extra = "AND lower(b.name)='".$brand."'";
+ if(isset($_GET['search'])){
+    $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+    FROM product_warna pw, product p,warna w,merk m 
+    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and (m.nama_merk like '%".$_GET['search']."%' or p.nama_product like '%".$_GET['search']."%' or warna like '%".$_GET['search']."%')";
+    //echo $cmd;
+ } else {
+     
  $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
         FROM product_warna pw, product p,warna w,merk m 
         WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
- 
+  };
  $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
  $count_all_item = mysqli_num_rows($all_result);
 
@@ -114,7 +121,7 @@ include("function.php");
                 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
                 <!-- The form 2-->
-                <form class="example col-md-6" action="action_page.php">
+                <form class="example col-md-6" action="product.php" method="GET">
                     <input type="text" placeholder="Search.." name="search">
                     <button type="submit"><i class="fa fa-search" style="font-size: 130%;"></i></button>
                 </form>
@@ -125,7 +132,7 @@ include("function.php");
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
+                            <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
                                     class="fas fa-shopping-cart"></i></a>
                         </li>
                         <li class="nav-item dropdown">

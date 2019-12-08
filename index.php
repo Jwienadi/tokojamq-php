@@ -141,7 +141,7 @@
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
         <!-- The form 2-->
-        <form class="example col-md-6" action="action_page.php">
+        <form class="example col-md-6" action="product.php" method="GET">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit"><i class="fa fa-search" style="font-size: 130%;"></i></button>
         </form>
