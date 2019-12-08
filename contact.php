@@ -86,33 +86,30 @@ include("function.php");
                 <!--SEARCH BAR-->
                 <!--header-->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
-                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
-                                    class="fas fa-heart"></i><span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
-                                    class="fas fa-shopping-cart"></i></a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                style="color: white;font-size: 150%;">
-                                <i class="fas fa-user"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
-                                style="text-align: center;">
-                                <?php
-                                isloggedin(); 
-                                ?>
-                              
-                            
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i class="fas fa-heart"></i><span
+                  class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
+                  class="fas fa-shopping-cart"></i></a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="color: white;font-size: 150%;">
+                <i class="fas fa-user"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
+                style="text-align: center;">
+                <?php
+              isloggedin($con);
+                ?>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
 
             <div class="isipp" style="padding-right: 15px; padding-left: 15px; margin-right: auto; margin-left: auto;">
                 <h1>Contact Us</h1>

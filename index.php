@@ -168,14 +168,12 @@
                 <?php
               isloggedin($con);
                 ?>
-               
               </div>
             </li>
           </ul>
         </div>
       </nav>
     
-
     <!--CAROUSELL-->
       <div class="container-fluid container-fluid-no">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
