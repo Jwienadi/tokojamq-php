@@ -4,7 +4,16 @@ require_once('config.php');
 include ('API/API.php');
 ?>
 <?php
-$query="select first_name,last_name,email"
+$queryuser="select first_name,last_name,email from user where user_id='".$_SESSION['user_id']."'";
+$hqueryuser=mysqli_query($con,$queryuser) or die(mysqli_error($con));
+$userinfo=mysqli_fetch_assoc($hqueryuser);
+$querysubtotal="SELECT if(sum(harga_jual*jumlah_barang) is null,0,sum(harga_jual*jumlah_barang)) as 'total_harga'
+from barang_penjualan bp,product_warna pw, product p,`user` u,transaksi_penjualan tp
+where bp.product_warna_id=pw.product_warna_id and pw.product_id=p.product_id
+and tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id=u.user_id and bp.status=0 and tp.user_id=".$_SESSION['user_id'].";";
+$hqueryuser=mysqli_query($con,$querysubtotal) or die(mysqli_error($con));
+$subtotal=mysqli_fetch_assoc($hqueryuser);
+
 
 ?>
 
@@ -135,14 +144,14 @@ $query="select first_name,last_name,email"
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Subtotal</h6>
-                      <small class="text-muted">Brief description</small>
+                      
                     </div>
-                    <span class="text-muted">$12</span>
+                    <span class="text-muted">Rp. <?php echo $subtotal['total_harga']; ?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Shipping fee</h6>
-                      <small class="text-muted">Brief description</small>
+                      <small class="text-muted">JNE OKE</small>
                     </div>
                     <span class="text-muted" id="ongkir">$8</span>
                   </li>
@@ -191,14 +200,14 @@ $query="select first_name,last_name,email"
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="firstName">First name</label>
-                      <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                      <input type="text" class="form-control" id="firstName" placeholder="" value="<?php echo $userinfo['first_name']; ?>" required>
                       <div class="invalid-feedback">
                         Valid first name is required.
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="lastName">Last name</label>
-                      <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                      <input type="text" class="form-control" id="lastName" placeholder="" value="<?php echo $userinfo['last_name']; ?>" required>
                       <div class="invalid-feedback">
                         Valid last name is required.
                       </div>
@@ -220,7 +229,7 @@ $query="select first_name,last_name,email"
 
                   <div class="mb-3">
                     <label for="email">Email <span class="text-muted"></span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<?php echo $userinfo['email']; ?>">
                     <div class="invalid-feedback">
                       Please enter a valid email address for shipping updates.
                     </div>

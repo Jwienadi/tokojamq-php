@@ -16,7 +16,7 @@ include("function.php");
 $htot=mysqli_fetch_assoc($qhtot);
 
 
-   $cmd = " SELECT concat(m.nama_merk,' ',p.nama_product) as 'judul_barang',w.warna,p.harga_jual as 'harga_barang' ,bp.jumlah_barang, bp.product_warna_id ,bp.id_barang_penjualan 
+   $cmd = " SELECT concat(m.nama_merk,' ',p.nama_product) as 'judul_barang',w.warna,p.harga_jual as 'harga_barang' ,bp.jumlah_barang, bp.product_warna_id ,bp.id_barang_penjualan,pw.stok
    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
    where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=0 and user_id=".$_SESSION['user_id'].";";
    
@@ -194,7 +194,7 @@ $htot=mysqli_fetch_assoc($qhtot);
                         </strong>
                       </td>
                       <td class="border-0 align-middle"><strong> <input class="nud-qty" type="number" name="quantity"
-                            min="1" max="5" value="<?php echo $product['jumlah_barang']; ?>"
+                            min="1" max="<?php echo $product['stok']; ?>" value="<?php echo $product['jumlah_barang']; ?>"
                             data-id_barang="<?php echo $product['product_warna_id']?>"></strong></td>
                       <td class="border-0 align-middle"><a href="#" class="text-dark btn-delete"
                           data-id_barang='<?php echo $product['product_warna_id']?>'
