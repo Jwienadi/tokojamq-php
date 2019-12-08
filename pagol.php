@@ -1,7 +1,9 @@
 <?php 
 session_start();
 require_once('config.php');
+include("function.php");
 ?>
+
 <?php
  //$brand = strtolower($_GET["brand"]);
  //$cmd_extra = "AND lower(b.name)='".$brand."'";
@@ -125,10 +127,7 @@ require_once('config.php');
                 <!--header-->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
-                                    class="fas fa-heart"></i><span class="sr-only">(current)</span></a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
                                     class="fas fa-shopping-cart"></i></a>
@@ -142,10 +141,10 @@ require_once('config.php');
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                                 style="text-align: center;">
 
-                                <a class="dropdown-item" href="login.php">LOG IN</a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="signup.php">SIGN UP</a>
+        
+ <?php 
+isloggedin($con);
+?>
                             </div>
                         </li>
                     </ul>

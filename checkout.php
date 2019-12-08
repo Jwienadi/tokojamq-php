@@ -1,8 +1,10 @@
 <?php 
 session_start();
 require_once('config.php');
-include ('API/API.php');
+include("function.php");
+include('API/API.php');
 ?>
+
 <?php
 $queryuser="select first_name,last_name,email from user where user_id='".$_SESSION['user_id']."'";
 $hqueryuser=mysqli_query($con,$queryuser) or die(mysqli_error($con));
@@ -103,10 +105,7 @@ $subtotal=mysqli_fetch_assoc($hqueryuser);
         <!--header-->
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i class="fas fa-heart"></i><span
-                  class="sr-only">(current)</span></a>
-            </li>
+          
             <li class="nav-item">
               <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
                   class="fas fa-shopping-cart"></i></a>
@@ -119,10 +118,10 @@ $subtotal=mysqli_fetch_assoc($hqueryuser);
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                 style="text-align: center;">
 
-                <a class="dropdown-item" href="login.php">LOG IN</a>
 
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="signup.php">SIGN UP</a>
+ <?php 
+isloggedin($con);
+?>
               </div>
             </li>
           </ul>

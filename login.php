@@ -86,10 +86,7 @@
                 <!--header-->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
-                                    class="fas fa-heart"></i><span class="sr-only">(current)</span></a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
                                     class="fas fa-shopping-cart"></i></a>
