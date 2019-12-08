@@ -262,23 +262,6 @@
                     </div>
                   </div>
                 </div>-->
-                <!--<div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2042blue.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2042 Blue</a>
-                      </h4>
-                      <h5>Rp 85.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>-->
-            <!--/.First slide-->
 
             <!--Second slide-->
             <div class="carousel-item">
@@ -326,24 +309,7 @@
                       <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095o.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2095 Orange</a>
-                      </h4>
-                      <h5>Rp 85.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div> -->
-            <!--/.Second slide-->
+                </div>-->
 
             <!--Third slide-->
             <div class="carousel-item">
@@ -374,39 +340,7 @@
                     </div>
                 <?php } ?>
             </div>
-              <!--<div class="row">
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/esti loren/2043gold.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Esti Loren 2043 Gold</a>
-                      </h4>
-                      <h5>Rp 75.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/esti loren/2027.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Esti Loren 2027 White </a>
-                      </h4>
-                      <h5>Rp 105.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>-->
-                </div>
+            </div>               
             <!--/.Third slide-->
 
           </div>
@@ -420,7 +354,7 @@
         </div>
         <!--/.Carousel Wrapper-->
 
-        </div>
+      </div>
       <!--ITEM SLIDER WRAPPER-->
 
       <!--MERK

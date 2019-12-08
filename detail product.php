@@ -27,6 +27,65 @@ $products = null;
 			$products[] = $row;
 		}
     }
+
+    $qrel = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+    FROM product_warna pw, product p,warna w,merk m 
+    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and m.merk_id='m2'";
+
+    $semua2	= mysqli_query($con,$qrel) or die(mysqli_error($con));
+    $hitungsemuarel = mysqli_num_rows($semua2);
+    $max_item 		= 4; //Max item in one page
+    $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+    //echo $page;
+    $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+    //echo $start;
+    $qrel 			= $qrel." LIMIT $start, $max_item";
+    $limitrel 	= mysqli_query($con,$qrel) or die(mysqli_error($con));
+    $barangrel = null;
+    if ($hitungsemuarel >= 1){
+        while($row = mysqli_fetch_assoc($limitrel)) {
+            $barangrel[] = $row;
+        }
+    }
+
+    $q1 = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+    FROM product_warna pw, product p,warna w,merk m 
+    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and m.merk_id='m1'";
+
+    $semuarel1 	= mysqli_query($con,$q1) or die(mysqli_error($con));
+    $hitungallrel1 = mysqli_num_rows($semuarel1);
+    $max_item 		= 4; //Max item in one page
+    $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+    //echo $page;
+    $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+    //echo $start;
+    $q1 			= $q1." LIMIT $start, $max_item";
+    $limitrel1	= mysqli_query($con,$q1) or die(mysqli_error($con));
+    $rel1 = null;
+    if ($hitungallrel1 >= 1){
+        while($row = mysqli_fetch_assoc($limitrel1)) {
+            $rel1[] = $row;
+        }
+    }
+    $q3 = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+    FROM product_warna pw, product p,warna w,merk m 
+    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and m.merk_id='m4'";
+
+    $semua3	= mysqli_query($con,$q3) or die(mysqli_error($con));
+    $hitungsemua3 = mysqli_num_rows($semua3);
+    $max_item 		= 4; //Max item in one page
+    $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+    //echo $page;
+    $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+    //echo $start;
+    $q3 			= $q3." LIMIT $start, $max_item";
+    $limit3 	= mysqli_query($con,$q3) or die(mysqli_error($con));
+    $barang3 = null;
+    if ($hitungsemua3 >= 1){
+        while($row = mysqli_fetch_assoc($limit3)) {
+            $barang3[] = $row;
+        }
+    }
 $_SESSION['cart']=$products;
 
 ?>
@@ -94,9 +153,6 @@ $_SESSION['cart']=$products;
                 </button>
                 <!--logo-->
                 <a href="index.php" class="col-md-3"><img src="assets/img/logo.png" style="width: 100%;"></a>
-                <!--SEARCH BAR-->
-                <!-- Load icon library -->
-                <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
                 <!-- The form 2-->
                 <form class="example col-md-6" action="action_page.php">
@@ -138,7 +194,6 @@ $_SESSION['cart']=$products;
             <div class="container">
 
                 <!-- isi page detail product woee -->
-                
                 <h1 class="my-4">Detail Product</h1>
 
                 <!-- Portfolio Item Row -->
@@ -180,32 +235,114 @@ $_SESSION['cart']=$products;
                     <?php } ?>
                 </div>
                 <!-- Related Projects Row -->
-                <h3 class="my-4">Related Products</h3>
+    
+    <div class="container my-4">
+    <h3 class="my-4">Related Products</h3>
+        <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+                <!--Slides-->
+            <div class="carousel-inner" role="listbox">
+
+                <!--First slide-->
+                <div class="carousel-item active">
                 <div class='row' style='margin:0px auto;'>
                     <?php 
-					foreach($products as $product){
-						$id = $product['product_warna_id'];
-				?>
-                    <div class="col-lg-3 col-md-3 mb-4">
-                        <div class="card h-100">
-                            <a href="#"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
-                                    alt=""></a>
-                            <div class="card-body">
-                                <h4 class="card-title">
-                                    <a href="detail product.php"><?php echo $product['judul_barang']; ?> </a>
-                                </h4>
-                                <h5>Rp. <?php $price = $product['harga_barang']; echo number_format($price,2); ?></h5>
-                            </div>
-                            <div class="card-footer middle" style="background-color: white;">
+                    foreach($barangrel as $brgrel){
+                    $idrel = $brgrel['product_warna_id'];
+                    ?>
+                        <div class="col-lg-3 col-md-3 mb-4">
+                            <div class="card h-100">
+                                <a href= "detail product.php?id=<?php echo $idrel; ?>"><img class="card-img-top" src="assets/img/products/<?php echo $idrel; ?>.jpg"
+                                        alt=""></a>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="detail product.php?id=<?php echo $idrel; ?>"><?php echo $brgrel['judul_barang']; ?> </a>
+                                    </h4>
+                                    <h5>Rp. <?php 
+                                    $price = $brgrel['harga_barang'];
+                                    echo number_format($price,2); 
+                                    ?></h5>
+                                </div>
+                                <div class="card-footer middle">
                                 <button class="item-card-button" href><i class="fas fa-heart"></i></button>
                                 <span class="vertical-line"></span>
                                 <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
+                </div>
+                </div> 
+                <!--Second slide-->
+                <div class="carousel-item">
+                <div class='row' style='margin:0px auto;'>
+                    <?php 
+                    foreach($rel1 as $relbrg1){
+                    $idrel1 = $relbrg1['product_warna_id'];
+                    ?>
+                    <div class="col-lg-3 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href= "detail product.php?id=<?php echo $idrel1; ?>"><img class="card-img-top" src="assets/img/products/<?php echo $idrel1; ?>.jpg"
+                                    alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="detail product.php?id=<?php echo $idrel1; ?>"><?php echo $relbrg1['judul_barang']; ?> </a>
+                                </h4>
+                                <h5>Rp. <?php 
+                                  $price = $relbrg1['harga_barang'];
+                                  echo number_format($price,2); 
+                                ?></h5>
+                            </div>
+                            <div class="card-footer middle">
+                            <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                            <span class="vertical-line"></span>
+                            <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                             </div>
                         </div>
                     </div>
                     <?php } ?>
                 </div>
+                </div>
+            <div class="carousel-item">
+            <div class='row' style='margin:0px auto;'>
+                <?php 
+                foreach($barang3 as $brg3){
+                  $id3 = $brg3['product_warna_id'];
+                ?>
+                    <div class="col-lg-3 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href= "detail product.php?id=<?php echo $id3; ?>"><img class="card-img-top" src="assets/img/products/<?php echo $id3; ?>.jpg"
+                                    alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="detail product.php?id=<?php echo $id3; ?>"><?php echo $brg3['judul_barang']; ?> </a>
+                                </h4>
+                                <h5>Rp. <?php 
+                                  $price = $brg3['harga_barang'];
+                                  echo number_format($price,2); 
+                                ?></h5>
+                            </div>
+                            <div class="card-footer middle">
+                            <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                            <span class="vertical-line"></span>
+                            <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
+            </div>
+            </div>
+          <!--/.Slides-->
+          <div class="Controls-bottom">
+            <a class="btn-floating" href="#multi-item-example" data-slide="prev"><i
+                class="fas fa-chevron-circle-left"></i></i></a>
+            <a class="btn-floating" href="#multi-item-example" data-slide="next"><i
+                class="fas fa-chevron-circle-right"></i></i></a>
+          </div>
+        </div>
+        <!--/.Carousel Wrapper-->
+    </div>
+
             <!--footer kita-->
             <div class="footer">
                 <div class="container">
