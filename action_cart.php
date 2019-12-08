@@ -1,14 +1,16 @@
 <?php
 if (isset($_POST)){
   if(isset($_GET['id'])){
+    $product_id = $_GET['id'];
     if(!isset($_SESSION['user_id'])){
       header("Location: index.php");
     } else {
   
    $cmd = "SELECT concat(m.nama_merk,' ',p.nama_product) as 'judul_barang',w.warna,p.harga_jual as 'harga_barang' ,bp.jumlah_barang, bp.product_warna_id as 'id' ,bp.id_barang_penjualan 
    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
-   where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=0 and user_id=".$_SESSION['user_id'].";";
+   where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and product_warna_id='".$product_id."', and bp.status=0 and user_id=".$_SESSION['user_id'].";";
    
+   //$cektransaksi= "SELECT * FROM transaksi_penjualan t where id_transaksi_penjualan='$_GET[id_transaksi_penjualan]'"
    $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
    $ketemu = mysqli_num_rows($all_result);
   
