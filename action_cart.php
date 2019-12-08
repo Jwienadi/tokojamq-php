@@ -28,7 +28,7 @@ if (isset($_POST)){
       // kalau barang belum ada, maka di jalankan perintah insert
      // $subtotal = $harga_satuan * 1;
       $tmp_cmd = "INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,product_warna_id,jumlah_barang,`status`)
-                  VALUES ('',1,'$_GET[id]', '$_POST[stok]', '0')";
+                  VALUES ('',1,'$_GET['id']', '$_POST['stok']', '0')";
       echo $tmp_cmd;
       mysqli_query($con, $tmp_cmd);
       die();
