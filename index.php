@@ -6,6 +6,46 @@
     require_once('config.php');
     include("auth.php");
     include("function.php");
+
+    $q1 = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+    FROM product_warna pw, product p,warna w,merk m 
+    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and m.merk_id='m1'";
+
+    $all_result 	= mysqli_query($con,$q1) or die(mysqli_error($con));
+    $count_all_item = mysqli_num_rows($all_result);
+    $max_item 		= 4; //Max item in one page
+    $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+    //echo $page;
+    $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+    //echo $start;
+    $q1 			= $q1." LIMIT $start, $max_item";
+    $limit_result 	= mysqli_query($con,$q1) or die(mysqli_error($con));
+    $products = null;
+    if ($count_all_item >= 1){
+        while($row = mysqli_fetch_assoc($limit_result)) {
+            $products[] = $row;
+        }
+    }
+
+    $q2 = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+    FROM product_warna pw, product p,warna w,merk m 
+    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and m.merk_id='m2'";
+
+    $semua2	= mysqli_query($con,$q2) or die(mysqli_error($con));
+    $hitungsemua2 = mysqli_num_rows($semua2);
+    $max_item 		= 4; //Max item in one page
+    $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
+    //echo $page;
+    $start 			= ($page>1) ? (($page * $max_item) - $max_item) : 0; //contoh IF INLINE
+    //echo $start;
+    $q2 			= $q2." LIMIT $start, $max_item";
+    $limit2 	= mysqli_query($con,$q2) or die(mysqli_error($con));
+    $barang2 = null;
+    if ($hitungsemua2 >= 1){
+        while($row = mysqli_fetch_assoc($limit2)) {
+            $barang2[] = $row;
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -166,8 +206,35 @@
 
             <!--First slide-->
             <div class="carousel-item active">
-
-              <div class="row">
+            <div class='row' style='margin:0px auto;'>
+                <?php 
+                foreach($barang2 as $brg2){
+                  $id2 = $brg2['product_warna_id'];
+                ?>
+                    <div class="col-lg-3 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href= "detail product.php?id=<?php echo $id2; ?>"><img class="card-img-top" src="assets/img/products/<?php echo $id2; ?>.jpg"
+                                    alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="detail product.php?id=<?php echo $id2; ?>"><?php echo $brg2['judul_barang']; ?> </a>
+                                </h4>
+                                <h5>Rp. <?php 
+                                  $price = $brg2['harga_barang'];
+                                  echo number_format($price,2); 
+                                ?></h5>
+                            </div>
+                            <div class="card-footer middle">
+                            <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                            <span class="vertical-line"></span>
+                            <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+            </div> 
+              <!--<div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
                     <a href="#"><img class="card-img-top" src="assets/img/products/pw1.jpg" alt=""></a>
@@ -183,8 +250,8 @@
                       <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
+                </div>-->
+                <!--<div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
                     <a href="#"><img class="card-img-top" src="assets/img/pioneer/2042blue.jpg" alt=""></a>
                     <div class="card-body">
@@ -199,47 +266,40 @@
                       <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2095m.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2095 Red</a>
-                      </h4>
-                      <h5>Rp 85.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134black.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2134 Black</a>
-                      </h4>
-                      <h5>Rp 85.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                </div>-->
             <!--/.First slide-->
 
             <!--Second slide-->
             <div class="carousel-item">
-
-              <div class="row">
+            <div class='row' style='margin:0px auto;'>
+                <?php 
+                foreach($products as $product){
+                  $id = $product['product_warna_id'];
+                ?>
+                    <div class="col-lg-3 col-md-3 mb-4">
+                        <div class="card h-100">
+                            <a href= "detail product.php?id=<?php echo $id; ?>"><img class="card-img-top" src="assets/img/products/<?php echo $id; ?>.jpg"
+                                    alt=""></a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="detail product.php?id=<?php echo $id; ?>"><?php echo $product['judul_barang']; ?> </a>
+                                </h4>
+                                <h5>Rp. <?php 
+                                  $price = $product['harga_barang'];
+                                  echo number_format($price,2); 
+                                ?></h5>
+                            </div>
+                            <div class="card-footer middle">
+                            <button class="item-card-button" href><i class="fas fa-heart"></i></button>
+                            <span class="vertical-line"></span>
+                            <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+            </div>
+              <!--<div class="row">
                 <div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
                     <a href="#"><img class="card-img-top" src="assets/img/esti loren/2043black.jpg" alt=""></a>
@@ -271,41 +331,7 @@
                       <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                     </div>
                   </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/esti loren/2088 white.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Esti Loren 2088 White</a>
-                      </h4>
-                      <h5>Rp 85.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-3 col-md-3 mb-4">
-                  <div class="card h-100">
-                    <a href="#"><img class="card-img-top" src="assets/img/pioneer/2134white.jpg" alt=""></a>
-                    <div class="card-body">
-                      <h4 class="card-title">
-                        <a href="#">Pioneer 2134 White</a>
-                      </h4>
-                      <h5>Rp 85.000</h5>
-                    </div>
-                    <div class="card-footer middle">
-                      <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                      <span class="vertical-line"></span>
-                      <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                </div> -->
             <!--/.Second slide-->
 
             <!--Third slide-->
@@ -327,7 +353,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-lg-3 col-md-3 mb-4">
+                <!--<div class="col-lg-3 col-md-3 mb-4">
                   <div class="card h-100">
                     <a href="#"><img class="card-img-top" src="assets/img/esti loren/2027.jpg" alt=""></a>
                     <div class="card-body">
@@ -374,7 +400,7 @@
                       <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                     </div>
                   </div>
-                </div>
+                </div> -->
               </div>
             </div>
             <!--/.Third slide-->
