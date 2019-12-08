@@ -130,14 +130,14 @@ include ('API/API.php');
                 <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <h6 class="my-0">Product name</h6>
+                      <h6 class="my-0">Subtotal</h6>
                       <small class="text-muted">Brief description</small>
                     </div>
                     <span class="text-muted">$12</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <h6 class="my-0">Second product</h6>
+                      <h6 class="my-0">Shipping fee</h6>
                       <small class="text-muted">Brief description</small>
                     </div>
                     <span class="text-muted">$8</span>
@@ -454,6 +454,38 @@ include ('API/API.php');
               method: 'POST',
               data: {
                 state:state
+              },
+              success: function(data) {
+                alert(data);
+                var res = JSON.parse(data);
+                //hasilnya object object
+               //alert(res[0][rajaongkir][results]);
+               $( "#city" ).empty();
+               $.each(res.rajaongkir.results, function(index, val) {
+                //Fc alert(val.city_name);
+                //alert("<select value="+val.city_id+">"+val.city_name+"</select>");
+                $( "#city" ).append( "<option value='"+val.city_id+"'>"+val.city_name+"</option>" );
+
+                 
+                });
+               //alert( res.rajaongkir.results[0].city_name);
+               //alert("A");                                                      
+              
+               //alert(JSON.stringify(data));
+              }
+            })
+    })
+
+    //ongkire
+    $('#city').change(function () {
+    var city =$(this).val();
+      alert(city);
+      
+      $.ajax({
+              url: 'ajax/ongkir_ajax.php',
+              method: 'POST',
+              data: {
+                city:city
               },
               success: function(data) {
                 alert(data);
