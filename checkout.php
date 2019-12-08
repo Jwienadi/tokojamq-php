@@ -3,6 +3,10 @@ session_start();
 require_once('config.php');
 include ('API/API.php');
 ?>
+<?php
+$query="select first_name,last_name,email"
+
+?>
 
 <!doctype html>
 <html lang="en">
@@ -140,7 +144,7 @@ include ('API/API.php');
                       <h6 class="my-0">Shipping fee</h6>
                       <small class="text-muted">Brief description</small>
                     </div>
-                    <span class="text-muted">$8</span>
+                    <span class="text-muted" id="ongkir">$8</span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
@@ -444,10 +448,13 @@ include ('API/API.php');
 
     //rajaongkir
     $(document).ready(function () {
+      $(function () {
+    $("#state").change();
+});
 
     $('#state').change(function () {
     var state =$(this).val();
-      alert(state);
+     // alert(state);
       
       $.ajax({
               url: 'ajax/city_ajax.php',
@@ -456,7 +463,7 @@ include ('API/API.php');
                 state:state
               },
               success: function(data) {
-                alert(data);
+                //alert(data);
                 var res = JSON.parse(data);
                 //hasilnya object object
                //alert(res[0][rajaongkir][results]);
@@ -465,9 +472,10 @@ include ('API/API.php');
                 //Fc alert(val.city_name);
                 //alert("<select value="+val.city_id+">"+val.city_name+"</select>");
                 $( "#city" ).append( "<option value='"+val.city_id+"'>"+val.city_name+"</option>" );
-
+                
                  
                 });
+                $("#city").change();
                //alert( res.rajaongkir.results[0].city_name);
                //alert("A");                                                      
               
@@ -479,7 +487,7 @@ include ('API/API.php');
     //ongkire
     $('#city').change(function () {
     var city =$(this).val();
-      alert(city);
+    //alert(city);
       
       $.ajax({
               url: 'ajax/ongkir_ajax.php',
@@ -488,18 +496,20 @@ include ('API/API.php');
                 city:city
               },
               success: function(data) {
-                alert(data);
+                //alert(data);
                 var res = JSON.parse(data);
+                //alert( res.rajaongkir.results[0].costs[0].cost[0].value);
+                $('#ongkir').text("Rp. "+res.rajaongkir.results[0].costs[0].cost[0].value);
                 //hasilnya object object
                //alert(res[0][rajaongkir][results]);
-               $( "#city" ).empty();
+              /* $( "#city" ).empty();
                $.each(res.rajaongkir.results, function(index, val) {
                 //Fc alert(val.city_name);
                 //alert("<select value="+val.city_id+">"+val.city_name+"</select>");
-                $( "#city" ).append( "<option value='"+val.city_id+"'>"+val.city_name+"</option>" );
+                $( "#city" ).append( "<option value='"+val.city_id+"'>"+val.city_name+"</option>" );*/
 
                  
-                });
+               // });
                //alert( res.rajaongkir.results[0].city_name);
                //alert("A");                                                      
               
