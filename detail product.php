@@ -1,7 +1,9 @@
 <?php 
 session_start();
 require_once('config.php');
+include("function.php");
 ?>
+
 <?php
 //$product_id= isset($_GET['id']);
 if(isset($_GET['id'])){
@@ -155,7 +157,7 @@ $_SESSION['cart']=$products;
                 <a href="index.php" class="col-md-3"><img src="assets/img/logo.png" style="width: 100%;"></a>
 
                 <!-- The form 2-->
-                <form class="example col-md-6" action="action_page.php">
+                <form class="example col-md-6" action="product.php" method="GET">
                     <input type="text" placeholder="Search.." name="search">
                     <button type="submit"><i class="fa fa-search" style="font-size: 130%;"></i></button>
                 </form>
@@ -164,12 +166,9 @@ $_SESSION['cart']=$products;
                 <!--header-->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
-                                    class="fas fa-heart"></i><span class="sr-only">(current)</span></a>
-                        </li>
+                       
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
+                            <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
                                     class="fas fa-shopping-cart"></i></a>
                         </li>
                         <li class="nav-item dropdown">
@@ -181,10 +180,10 @@ $_SESSION['cart']=$products;
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                                 style="text-align: center;">
 
-                                <a class="dropdown-item" href="login.php">LOG IN</a>
-
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="signin.php">SIGN UP</a>
+      
+ <?php 
+isloggedin($con);
+?>
                             </div>
                         </li>
                     </ul>

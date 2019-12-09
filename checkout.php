@@ -1,11 +1,25 @@
 <?php 
 session_start();
 require_once('config.php');
-include ('API/API.php');
+include("function.php");
+include('API/API.php');
 ?>
+
 <?php
-$query="select first_name,last_name,email";
-$qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
+if(!isset($_SESSION['user_id'])){
+  header("Location: index.php");
+} else {
+$queryuser="select first_name,last_name,email,phone_number from user where user_id='".$_SESSION['user_id']."'";
+$hqueryuser=mysqli_query($con,$queryuser) or die(mysqli_error($con));
+$userinfo=mysqli_fetch_assoc($hqueryuser);
+$querysubtotal="SELECT if(sum(harga_jual*jumlah_barang) is null,0,sum(harga_jual*jumlah_barang)) as 'total_harga'
+from barang_penjualan bp,product_warna pw, product p,`user` u,transaksi_penjualan tp
+where bp.product_warna_id=pw.product_warna_id and pw.product_id=p.product_id
+and tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id=u.user_id and bp.status=0 and tp.user_id=".$_SESSION['user_id'].";";
+$hqueryuser=mysqli_query($con,$querysubtotal) or die(mysqli_error($con));
+$subtotal=mysqli_fetch_assoc($hqueryuser);
+
+
 ?>
 
 <!doctype html>
@@ -85,7 +99,7 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
         <!-- The form 2-->
-        <form class="example col-md-6" action="action_page.php">
+        <form class="example col-md-6" action="product.php" method="GET">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit"><i class="fa fa-search" style="font-size: 130%;"></i></button>
         </form>
@@ -94,12 +108,9 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
         <!--header-->
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i class="fas fa-heart"></i><span
-                  class="sr-only">(current)</span></a>
-            </li>
+          
             <li class="nav-item">
-              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
+              <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
                   class="fas fa-shopping-cart"></i></a>
             </li>
             <li class="nav-item dropdown">
@@ -110,10 +121,10 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"
                 style="text-align: center;">
 
-                <a class="dropdown-item" href="login.php">LOG IN</a>
 
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="signup.php">SIGN UP</a>
+ <?php 
+isloggedin($con);
+?>
               </div>
             </li>
           </ul>
@@ -135,43 +146,40 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Subtotal</h6>
-                      <small class="text-muted">Brief description</small>
+                      
                     </div>
-                    <span class="text-muted">$12</span>
+                    <span class="text-muted" id='subtot' value='<?php echo $subtotal['total_harga']; ?>'>Rp. <?php echo $subtotal['total_harga']; ?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
                       <h6 class="my-0">Shipping fee</h6>
-                      <small class="text-muted">Brief description</small>
+                      <small class="text-muted">JNE OKE</small>
                     </div>
                     <span class="text-muted" id="ongkir">$8</span>
                   </li>
-                  <li class="list-group-item d-flex justify-content-between lh-condensed">
-                    <div>
-                      <h6 class="my-0">Third item</h6>
-                      <small class="text-muted">Brief description</small>
-                    </div>
-                    <span class="text-muted">$5</span>
-                  </li>
+                  
                   <li class="list-group-item d-flex justify-content-between bg-light">
-                    <div class="text-success">
+                    <div class="text-success" id="divpromo">
                       <h6 class="my-0">Promo code</h6>
-                      <small>EXAMPLE CODE</small>
+                      <small id="namapromo"></small>
                     </div>
-                    <span class="text-success">-Rp<?php echo $qpromo['jumlah_promo']; ?></span>
+                    <span class="text-success" id="nominalpromo" value="0">-Rp 0<?php //echo $qpromo['jumlah_promo']; ?></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
-                    <strong>$20</strong>
+                    <span>Total</span>
+                    <strong id="totalsemua">Rp.</strong>
                   </li>
                 </ul>
                 <form class="card p-2">
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Promo code">
+                    <input type="text" class="form-control" placeholder="Promo code" id="promocodenya">
                     <div class="input-group-append">
-                      <button type="submit" class="btn btn-secondary">Redeem</button>
+                      <button type="button" class="btn btn-secondary" id="redeembtn">Redeem</button>
                     </div>
                   </div>
+                  <div id="error_notif" >
+                           
+                   </div>
                 </form>
                 <!--<div class="payment-methods">
                             <p class="pt-4 mb-2">Payment Options</p>
@@ -191,14 +199,14 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="firstName">First name</label>
-                      <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+                      <input type="text" class="form-control" id="firstName" placeholder="" value="<?php echo $userinfo['first_name']; ?>" required>
                       <div class="invalid-feedback">
                         Valid first name is required.
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="lastName">Last name</label>
-                      <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+                      <input type="text" class="form-control" id="lastName" placeholder="" value="<?php echo $userinfo['last_name']; ?>" required>
                       <div class="invalid-feedback">
                         Valid last name is required.
                       </div>
@@ -220,7 +228,7 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
 
                   <div class="mb-3">
                     <label for="email">Email <span class="text-muted"></span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<?php echo $userinfo['email']; ?>">
                     <div class="invalid-feedback">
                       Please enter a valid email address for shipping updates.
                     </div>
@@ -286,51 +294,22 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
                       </div>
                     </div>
                 
-                <!-- <div class="col-md-3 mb-3">
-                <label for="zip">Postal Code</label>
-                <input type="text" class="form-control" id="zip" placeholder="" required>
-                <div class="invalid-feedback">
-                  Postal code required.
-                </div>
-              </div>-->
+             
                 <div class="col-md-5 mb-3">
                   <label for="phone">Recipient Mobile Phone</label>
-                  <input type="text" class="form-control" id="phone" placeholder="" required>
+                  <input type="text" class="form-control" id="phone" placeholder="" value="<?php echo $userinfo['phone_number']; ?>" required>
                   <div class="invalid-feedback">
                     Recipient Mobile Phone required.
                   </div>
                 </div>
               </div>
 
-              <hr class="mb-4">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="same-address">
-                <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                  address</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="save-info">
-                <label class="custom-control-label" for="save-info">Save this information for next time</label>
-              </div>
+              
               <hr class="mb-4">
             </div>
           </div>
 
-          <h4 class="mb-3">Select Courier</h4>
-          <div class="d-block my-3">
-            <div class="custom-control custom-radio">
-              <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-              <label class="custom-control-label" for="credit">JNE</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-              <label class="custom-control-label" for="debit">Wahana</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-              <label class="custom-control-label" for="paypal">Pos Indonesia</label>
-            </div>
-          </div>
+          
 
           <div class="row">
             <div class="col-md-6 mb-3">
@@ -417,13 +396,7 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!--================================================== -->
-  <!-- Placed at the end of the document so the pages load faster -->
-  <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>-->
-  <!--<script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/vendor/holder.min.js"></script>-->
+  
   <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
@@ -487,6 +460,7 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
     //ongkire
     $('#city').change(function () {
     var city =$(this).val();
+    
     //alert(city);
       
       $.ajax({
@@ -500,27 +474,57 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
                 var res = JSON.parse(data);
                 //alert( res.rajaongkir.results[0].costs[0].cost[0].value);
                 $('#ongkir').text("Rp. "+res.rajaongkir.results[0].costs[0].cost[0].value);
-                //hasilnya object object
-               //alert(res[0][rajaongkir][results]);
-              /* $( "#city" ).empty();
-               $.each(res.rajaongkir.results, function(index, val) {
-                //Fc alert(val.city_name);
-                //alert("<select value="+val.city_id+">"+val.city_name+"</select>");
-                $( "#city" ).append( "<option value='"+val.city_id+"'>"+val.city_name+"</option>" );*/
-
-                 
-               // });
-               //alert( res.rajaongkir.results[0].city_name);
-               //alert("A");                                                      
-              
-               //alert(JSON.stringify(data));
+                $('#ongkir').val(res.rajaongkir.results[0].costs[0].cost[0].value);
+                var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
+                //alert(total);
+               $('#totalsemua').text("Rp. "+total);
+               
               }
             })
-    })
     });
 
+    //promocode
+    $('#redeembtn').click(function () {
+      if($('#promocodenya').val()!=''){
+    var promo =$('#promocodenya').val();
+   //alert(promo);
+   $.ajax({
+              url: 'ajax/promo_ajax.php',
+              method: 'POST',
+              data: {
+                promo:promo
+              },
+              success: function(data) {
+                if(data !== 0) {
+                  //alert(data);
+                  //echo $data;
+                  $('#error_notif').append("Promocode applied successfully !");
+                  $('#error_notif').css('color','green');
+                  $('#nominalpromo').text("-Rp. "+data);
+                  $('#nominalpromo').attr("value",data);
+                  $('#namapromo').text(promo);
+
+                  var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
+                  $('#totalsemua').text("Rp. "+total);
+              //location.href="index.php";
+            } else {
+            // show alert or something that user has wrong credentials ...
+            $('#error_notif').append("Promocode not available!");
+            $('#nominalpromo').val("0");
+            var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
+            $('#totalsemua').text("Rp. "+total);
+                //$("#error_notif").show();
+            }
+   
+    }
+    })
+    } else{
+      $('#error_notif').append("Promocode can not be blank .Enter a Valid Promocode !");
+    }
+    })
+
     // buat promo code woyy
-    $("#apply").click(function(){
+    /*$("#apply").click(function(){
 		if($('#promo_code').val()!=''){
 			$.ajax({
 						type: "POST",
@@ -531,7 +535,7 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
 						success: function(dataResult){
 							var dataResult = JSON.parse(dataResult);
 							if(dataResult.statusCode==200){
-								var after_apply=$('#total_price').val()-dataResult.value;
+								var after_apply=$('#nominalpromo').val()-dataResult.value;
 								$('#total_price').val(after_apply);
 								$('#apply').hide();
 								$('#edit').show();
@@ -553,47 +557,33 @@ $qpromo="SELECT kode_promo, jumlah_promo, sistem_promo FROM promo_code p";
 		$('#apply').show();
 		$('#edit').hide();
 		location.reload();
-	});
-    /*
-     function ajaxfunction{
-      var cat_id=document.getElementById('state').value;
+	});*/
+    
+     /*function ajaxfunction{
+      var cat_id=document.getElementById('state').value;*/
       
-      }
-
-      $(document).ready(function () {
-            $('#state').change(function () {
-              //Mengambil value dari option select provinsi kemudian parameternya
-              //dikirim menggunakan ajax
-              var prov = $('#state').val();
-             // $('#provinsi_nama').val($('#state option:selected').text());
-              $("#kurir").prop('selectedIndex', 0);
-             // $("#jenis").html('');
-              //$("#harga").val('');
-              //$("#estimasi").val('');
-              //$("#totalkeseluruhan").val('');
-              $.ajax({
-                type: 'GET',
-                url: 'http://localhost:88/dapursalamku/c/cek_kabupaten.php',
-                data: 'province_id=' + prov,
-                success: function (data) {
-
-                  $("#provinsiku").val(prov);
-                  //jika data berhasil didapatkan, tampilkan ke dalam option select
-                  kabupaten
-                  $("#kabupaten").html(data);
-                  $('#kabupaten_nama').val($('#kabupaten option:selected').text());
-                }
-              });
-            });
-            $("#kabupaten").change(function () {
-              $('#kabupaten_nama').val($('#kabupaten option:selected').text());
-              $("#kurir").prop('selectedIndex', 0);
-              $("#jenis").html('');
-              $("#harga").val('');
-              $("#estimasi").val('');
-              $("#totalkeseluruhan").val('');
-            });*/
+     
+   
+    //});
+    });
+  //  jQuery.fn.myfunction = function() {
+   /* function myfunction() {
+   var subtot=$('#subtot').val();
+   var ongkir=$('#ongkir').val();
+   var diskon=$('#nominalpromo').val();
+   var total= parseInt(subtot)- parseInt(diskon)+ parseInt(ongkir);
+   return total;
+}*/
+    
   </script>
+  <style>
+              #error_notif{
+    
+    color: red;
+    text-align: center;
+    padding-bottom:10px;
+  }
+              </style>
 </body>
-
+<?php }; ?>
 </html>

@@ -41,12 +41,14 @@
 
              
                 $query = "INSERT into `user` (email, first_name, last_name, phone_number,password) VALUES ('$email','$firstname','$lastname','$phone','".sha1($password)."')";
+               // echo $query;
                 $result = mysqli_query($con,$query);
+               // echo $result;
                 if($result){
                     echo "<div class='form'><h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
                 }
-            }else{
-                "<div class='form'><h3>SIGN UP FAIL</h3><br/>Click here to <a href='signup.php'>retry</a></div>"
+                }else{
+                //"<div class='form'><h3>SIGN UP FAIL</h3><br/>Click here to <a href='signup.php'>retry</a></div>"
 
         ?>
     </div>    
@@ -101,7 +103,7 @@
                 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
                 <!-- The form 2-->
-                <form class="example col-md-6" action="action_page.php">
+                <form class="example col-md-6" action="product.php" method="GET">
                     <input type="text" placeholder="Search.." name="search">
                     <button type="submit"><i class="fa fa-search" style="font-size: 130%;"></i></button>
                 </form>
@@ -110,12 +112,9 @@
                 <!--header-->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
                     <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
-                                    class="fas fa-heart"></i><span class="sr-only">(current)</span></a>
-                        </li>
+                       
                         <li class="nav-item">
-                            <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
+                            <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
                                     class="fas fa-shopping-cart"></i></a>
                         </li>
                         <li class="nav-item dropdown">
@@ -212,14 +211,7 @@
                   </div>
 
                   <!-- Password Confirmation -->
-                  <div class="input-group col-lg-6 mb-4">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text bg-white px-4 border-md border-right-0">
-                              <i class="fa fa-lock text-muted"></i>
-                          </span>
-                      </div>
-                      <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required>
-                  </div>
+              
 
                   <!-- Submit Button -->
                   <div class="form-group col-lg-12 mx-auto mb-0">

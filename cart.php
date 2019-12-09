@@ -16,20 +16,28 @@ include("function.php");
 $htot=mysqli_fetch_assoc($qhtot);
 
 
-   $cmd = " SELECT concat(m.nama_merk,' ',p.nama_product) as 'judul_barang',w.warna,p.harga_jual as 'harga_barang' ,bp.jumlah_barang, bp.product_warna_id ,bp.id_barang_penjualan 
+   $cmd = " SELECT concat(m.nama_merk,' ',p.nama_product) as 'judul_barang',w.warna,p.harga_jual as 'harga_barang' ,bp.jumlah_barang, bp.product_warna_id ,bp.id_barang_penjualan,pw.stok
    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
    where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=0 and user_id=".$_SESSION['user_id'].";";
    
    $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
    $count_all_item = mysqli_num_rows($all_result);
-  
+   $nono="";
    $products = null;
+   if($count_all_item==0){
+
+    $nono="No Product added to cart";
+    
+   };
+     
+  
    if ($count_all_item >= 1){
        while($row = mysqli_fetch_assoc($all_result)) {
            $products[] = $row;
        }
    }
    $_SESSION['cart']=$products;
+
 ?>
 <html>
 
@@ -109,7 +117,7 @@ $htot=mysqli_fetch_assoc($qhtot);
         <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
 
         <!-- The form 2-->
-        <form class="example col-md-6" action="action_page.php">
+        <form class="example col-md-6" action="product.php" method="GET">
           <input type="text" placeholder="Search.." name="search">
           <button type="submit"><i class="fa fa-search" style="font-size: 130%;"></i></button>
         </form>
@@ -118,12 +126,9 @@ $htot=mysqli_fetch_assoc($qhtot);
         <!--header-->
         <div class="collapse navbar-collapse" id="navbarSupportedContent" style="flex-grow: 0;">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i class="fas fa-heart"></i><span
-                  class="sr-only">(current)</span></a>
-            </li>
+            
             <li class="nav-item">
-              <a class="nav-link" href="#" style="color: white; font-size: 150%;"><i
+              <a class="nav-link" href="cart.php" style="color: white; font-size: 150%;"><i
                   class="fas fa-shopping-cart"></i></a>
             </li>
             <li class="nav-item dropdown">
@@ -150,7 +155,7 @@ $htot=mysqli_fetch_assoc($qhtot);
         <div class="container">
           <div class="row">
             <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5 mt-5">
-
+            <h1><?php echo $nono; ?></h1>
               <!-- Shopping cart table -->
               <div class="table-responsive">
                 <table class="table">
@@ -172,6 +177,7 @@ $htot=mysqli_fetch_assoc($qhtot);
                   </thead>
                   <tbody>
                     <?php 
+                    if($count_all_item!==0){
 					               foreach($products as $product){
                                        
 	                    ?>
@@ -194,12 +200,12 @@ $htot=mysqli_fetch_assoc($qhtot);
                         </strong>
                       </td>
                       <td class="border-0 align-middle"><strong> <input class="nud-qty" type="number" name="quantity"
-                            min="1" max="5" value="<?php echo $product['jumlah_barang']; ?>"
+                            min="1" max="<?php echo $product['stok']; ?>" value="<?php echo $product['jumlah_barang']; ?>"
                             data-id_barang="<?php echo $product['product_warna_id']?>"></strong></td>
                       <td class="border-0 align-middle"><a href="#" class="text-dark btn-delete"
                           data-id_barang='<?php echo $product['product_warna_id']?>'
                           data-id_bp='<?php echo $product['id_barang_penjualan']?>'><i class="fa fa-trash"></i></a></td>
-                      <?php };?>
+                      <?php }};?>
                     </tr>
 
                   </tbody>
