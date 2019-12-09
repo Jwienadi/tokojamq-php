@@ -304,35 +304,12 @@ isloggedin($con);
                 </div>
               </div>
 
-              <hr class="mb-4">
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="same-address">
-                <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
-                  address</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" id="save-info">
-                <label class="custom-control-label" for="save-info">Save this information for next time</label>
-              </div>
+              
               <hr class="mb-4">
             </div>
           </div>
 
-          <h4 class="mb-3">Select Courier</h4>
-          <div class="d-block my-3">
-            <div class="custom-control custom-radio">
-              <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-              <label class="custom-control-label" for="credit">JNE</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-              <label class="custom-control-label" for="debit">Wahana</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-              <label class="custom-control-label" for="paypal">Pos Indonesia</label>
-            </div>
-          </div>
+          
 
           <div class="row">
             <div class="col-md-6 mb-3">
@@ -498,8 +475,10 @@ isloggedin($con);
                 //alert( res.rajaongkir.results[0].costs[0].cost[0].value);
                 $('#ongkir').text("Rp. "+res.rajaongkir.results[0].costs[0].cost[0].value);
                 $('#ongkir').val(res.rajaongkir.results[0].costs[0].cost[0].value);
-                $('#totalsemua').text(myfunction());
-              ;
+                var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
+                //alert(total);
+               $('#totalsemua').text("Rp. "+total);
+               
               }
             })
     });
@@ -508,7 +487,7 @@ isloggedin($con);
     $('#redeembtn').click(function () {
       if($('#promocodenya').val()!=''){
     var promo =$('#promocodenya').val();
-   alert(promo);
+   //alert(promo);
    $.ajax({
               url: 'ajax/promo_ajax.php',
               method: 'POST',
@@ -517,20 +496,23 @@ isloggedin($con);
               },
               success: function(data) {
                 if(data !== 0) {
-                  alert(data);
+                  //alert(data);
                   //echo $data;
                   $('#error_notif').append("Promocode applied successfully !");
                   $('#error_notif').css('color','green');
                   $('#nominalpromo').text("-Rp. "+data);
-                  $('#nominalpromo').val(data);
+                  $('#nominalpromo').attr("value",data);
                   $('#namapromo').text(promo);
-                  $('#totalsemua').myfunction();
+
+                  var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
+                  $('#totalsemua').text("Rp. "+total);
               //location.href="index.php";
             } else {
             // show alert or something that user has wrong credentials ...
             $('#error_notif').append("Promocode not available!");
             $('#nominalpromo').val("0");
-            $('#totalsemua').text(myfunction());
+            var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
+            $('#totalsemua').text("Rp. "+total);
                 //$("#error_notif").show();
             }
    
@@ -585,13 +567,13 @@ isloggedin($con);
     //});
     });
   //  jQuery.fn.myfunction = function() {
-    function myfunction() {
+   /* function myfunction() {
    var subtot=$('#subtot').val();
    var ongkir=$('#ongkir').val();
    var diskon=$('#nominalpromo').val();
-   var total= parseFloat(subtot)- parseFloat(diskon)+ parseFloat(ongkir);
+   var total= parseInt(subtot)- parseInt(diskon)+ parseInt(ongkir);
    return total;
-}
+}*/
     
   </script>
   <style>
