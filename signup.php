@@ -211,14 +211,7 @@
                   </div>
 
                   <!-- Password Confirmation -->
-                  <div class="input-group col-lg-6 mb-4">
-                      <div class="input-group-prepend">
-                          <span class="input-group-text bg-white px-4 border-md border-right-0">
-                              <i class="fa fa-lock text-muted"></i>
-                          </span>
-                      </div>
-                      <input id="passwordConfirmation" type="password" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md" required>
-                  </div>
+              
 
                   <!-- Submit Button -->
                   <div class="form-group col-lg-12 mx-auto mb-0">
