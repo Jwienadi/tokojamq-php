@@ -178,8 +178,6 @@ isloggedin($con);
 							?></h5>
                             </div>
                             <div class="card-footer middle" style="background-color: white;">
-                                <button class="item-card-button" href><i class="fas fa-heart"></i></button>
-                                <span class="vertical-line"></span>
                                 <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                             </div>
                         </div>

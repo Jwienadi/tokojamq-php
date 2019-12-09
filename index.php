@@ -231,6 +231,7 @@
                                 ?></h5>
                             </div>
                             <div class="card-footer middle">
+                            
                             <button class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                             </div>
                         </div>
