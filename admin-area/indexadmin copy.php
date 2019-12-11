@@ -1,22 +1,19 @@
 <?php 
 session_start();
 require_once('../config.php');
-$sql = "SELECT  pw.product_warna_id as 'foto',nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id";
 if (isset($_REQUEST['merk'])){
   $hasilmerk = stripslashes($_REQUEST['merk']); 
   $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
- 
+  $sql = "SELECT  pw.product_warna_id as 'foto',nama_merk as 'merk',nama_product as 'nama',warna,stok 
+        from product_warna pw,product p,warna w,merk m 
+        where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id";
       if($hasilmerk!="all"){
-        $sql .=" and m.merk_id='".$hasilmerk."';";
-        //echo $sql;
-        //echo $hasilmerk;
+        $sql .=" where m.merk_id=".$hasilmerk."";
 }
-       
+        echo $sql;
+ $result = mysqli_query($con,$sql) or die(mysqli_error());
+}
 
-}
-$result = mysqli_query($con,$sql) or die(mysqli_error());
 //TAMBAHIN BUTTON SUBMIT , HAPUS SUBMIT DARI SELECT OPTION DROPDOWN
 
  //$result = mysqli_query($con,$sql) or die(mysqli_error());
@@ -262,10 +259,10 @@ $product=null;
             Stok Barang</div>
           <div class="card-body">
             <form action='' method='POST' class="pilihan" >
-              <Select class="mb-2" name="merk" >
-                <option value="all"<?php if(!isset($_REQUEST['merk'])){ echo"selected";} ?> >Show All</option>
+              <Select class="mb-2" name="merk" onchange="reload(this.value)">
+                <option value="all">Show All</option>
                 <?php foreach ($merks as $merk) { ?>
-                <option value="<?php echo $merk['merk_id']; ?>" <?php if($_REQUEST['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
+                <option value="<?php echo $merk['merk_id']; ?>"><?php echo $merk['nama_merk']; ?></option>
                 <?php }?>
               </select>
               <button type="submit">Filter</button>
@@ -319,7 +316,7 @@ $product=null;
                   $merk=$product['merk'];
                   $nama=$product['nama'];
                   $warna=$product['warna'];
-                  $stok=$product['stok'];
+                  $stok=$product['stok']
 
                 ?>
                     <tr>
