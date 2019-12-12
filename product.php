@@ -181,7 +181,7 @@ include("function.php");
                             <div class="card-footer middle" style="background-color: white;">
                                 <!--<button class="item-card-button" href><i class="fas fa-heart"></i></button>
                                 <span class="vertical-line"></span> -->
-                                <form method="post" action ="action_cart.php?id=<?php echo $id; ?>">
+                                <!--<form method="post" action ="action_cart.php?id=<?php// echo $id; ?>">-->
                                 <button type="submit" class="item-card-button"><i class="fas fa-cart-plus"></i></button>
                                 </form>
                             </div>
