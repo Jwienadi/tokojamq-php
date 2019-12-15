@@ -5,7 +5,6 @@ require_once('../config.php');
 $sql = "SELECT m.nama_merk as 'merk',p.nama_product as 'nama',warna, tanggal_input as 'Tanggal Masuk'
 FROM product_warna pw, product p,warna w,merk m
 WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
-$result = mysqli_query($con,$sql) or die(mysqli_error());
 
 if (isset($_REQUEST['merk'])){
   $hasilmerk = stripslashes($_REQUEST['merk']); 
@@ -23,6 +22,26 @@ $merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
 
 while ($row=mysqli_fetch_assoc($merkresult)){
   $merks[]=$row;
+}
+
+
+if (isset($_REQUEST['Tanggal Masuk'])){
+  $hasiltanggal = stripslashes($_REQUEST['Tanggal Masuk']); 
+  $hasiltanggal = mysqli_real_escape_string($con,$hasiltanggal);
+ 
+      if($hasiltanggal!="all"){
+        $sql .=" and m.merk_id='".$hasiltanggal."';";
+        //echo $sql;
+        //echo $hasilmerk;
+}
+}
+$hasil = mysqli_query($con,$sql) or die(mysqli_error());
+$tanggal="SELECT day(tanggal_input) as 'tanggal', month(tanggal_input) as 'bulan', year(tanggal_input) as 'tahun'
+FROM product p;";
+$tanggalresult=mysqli_query($con,$tanggal) or die(mysqli_error());
+
+while ($row=mysqli_fetch_assoc($tanggalresult)){
+  $tanggals[]=$row;
 }
 
 $product=null;
@@ -165,10 +184,17 @@ $product=null;
             Daftar Barang Baru</div>
           <div class="card-body">
           <form action='' method='POST' class="pilihan" >
-              <Select class="mb-2" name="tanggal" >
-                <option value="all"<?php if(!isset($_REQUEST['Tanggal Masuk'])){ echo"selected";} ?> >Show All</option>
+              <Select class="mb-2" name="merk" >
+                <option value="all"<?php if(!isset($_REQUEST['merk'])){ echo"selected";} ?> >Show All</option>
                 <?php foreach ($merks as $merk) { ?>
                 <option value="<?php echo $merk['merk_id']; ?>" <?php if($_REQUEST['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
+                <?php }?>
+              </select>
+            <form action='' method='POST' class="pilih" >
+              <Select class="mb-2" name="tanggal" >
+                <option value="all"<?php if(!isset($_REQUEST['Tanggal Masuk'])){ echo"selected";} ?> >Show All</option>
+                <?php foreach ($tanggals as $tgl) { ?>
+                <option value="<?php echo $tgl['tanggal']; ?>" <?php if($_REQUEST['Tanggal Masuk'] == $merk['tanggal']){ echo"selected";} ?>><?php echo $merk['tanggal']; ?></option>
                 <?php }?>
               </select>
               <button type="submit">Filter</button>
