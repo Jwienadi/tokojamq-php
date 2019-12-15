@@ -7,6 +7,24 @@ FROM product_warna pw, product p,warna w,merk m
 WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
 
+if (isset($_REQUEST['merk'])){
+  $hasilmerk = stripslashes($_REQUEST['merk']); 
+  $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
+ 
+      if($hasilmerk!="all"){
+        $sql .=" and m.merk_id='".$hasilmerk."';";
+        //echo $sql;
+        //echo $hasilmerk;
+}
+}
+$result = mysqli_query($con,$sql) or die(mysqli_error());
+$sql1="select * from merk;";
+$merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
+
+while ($row=mysqli_fetch_assoc($merkresult)){
+  $merks[]=$row;
+}
+
 $product=null;
 //if($count_all_item>=1){
   while($row = mysqli_fetch_assoc($result)) {
@@ -146,6 +164,15 @@ $product=null;
             <i class="fas fa-table"></i>
             Daftar Barang Baru</div>
           <div class="card-body">
+          <form action='' method='POST' class="pilihan" >
+              <Select class="mb-2" name="tanggal" >
+                <option value="all"<?php if(!isset($_REQUEST['Tanggal Masuk'])){ echo"selected";} ?> >Show All</option>
+                <?php foreach ($merks as $merk) { ?>
+                <option value="<?php echo $merk['merk_id']; ?>" <?php if($_REQUEST['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
+                <?php }?>
+              </select>
+              <button type="submit">Filter</button>
+
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
