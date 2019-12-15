@@ -1,62 +1,42 @@
 <?php 
 session_start();
 require_once('../config.php');
+if (!isset($_GET['merk'])){
+ header("Location: indexadmin.php?merk=all&sort=default");
+}
 $sql = "SELECT  pw.product_warna_id as 'foto',nama_merk as 'merk',nama_product as 'nama',warna,stok 
 from product_warna pw,product p,warna w,merk m 
 where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id";
-if (isset($_REQUEST['merk'])){
-  $hasilmerk = stripslashes($_REQUEST['merk']); 
-  $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
- 
+
+if (isset($_GET['merk'])){
+  $hasilmerk = $_GET['merk']; 
+
       if($hasilmerk!="all"){
-        $sql .=" and m.merk_id='".$hasilmerk."';";
-        //echo $sql;
-        //echo $hasilmerk;
-}
-       
-
-}
-$result = mysqli_query($con,$sql) or die(mysqli_error());
-//TAMBAHIN BUTTON SUBMIT , HAPUS SUBMIT DARI SELECT OPTION DROPDOWN
-
- //$result = mysqli_query($con,$sql) or die(mysqli_error());
-    /*echo $hasilmerk;
-    $sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
-order by length(`product_warna_id`),`product_warna_id`";
-$result = mysqli_query($con,$sql) or die(mysqli_error());
-  } else {
-    echo $hasilmerk;
-  $hasilmerk = stripslashes($_REQUEST['merk']); 
- $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
-$sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id and m.merk_id='$hasilmerk'
-order by length(`product_warna_id`),`product_warna_id`";
-$result = mysqli_query($con,$sql) or die(mysqli_error());
+        $sql .=" and m.merk_id='".$hasilmerk."'";
 }}
-else {
-  $sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
-  from product_warna pw,product p,warna w,merk m 
-  where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
-  order by length(`product_warna_id`),`product_warna_id`";
-  $result = mysqli_query($con,$sql) or die(mysqli_error()); */ 
+if (isset($_GET['sort'])){
+  $sql .=" order by";;
+  $hasilsort =$_GET['sort']; 
+  //echo $hasilsort;
+  if($hasilsort=="default"){
+    $sql .=" pw.product_warna_id ";
+  }
+  if($hasilsort=="stok"){
+    $sql .=" pw.stok desc ";
+  }
+  if($hasilsort=="baru"){
+    $sql .=" p.tanggal_input";
+  }}
 
-//else {
- // echo "none";
-/*$sql = "SELECT  nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id 
-order by length(`product_warna_id`),`product_warna_id`";
-$result = mysqli_query($con,$sql) or die(mysqli_error());*/
-//};
+//echo $sql;
+$result = mysqli_query($con,$sql) or die(mysqli_error());
+
 $sql1="select * from merk;";
 $merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
-
 while ($row=mysqli_fetch_assoc($merkresult)){
   $merks[]=$row;
 }
+//print_r($merks);
 
 //for($i = 0; $i < mysql_num_fields($result); $i++) {
   //$field_info = mysql_fetch_field($result, $i);
@@ -68,8 +48,7 @@ $product=null;
   while($row = mysqli_fetch_assoc($result)) {
     $products[] = $row;
 }
-//}
-// Print the column names as the headers of a tabl
+
 ?>
 
 <!DOCTYPE html>
@@ -261,12 +240,17 @@ $product=null;
             <i class="fas fa-table"></i>
             Stok Barang</div>
           <div class="card-body">
-            <form action='' method='POST' class="pilihan" >
+            <form action='' method='GET' class="pilihan" >
               <Select class="mb-2" name="merk" >
-                <option value="all"<?php if(!isset($_REQUEST['merk'])){ echo"selected";} ?> >Show All</option>
+                <option value="all" <?php if(!isset($_GET['merk'])){ echo"selected";} ?><?php if($_GET['merk'] == "all"){ echo"selected";} ?> >Show All</option>
                 <?php foreach ($merks as $merk) { ?>
-                <option value="<?php echo $merk['merk_id']; ?>" <?php if($_REQUEST['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
+                <option value="<?php echo $merk['merk_id']; ?>" <?php if((isset ($_GET['merk'])) && $_GET['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
                 <?php }?>
+              </select>
+              <Select class="mb-2" name="sort">
+              <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
+              <option value="stok" <?php if($_GET['sort'] == 'stok'){ echo"selected";} ?>>Stok Terbanyak</option>
+              <option value="baru" <?php if($_GET['sort'] == 'baru'){ echo"selected";}  ?>>Barang Terbaru</option>
               </select>
               <button type="submit">Filter</button>
 

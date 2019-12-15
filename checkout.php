@@ -310,42 +310,30 @@ isloggedin($con);
           </div>
 
           
-
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label for="cc-name">Name on card</label>
-              <input type="text" class="form-control" id="cc-name" placeholder="" required>
-              <small class="text-muted">Full name as displayed on card</small>
-              <div class="invalid-feedback">
-                Name on card is required
-              </div>
+        <div class="row">
+          <div class="col-md-6">
+          <h2 class="mb-3">Payment Method</h2>
+          
+            <div class="custom-control custom-radio">
+              <input id="bca" name="paymentmethod" type="radio" class="custom-control-input" checked="" required="">
+              <label class="custom-control-label" for="bca">BCA</label>
             </div>
-            <div class="col-md-6 mb-3">
-              <label for="cc-number">Credit card number</label>
-              <input type="text" class="form-control" id="cc-number" placeholder="" required>
-              <div class="invalid-feedback">
-                Credit card number is required
-              </div>
+            <div class="custom-control custom-radio">
+              <input id="mandiri" name="paymentmethod" type="radio" class="custom-control-input" required="">
+              <label class="custom-control-label" for="mandiri">Mandiri</label>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 mb-3">
-              <label for="cc-expiration">Expiration</label>
-              <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-              <div class="invalid-feedback">
-                Expiration date required
-              </div>
-            </div>
-            <div class="col-md-3 mb-3">
-              <label for="cc-expiration">CVV</label>
-              <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-              <div class="invalid-feedback">
-                Security code required
-              </div>
+            <div class="custom-control custom-radio">
+              <input id="bni" name="paymentmethod" type="radio" class="custom-control-input" required="">
+              <label class="custom-control-label" for="bni">BNI</label>
             </div>
           </div>
+          <div class="col-md-6 mb-5 mt-5">
+            <h1 id="detailpayment"></h1>
+          </div>
+        </div>
+        <!--tulisan nomor rekening e pake DOM -->
           <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Checkout</button>
           </form>
     </div>
   </div>
@@ -565,6 +553,14 @@ isloggedin($con);
      
    
     //});
+    $('input[name="paymentmethod"]').on('change', function(){
+    if ($(this).val()=='bca') {
+         //change to "show update"
+         $("#cont").text("show update");
+    } else  {
+         $("#cont").text("show Overwritten");
+    }
+});
     });
   //  jQuery.fn.myfunction = function() {
    /* function myfunction() {
