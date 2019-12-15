@@ -2,7 +2,7 @@
 session_start();
 require_once('../config.php');
 
-$sql = "SELECT concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'Judul Barang', tanggal_input as 'Tanggal Masuk'
+$sql = "SELECT m.nama_merk as 'merk',p.nama_product as 'nama',warna, tanggal_input as 'Tanggal Masuk'
 FROM product_warna pw, product p,warna w,merk m
 WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
@@ -189,17 +189,22 @@ $product=null;
                 <tbody>
                 <?php
                 foreach ($products as $product) {
-                  $nbarang=$product['Judul Barang'];
+                  $merk=$product['merk'];
+                  $nama=$product['nama'];
+                  $warna=$product['warna'];
                   $tglmsk=$product['Tanggal Masuk'];
                 ?>
                   <tr>
-                    <td><?php echo $nbarang; ?></td>
+                    <td><?php echo $merk; ?></td>
+                    <td><?php echo $nama; ?></td>
+                    <td><?php echo $warna; ?></td>
                     <td><?php echo $tglmsk; ?></td>
                   </tr>
                 <?php } ?>
                 </tbody>
               </table>
             </div>
+            </form>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
