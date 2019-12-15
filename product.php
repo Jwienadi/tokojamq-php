@@ -22,7 +22,7 @@ include("function.php");
     //echo $cmd;
  } else {
      
- $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
+ $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang', stok
         FROM product_warna pw, product p,warna w,merk m 
         WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
   };
@@ -182,8 +182,12 @@ include("function.php");
                                 <!--<button class="item-card-button" href><i class="fas fa-heart"></i></button>
                                 <span class="vertical-line"></span> -->
                                 <!--<form method="post" action ="action_cart.php?id=<?php// echo $id; ?>">-->
-                                <button type="submit" class="item-card-button"><i class="fas fa-cart-plus"></i></button>
-                                </form>
+                                <input type="number" name="stok" value="1" min="1" max="<?=$product['stok']?>" placeholder="stok" required>
+
+                                <!-- <a href="cart.php"><button type="button" class="item-card-button"><i class="fas fa-cart-plus"></i></button></a>
+                               <button type="submit" class="item-card-button"><i class="fas fa-cart-plus"></i></button> -->
+                               <a href="cart.php"><form action="action_cart.php?id=<?php echo $id;?>" method="POST"><input type="hidden" name="cart">
+                               <button type="submit" class="item-card-button"><i class="fas fa-cart-plus"></i></button></a></form>
                             </div>
                         </div>
                     </div>

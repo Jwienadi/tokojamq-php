@@ -3,6 +3,8 @@ session_start();
 require_once('config.php');
 include("function.php");
 ?>
+
+<!-- punya jessica dibawah ini -->
 <?php
     if(!isset($_SESSION['user_id'])){
       header("Location: index.php");
@@ -37,7 +39,7 @@ $htot=mysqli_fetch_assoc($qhtot);
        }
    }
    $_SESSION['cart']=$products;
-
+//bates punya jessica
 ?>
 <html>
 
