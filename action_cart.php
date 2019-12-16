@@ -21,7 +21,7 @@ require_once('config.php');
            $products[] = $row;
        }
    }
-  $cmd_product = "SELECT * FROM products_warna where product_warna_id='".$_GET['product_warna_id']."';";
+  $cmd_product = "SELECT * FROM products_warna where product_warna_id='".$_GET['id']."';";
   $sql_product = mysqli_query($con, $cmd_product);
   $row_product = mysqli_fetch_assoc($sql_product);
   //$harga_satuan = $row_product['harga_jual'];
@@ -29,11 +29,11 @@ require_once('config.php');
   if ($ketemu==0){
       // kalau barang belum ada, maka di jalankan perintah insert
      // $subtotal = $harga_satuan * 1;
-     if (isset($_REQUEST['product_warna_id'])){
+     //if (isset($_GET['id'])){
       $sql="INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
-      values ('', 1, 0, '".$_GET['id']."' ', '".$_GET['stok']."');";
+      values ('', 1, 0, '".$_GET['id']."' , '".$_GET['qty']."');";
       $createsql=mysqli_query($con,$sql) or die(mysqli_error($con));
-      }
+     // }
      // $tmp_cmd = "INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
              //     VALUES ('', 1, 0, '".$_GET['id']."' ', '".$_GET['stok']."');";
      // echo $tmp_cmd;
@@ -42,8 +42,8 @@ require_once('config.php');
   } else {
       //  kalau barang ada, maka di jalankan perintah update
       mysqli_query($con, "UPDATE barang_penjualan
-              SET jumlah_barang = jumlah_barang + '$_GET[stok]'
-              WHERE id_barang_penjualan ='$id_bp' AND product_warna_id='$_GET[product_warna_id]'");       
+              SET jumlah_barang = jumlah_barang + '$_GET[qty]'
+              WHERE id_barang_penjualan ='$id_bp' AND product_warna_id='$_GET[id]'");       
   }   
   header('Location: cart.php');
    $_SESSION['cart']=$products;
