@@ -315,20 +315,20 @@ isloggedin($con);
           <h2 class="mb-3">Payment Method</h2>
           
             <div class="custom-control custom-radio">
-              <input id="bca" name="paymentmethod" type="radio" class="custom-control-input" checked="" required="">
+              <input id="bca" value="bca" name="paymentmethod" type="radio" class="custom-control-input" checked="" required="">
               <label class="custom-control-label" for="bca">BCA</label>
             </div>
             <div class="custom-control custom-radio">
-              <input id="mandiri" name="paymentmethod" type="radio" class="custom-control-input" required="">
+              <input id="mandiri" value="mandiri" name="paymentmethod" type="radio" class="custom-control-input" required="">
               <label class="custom-control-label" for="mandiri">Mandiri</label>
             </div>
             <div class="custom-control custom-radio">
-              <input id="bni" name="paymentmethod" type="radio" class="custom-control-input" required="">
+              <input id="bni" value="bni" name="paymentmethod" type="radio" class="custom-control-input" required="">
               <label class="custom-control-label" for="bni">BNI</label>
             </div>
           </div>
           <div class="col-md-6 mb-5 mt-5">
-            <h1 id="detailpayment"></h1>
+            <h3 id="detailpayment"></h3>
           </div>
         </div>
         <!--tulisan nomor rekening e pake DOM -->
@@ -411,6 +411,8 @@ isloggedin($con);
     $(document).ready(function () {
       $(function () {
     $("#state").change();
+    $('input[name="paymentmethod"]').change();
+    
 });
 
     $('#state').change(function () {
@@ -554,12 +556,28 @@ isloggedin($con);
    
     //});
     $('input[name="paymentmethod"]').on('change', function(){
-    if ($(this).val()=='bca') {
+    /*if ($(this).val()=='bca') {
          //change to "show update"
-         $("#cont").text("show update");
-    } else  {
+        // $("#detailpayment").text("show update");
+
+    } else if ($(this).val()=='mandiri') {
          $("#cont").text("show Overwritten");
-    }
+    } else if ($(this).val()=='bca') {
+         $("#cont").text("show Overwritten");
+    }*/
+    var pay=$(this).val();
+    $.ajax({
+              url: 'ajax/bank_ajax.php',
+              method: 'POST',
+              data: {
+                pay:pay
+              },
+              success: function(data) {
+                //alert(data);
+                $("#detailpayment").text(data);
+               
+              }
+            })
 });
     });
   //  jQuery.fn.myfunction = function() {
