@@ -14,14 +14,18 @@
         $dbname 	= "store18_1";
     } else {
         $base_url = "http://tokojamq.xyz/";
-        $servername = "tokojamq.xyz/phpmyadmin";
+        $servername = "tokojamq.xyz";
         $username 	= "melisa";
         $password 	= "melisa";
         $dbname 	= "tokojamq";
     }
 
     $con = new mysqli($servername, $username, $password,$dbname);
-    
+    if ($con->connect_error) {
+        die("Connection failed: " . $con->connect_error);
+     }
+       echo "Connected successfully";
+     
    
     
 ?>
