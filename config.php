@@ -13,7 +13,7 @@
         $password 	= "Isb_2018";
         $dbname 	= "store18_1";
     } else {
-        $base_url = "http://tokojamq.xyz/tokojamq/tokojamq-php/";
+        $base_url = "http://tokojamq.xyz/";
         $servername = "jmswijaya.com";
         $username 	= "isb18";
         $password 	= "Isb_2018";
