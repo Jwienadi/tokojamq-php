@@ -31,8 +31,8 @@ require_once('config.php');
       // kalau barang belum ada, maka di jalankan perintah insert
      // $subtotal = $harga_satuan * 1;
      //if (isset($_GET['id'])){
-      $sql="INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
-      values ('', 1, 0, '".$_GET['id']."' , '".$_GET['qty']."');";
+      $sql="INSERT INTO barang_penjualan(id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
+      values (1, 0, '".$_GET['id']."' ,".$_GET['qty'].");";
       $createsql=mysqli_query($con,$sql) or die(mysqli_error($con));
      // }
      // $tmp_cmd = "INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
@@ -42,9 +42,10 @@ require_once('config.php');
      // die();
   } else {
       //  kalau barang ada, maka di jalankan perintah update
+    
       mysqli_query($con, "UPDATE barang_penjualan
-              SET jumlah_barang = jumlah_barang + '$_GET[qty]'
-              WHERE id_barang_penjualan ='$id_bp' AND product_warna_id='$_GET[id]'");       
+              SET jumlah_barang = jumlah_barang + '$_GET['qty']'
+              WHERE id_barang_penjualan ='$id_bp' AND product_warna_id='$_GET['id']'");       
   }   
   header('Location: cart.php');
    $_SESSION['cart']=$products;

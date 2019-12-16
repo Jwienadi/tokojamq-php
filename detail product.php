@@ -216,11 +216,11 @@ isloggedin($con);
                         <!--<span class="vertical-line"></span>
                         <input type="number" step="1" max="99" min="1" value="1" title="Qty" class="qty"size="4">
                         <button class="item-card-button"><i class="fas fa-cart-plus">Add to Cart</i></button> -->
-                        <!--<form method="post" action ="action_cart.php?id=<?php echo $id; ?>">-->
-                            <input type="number" name="stok" value="1" min="1" max="<?=$product['stok']?>" placeholder="stok" required>
-                            <input type="hidden" name="product_id" value="<?=$product['product_warna_id']?>">
+                        <form method="get" action ="action_cart.php">
+                            <input type="number" name="qty" value="1" min="1" max="<?=$product['stok']?>" placeholder="stok" required>
+                            <input type="hidden" name="id" value="<?=$product['product_warna_id']?>">
                             <button type="submit">Add To Cart</button>
-                            
+                            </form>
                             
                        <!-- </form> -->
 
