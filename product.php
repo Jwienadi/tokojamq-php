@@ -182,12 +182,12 @@ include("function.php");
                                 <!--<button class="item-card-button" href><i class="fas fa-heart"></i></button>
                                 <span class="vertical-line"></span> -->
                                 <!--<form method="post" action ="action_cart.php?id=<?php// echo $id; ?>">-->
-                                <input type="number" name="stok" value="1" min="1" max="<?=$product['stok']?>" placeholder="stok" required>
-
+                                <form action="action_cart.php" method="GET">
+                                <input type="number" name="qty" value="1" min="1" max="<?=$product['stok']?>" placeholder="stok" required>
                                 <!-- <a href="cart.php"><button type="button" class="item-card-button"><i class="fas fa-cart-plus"></i></button></a>
                                <button type="submit" class="item-card-button"><i class="fas fa-cart-plus"></i></button> -->
-                               <a href="cart.php"><form action="action_cart.php?id=<?php echo $id;?>" method="POST"><input type="hidden" name="cart">
-                               <button type="submit" class="item-card-button"><i class="fas fa-cart-plus"></i></button></a></form>
+                               <input type="hidden" name="id" value="<?php echo $id ?>">
+                               <button type="submit" class="item-card-button"><i class="fas fa-cart-plus"></i></button></form>
                             </div>
                         </div>
                     </div>
