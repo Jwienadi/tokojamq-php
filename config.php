@@ -14,7 +14,7 @@
         $dbname 	= "store18_1";
     } else {
         $base_url = "http://tokojamq.xyz/";
-        $servername = "tokojamq.xyz";
+        $servername = "tokojamq.xyz/phpmyadmin";
         $username 	= "melisa";
         $password 	= "melisa";
         $dbname 	= "tokojamq";
