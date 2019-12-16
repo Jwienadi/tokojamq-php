@@ -13,11 +13,11 @@
         $password 	= "Isb_2018";
         $dbname 	= "store18_1";
     } else {
-        $base_url = "http://tokojamq.xyz/tokojamq/tokojamq-php/";
-        $servername = "jmswijaya.com";
-        $username 	= "isb18";
-        $password 	= "Isb_2018";
-        $dbname 	= "store18_1";
+        $base_url = "http://tokojamq.xyz/";
+        $servername = "tokojamq.xyz/phpmyadmin";
+        $username 	= "melisa";
+        $password 	= "melisa";
+        $dbname 	= "tokojamq";
     }
 
     $con = new mysqli($servername, $username, $password,$dbname);
