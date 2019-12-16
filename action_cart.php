@@ -20,9 +20,9 @@
            $products[] = $row;
        }
    }
-  $cmd_product = "SELECT * FROM products_warna where product_warna_id='".$_GET['product_warna_id']."';";
+  /*$cmd_product = "SELECT * FROM products_warna where product_warna_id='".$_GET['product_warna_id']."';";
   $sql_product = mysqli_query($con, $cmd_product);
-  $row_product = mysqli_fetch_assoc($sql_product);
+  $row_product = mysqli_fetch_assoc($sql_product);*/
   //$harga_satuan = $row_product['harga_jual'];
 
   if ($ketemu==0){
