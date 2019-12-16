@@ -14,10 +14,10 @@
         $dbname 	= "store18_1";
     } else {
         $base_url = "http://tokojamq.xyz/";
-        $servername = "tokojamq.xyz";
-        $username 	= "melisa";
-        $password 	= "melisa";
-        $dbname 	= "tokojamq";
+        $servername = "jmswijaya.com";
+        $username 	= "isb18";
+        $password 	= "Isb_2018";
+        $dbname 	= "store18_1";
     }
 
     $con = new mysqli($servername, $username, $password,$dbname);
