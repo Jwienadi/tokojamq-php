@@ -2,14 +2,11 @@
 session_start();
 require_once('../config.php');
 if (!isset($_GET['sort'])){
- header("Location: rep_uangtransaksi.php?sort=default");
+ header("Location: indexadmin.php?merk=all&sort=default");
 }
-$sql = "SELECT CAST(tp.tanggal_transaksi as date) as 'tanggal',subtotal_transaksi as 'omset',
-if(pc.jumlah_promo is null,0,jumlah_promo) as 'promo',
-sum(p.hpp*bp.jumlah_barang) as 'modal',
-(tp.total_transaksi-dp.biaya_pengiriman)-(sum(p.hpp*bp.jumlah_barang)) as 'profit' 
-from transaksi_penjualan tp,detail_pengiriman dp,barang_penjualan bp, product p,product_warna pw,promo_code pc 
-where tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and pc.kode_promo=tp.kode_promo and bp.product_warna_id=pw.product_warna_id and pw.product_id=p.product_id and dp.detail_pengiriman_id=tp.detail_pengiriman_id and bp.status=1 and tp.status_pembayaran=1 group by tp.id_transaksi_penjualan";
+$sql = "SELECT nama_kurir as 'Kurir', jenis_layanan as 'Jenis',no_resi_pengiriman as 'No. Resi',nama_penerima as 'Nama Penerima',no_telp_penerima as 'No. Telp.', if(tanggal_Sampai is null,'BELUM SAMPAI',CAST(tanggal_sampai as date)) as 'Status' 
+from detail_pengiriman dp,pengiriman p 
+where dp.pengiriman_id=p.pengiriman_id";
 
 /*if (isset($_GET['merk'])){
   $hasilmerk = $_GET['merk']; 
@@ -18,24 +15,13 @@ where tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and pc.kode_promo=tp.k
         $sql .=" and m.merk_id='".$hasilmerk."'";
 }}*/
 if (isset($_GET['sort'])){
-  $sql .=" order by";;
   $hasilsort =$_GET['sort']; 
   //echo $hasilsort;
-  if($hasilsort=="default"){
-    $sql .=" `omset` desc ";
-  } else if($hasilsort=="omsetbanyak"){
-    $sql .=" `omset` asc ";
-  } else if($hasilsort=="omsetdikit"){
-    $sql .=" `omset` desc ";
-  } else if($hasilsort=="modalbanyak"){
-    $sql .=" `modal` desc";
-  } else if($hasilsort=="modaldikit"){
-    $sql .=" `modal` asc";
-  } else if($hasilsort=="profitbanyak"){
-    $sql .=" `profit` desc";
-  } else if($hasilsort=="profitdikit"){
-    $sql .=" `profit` asc";
-  }
+  if($hasilsort=="sampai"){
+    $sql .=" and tanggal_sampai is not null ";
+  } else if($hasilsort=="blmsampai"){
+    $sql .=" and tanggal_sampai is null";
+  } 
 }
 
 //echo $sql;
@@ -248,23 +234,14 @@ $product=null;
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Profit Loss</div>
+            Pengiriman</div>
           <div class="card-body">
             <form action='' method='GET' class="pilihan" >
-              <!--<Select class="mb-2" name="merk" >
-                <option value="all" <?php //if(!isset($_GET['merk'])){ echo"selected";} ?><?php //if($_GET['merk'] == "all"){ echo"selected";} ?> >Show All</option>
-                <?php //foreach ($merks as $merk) { ?>
-                <option value="<?php //echo $merk['merk_id']; ?>" <?php //if((isset ($_GET['merk'])) && $_GET['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php //echo $merk['nama_merk']; ?></option>
-                <?php// }?>
-              </select>-->
               <Select class="mb-2" name="sort">
               <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
-              <option value="omsetbanyak" <?php if($_GET['sort'] == 'omsetbanyak'){ echo"selected";} ?>>Omset Terbanyak</option>
-              <option value="omsetdikit" <?php if($_GET['sort'] == 'omsetdikit'){ echo"selected";} ?>>Omset Tersedikit</option>
-              <option value="modalbanyak" <?php if($_GET['sort'] == 'modalbanyak'){ echo"selected";} ?>>modal Terbanyak</option>
-              <option value="modaldikit" <?php if($_GET['sort'] == 'modaldikit'){ echo"selected";} ?>>modal Tersedikit</option>
-              <option value="profitbanyak" <?php if($_GET['sort'] == 'profitbanyak'){ echo"selected";} ?>>Profit Terbanyak</option>
-              <option value="ptofitdikit" <?php if($_GET['sort'] == 'profitdikit'){ echo"selected";} ?>>Profit Tersedikit</option>
+              <option value="sampai" <?php if($_GET['sort'] == 'sampai'){ echo"selected";} ?>>Barang Sampai</option>
+              <option value="blmsampai" <?php if($_GET['sort'] == 'blmsampai'){ echo"selected";} ?>>Barang Belum Sampai</option>
+
               </select>
               <button type="submit">Filter</button>
 
@@ -312,39 +289,21 @@ $product=null;
                   <tbody>
                     <?php
                 foreach ($products as $product) {
+               
 
                 ?>
                     <tr>
-                    <td><?php echo $product['tanggal']; ?></td>
-                      <td><?php echo $product['omset']; ?></td>
-                      <td><?php echo $product['promo']; ?></td>
-                      <td><?php echo $product['modal']; ?></td>
-                      <td><?php echo $product['profit']; ?></td>
+                  
+                      <td><?php echo $product['Kurir'];?></td>
+                      <td><?php echo $product['Jenis']; ?></td>
+                      <td><?php echo $product['No. Resi']; ?></td>
+                      <td><?php echo $product['Nama Penerima']; ?></td>
+                      <td><?php echo $product['No. Telp.']; ?></td>
+                      <td><?php echo $product['Status']; ?></td>
                     </tr>
                     <?php } ?>
                   </tbody>
                 </table>
-              </div>
-              <div class="p-4">
-                <ul class="list-unstyled mb-4">
-                <?php
-                $querysummary="select sum(d.omset) as `somset`,sum(d.promo) as `spromo`,sum(d.modal) as `smodal`,sum(d.profit) as `sprofit` from (SELECT subtotal_transaksi as 'omset',
-                if(pc.jumlah_promo is null,0,jumlah_promo) as 'promo',
-                sum(p.hpp*bp.jumlah_barang) as 'modal',
-                (tp.total_transaksi-dp.biaya_pengiriman)-(sum(p.hpp*bp.jumlah_barang)) as 'profit' 
-                from transaksi_penjualan tp,detail_pengiriman dp,barang_penjualan bp, product p,product_warna pw,promo_code pc 
-                where tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and pc.kode_promo=tp.kode_promo and bp.product_warna_id=pw.product_warna_id and pw.product_id=p.product_id and dp.detail_pengiriman_id=tp.detail_pengiriman_id and bp.status=1 and tp.status_pembayaran=1 group by tp.id_transaksi_penjualan) d";
-                $resultsummary = mysqli_query($con,$querysummary) or die(mysqli_error());
-                $summary=mysqli_fetch_assoc($resultsummary);
-                ?>
-                  <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">
-                      Omset </strong><strong>Rp. <?php 	echo number_format($summary['somset']); ?></strong></li>
-                      <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">
-                      Modal </strong><strong>Rp. <?php 	echo number_format($summary['smodal']); ?></strong></li>
-                      <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">
-                      Profit </strong><strong>Rp. <?php 	echo number_format($summary['sprofit']); ?></strong></li>
-                 
-                </ul>
               </div>
               </form>
           </div>
