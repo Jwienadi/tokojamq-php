@@ -42,7 +42,8 @@ require_once('../config.php');
    $queryupdatetransaksipenjualan="update transaksi_penjualan tp,barang_penjualan bp set tp.bank_id='$bankid',tp.status_pembayaran=1,tp.detail_pengiriman_id='".$iddp['id']."',tp.tanggal_transaksi=CURRENT_TIMESTAMP,tp.subtotal_transaksi=$subtot,tp.total_transaksi=$tot,tp.kode_promo='.$kodepromo.' where tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id='".$_SESSION['user_id']."' and bp.status=0 and tp.status_pembayaran=0 and tp.id_transaksi_penjualan='$idtp';";
    $runupdatetp=mysqli_query($con,$queryupdatetransaksipenjualan) or die(mysqli_error());
    echo $queryupdatetransaksipenjualan;
-   
+   //masih ngeBUG
+
    $queryupdatebarangpenjualan="update transaksi_penjualan tp,barang_penjualan bp set bp.status=1 where tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id='".$_SESSION['user_id']."' and bp.status=0 and tp.status_pembayaran=1 and bp.id_transaksi_penjualan='$idtp';";
    $runupdatebp=mysqli_query($con,$queryupdatebarangpenjualan) or die(mysql_error());
  //echo $queryupdatebarangpenjualan;
