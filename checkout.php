@@ -12,12 +12,13 @@ if(!isset($_SESSION['user_id'])){
 $queryuser="select first_name,last_name,email,phone_number from user where user_id='".$_SESSION['user_id']."'";
 $hqueryuser=mysqli_query($con,$queryuser) or die(mysqli_error($con));
 $userinfo=mysqli_fetch_assoc($hqueryuser);
-$querysubtotal="SELECT if(sum(harga_jual*jumlah_barang) is null,0,sum(harga_jual*jumlah_barang)) as 'total_harga'
+$querysubtotal="SELECT if(sum(harga_jual*jumlah_barang) is null,0,sum(harga_jual*jumlah_barang)) as 'total_harga',tp.id_transaksi_penjualan as 'idtp'
 from barang_penjualan bp,product_warna pw, product p,`user` u,transaksi_penjualan tp
 where bp.product_warna_id=pw.product_warna_id and pw.product_id=p.product_id
-and tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id=u.user_id and bp.status=0 and tp.user_id=".$_SESSION['user_id'].";";
+and tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id=u.user_id and bp.status=0 and tp.user_id=".$_SESSION['user_id']." group by `idtp`;";
 $hqueryuser=mysqli_query($con,$querysubtotal) or die(mysqli_error($con));
 $subtotal=mysqli_fetch_assoc($hqueryuser);
+$idtp=$subtotal['idtp']
 
 
 ?>
@@ -155,7 +156,7 @@ isloggedin($con);
                       <h6 class="my-0">Shipping fee</h6>
                       <small class="text-muted">JNE OKE</small>
                     </div>
-                    <span class="text-muted" id="ongkir">$8</span>
+                    <span class="text-muted" id="ongkir" value="">$8</span>
                   </li>
                   
                   <li class="list-group-item d-flex justify-content-between bg-light">
@@ -167,7 +168,7 @@ isloggedin($con);
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                     <span>Total</span>
-                    <strong id="totalsemua">Rp.</strong>
+                    <strong id="totalsemua" value="">Rp.</strong>
                   </li>
                 </ul>
                 <form class="card p-2">
@@ -198,14 +199,14 @@ isloggedin($con);
                 <form name="form1" class="needs-validation" novalidate>
                   <div class="row">
                     <div class="col-md-6 mb-3">
-                      <label for="firstName">First name</label>
+                      <label for="firstName">Recipient First name</label>
                       <input type="text" class="form-control" id="firstName" placeholder="" value="<?php echo $userinfo['first_name']; ?>" required>
                       <div class="invalid-feedback">
                         Valid first name is required.
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label for="lastName">Last name</label>
+                      <label for="lastName">Recipient Last name</label>
                       <input type="text" class="form-control" id="lastName" placeholder="" value="<?php echo $userinfo['last_name']; ?>" required>
                       <div class="invalid-feedback">
                         Valid last name is required.
@@ -228,11 +229,18 @@ isloggedin($con);
 
                   <div class="mb-3">
                     <label for="email">Email <span class="text-muted"></span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<?php echo $userinfo['email']; ?>">
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com" value="<?php echo $userinfo['email']; ?>" readonly>
                     <div class="invalid-feedback">
                       Please enter a valid email address for shipping updates.
                     </div>
                   </div>
+                  <div class="col-5 pl-0 mb-3">
+                  <label for="phone">Recipient Mobile Phone</label>
+                  <input type="text" class="form-control" id="phone" placeholder="" value="<?php echo $userinfo['phone_number']; ?>" required>
+                  <div class="invalid-feedback">
+                    Recipient Mobile Phone required.
+                  </div>
+                </div>
 
                   <div class="mb-3">
                     <label for="address">Address</label>
@@ -267,8 +275,7 @@ isloggedin($con);
                 foreach ($dataprovinsi as $dprov) {
                
                  ?>
-                          <option value="<?php echo $dprov['idprovinsi'];?>"><?php echo $dprov['namaprovinsi'];?>
-                          </option>
+                          <option value="<?php echo $dprov['idprovinsi'];?>"><?php echo $dprov['namaprovinsi'];?></option>
                           <?php }; ?>
                           <?php /*api_getprovince();
                   foreach ($dataprovinsi as $datap){
@@ -295,13 +302,7 @@ isloggedin($con);
                     </div>
                 
              
-                <div class="col-md-5 mb-3">
-                  <label for="phone">Recipient Mobile Phone</label>
-                  <input type="text" class="form-control" id="phone" placeholder="" value="<?php echo $userinfo['phone_number']; ?>" required>
-                  <div class="invalid-feedback">
-                    Recipient Mobile Phone required.
-                  </div>
-                </div>
+                
               </div>
 
               
@@ -315,26 +316,27 @@ isloggedin($con);
           <h2 class="mb-3">Payment Method</h2>
           
             <div class="custom-control custom-radio">
-              <input id="bca" value="bca" name="paymentmethod" type="radio" class="custom-control-input" checked="" required="">
+              <input id="bca" value="1" name="paymentmethod" type="radio" class="custom-control-input" checked="" required="">
               <label class="custom-control-label" for="bca">BCA</label>
             </div>
             <div class="custom-control custom-radio">
-              <input id="mandiri" value="mandiri" name="paymentmethod" type="radio" class="custom-control-input" required="">
+              <input id="mandiri" value="2" name="paymentmethod" type="radio" class="custom-control-input" required="">
               <label class="custom-control-label" for="mandiri">Mandiri</label>
             </div>
             <div class="custom-control custom-radio">
-              <input id="bni" value="bni" name="paymentmethod" type="radio" class="custom-control-input" required="">
+              <input id="bni" value="3" name="paymentmethod" type="radio" class="custom-control-input" required="">
               <label class="custom-control-label" for="bni">BNI</label>
             </div>
           </div>
           <div class="col-md-6 mb-5 mt-5">
-            <h3 id="detailpayment"></h3>
+            <h3 id="detailpayment" value=""></h3>
           </div>
         </div>
+        </form>
         <!--tulisan nomor rekening e pake DOM -->
           <hr class="mb-4">
-          <button class="btn btn-primary btn-lg btn-block" type="submit">Checkout</button>
-          </form>
+          <button id="btncheckout" class="btn btn-primary btn-lg btn-block" value="<?php echo $idtp; ?>">Checkout</button>
+          <!--</form>-->
     </div>
   </div>
   </div>
@@ -411,7 +413,7 @@ isloggedin($con);
     $(document).ready(function () {
       $(function () {
     $("#state").change();
-    $('input[name="paymentmethod"]').change();
+    $('input[name="paymentmethod"][value="1"]').change();
     
 });
 
@@ -465,9 +467,11 @@ isloggedin($con);
                 //alert( res.rajaongkir.results[0].costs[0].cost[0].value);
                 $('#ongkir').text("Rp. "+res.rajaongkir.results[0].costs[0].cost[0].value);
                 $('#ongkir').val(res.rajaongkir.results[0].costs[0].cost[0].value);
+                $('#ongkir').attr("value",res.rajaongkir.results[0].costs[0].cost[0].value);
                 var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
                 //alert(total);
                $('#totalsemua').text("Rp. "+total);
+               $('#totalsemua').attr("value",total);
                
               }
             })
@@ -491,11 +495,12 @@ isloggedin($con);
                   $('#error_notif').append("Promocode applied successfully !");
                   $('#error_notif').css('color','green');
                   $('#nominalpromo').text("-Rp. "+data);
-                  $('#nominalpromo').attr("value",data);
+                  $('#nominalpromo').attr("value",data);//data --> promo
                   $('#namapromo').text(promo);
 
                   var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
                   $('#totalsemua').text("Rp. "+total);
+                  $('#totalsemua').attr("value",total);
               //location.href="index.php";
             } else {
             // show alert or something that user has wrong credentials ...
@@ -503,6 +508,7 @@ isloggedin($con);
             $('#nominalpromo').val("0");
             var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
             $('#totalsemua').text("Rp. "+total);
+            $('#totalsemua').attr("value",total);
                 //$("#error_notif").show();
             }
    
@@ -556,16 +562,8 @@ isloggedin($con);
    
     //});
     $('input[name="paymentmethod"]').on('change', function(){
-    /*if ($(this).val()=='bca') {
-         //change to "show update"
-        // $("#detailpayment").text("show update");
-
-    } else if ($(this).val()=='mandiri') {
-         $("#cont").text("show Overwritten");
-    } else if ($(this).val()=='bca') {
-         $("#cont").text("show Overwritten");
-    }*/
     var pay=$(this).val();
+    //alert (pay);
     $.ajax({
               url: 'ajax/bank_ajax.php',
               method: 'POST',
@@ -575,10 +573,70 @@ isloggedin($con);
               success: function(data) {
                 //alert(data);
                 $("#detailpayment").text(data);
-               
+               $('#detailpayment').attr("value",pay);
               }
             })
 });
+//checkout buttonnnnn
+$('#btncheckout').click(function () {
+  var alamat=$('#address').val();
+ 
+      if(alamat.length !== 0){
+    //var promo =$('#promocodenya').val();
+   //alert(promo);
+   var idtp =$('#btncheckout').attr("value");
+   var bankid=$('#detailpayment').attr("value");
+   var subtot=$('#subtot').attr("value");
+   var tot =$('#totalsemua').attr("value");
+   var kodepromo=$('#namapromo').text();
+   if (kodepromo.length==0){
+     kodepromo="null";
+   };
+ 
+   var ongkir=$('#ongkir').val();
+   var namadpn=$('#firstName').val();
+   var namablkg=$('#lastName').val();
+   var nama=namadpn+" "+namablkg;
+   var notelp=$('#phone').val();
+   var kota=$('#city option:selected').text();
+
+   var prov=$('#state option:selected').text();
+
+
+   //var total_
+   $.ajax({
+              url: 'ajax/checkout_ajax.php',
+              method: 'POST',
+              data: {
+                  idtp:idtp,
+                  bankid:bankid,
+                  alamat:alamat,
+                  subtot:subtot,
+                  tot:tot,
+                  kodepromo:kodepromo,
+                  ongkir:ongkir,
+                  nama:nama,
+                  notelp:notelp,
+                  kota:kota,
+                  prov:prov
+              },
+              success: function(data) {
+              //alert("yay berhasil cekot");
+              alert(data);
+              window.location.href="thankyou.php";
+
+   
+    }
+    //close ajax checkout
+    });
+    } else {
+      alert("hell na");
+    }
+    
+    //close event click btn checkout
+    })
+
+//end
     });
   //  jQuery.fn.myfunction = function() {
    /* function myfunction() {
