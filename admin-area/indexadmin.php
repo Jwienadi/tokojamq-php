@@ -20,13 +20,16 @@ if (isset($_GET['sort'])){
   //echo $hasilsort;
   if($hasilsort=="default"){
     $sql .=" pw.product_warna_id ";
-  }
-  if($hasilsort=="stok"){
+  } else if($hasilsort=="stokbanyak"){
     $sql .=" pw.stok desc ";
+  } else if($hasilsort=="stokdikit"){
+    $sql .=" pw.stok desc ";
+  } else if($hasilsort=="baru"){
+    $sql .=" p.tanggal_input desc";
+  } else if($hasilsort=="lama"){
+    $sql .=" p.tanggal_input asc";
   }
-  if($hasilsort=="baru"){
-    $sql .=" p.tanggal_input";
-  }}
+}
 
 //echo $sql;
 $result = mysqli_query($con,$sql) or die(mysqli_error());
@@ -249,8 +252,10 @@ $product=null;
               </select>
               <Select class="mb-2" name="sort">
               <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
-              <option value="stok" <?php if($_GET['sort'] == 'stok'){ echo"selected";} ?>>Stok Terbanyak</option>
+              <option value="stokbanyak" <?php if($_GET['sort'] == 'stokbanyak'){ echo"selected";} ?>>Stok Terbanyak</option>
+              <option value="stokdikit" <?php if($_GET['sort'] == 'stokdikit'){ echo"selected";} ?>>Stok Tersedikit</option>
               <option value="baru" <?php if($_GET['sort'] == 'baru'){ echo"selected";}  ?>>Barang Terbaru</option>
+              <option value="lama" <?php if($_GET['sort'] == 'lama'){ echo"selected";}  ?>>Barang Terlama</option>
               </select>
               <button type="submit">Filter</button>
 

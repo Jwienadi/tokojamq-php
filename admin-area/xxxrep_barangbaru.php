@@ -154,7 +154,7 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="rep_barangbaru.php">
+        <a class="nav-link" href="rep_transaksi.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
           <span>Daftar Barang Baru</span>
         </a>
