@@ -1,52 +1,53 @@
 <?php 
 session_start();
 require_once('../config.php');
-
-$sql = "SELECT m.nama_merk as 'merk',p.nama_product as 'nama',warna, tanggal_input as 'Tanggal Masuk'
+//if (!isset($_GET['merk'])){
+//header("Location: rep_barangbaru.php?merk=all&sort=default");
+//}
+$sql = "SELECT m.nama_merk as 'merk',p.nama_product as 'nama',warna, tanggal_input
 FROM product_warna pw, product p,warna w,merk m
 WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
 
-if (isset($_REQUEST['merk'])){
-  $hasilmerk = stripslashes($_REQUEST['merk']); 
-  $hasilmerk = mysqli_real_escape_string($con,$hasilmerk);
- 
+if (isset($_GET['merk'])){
+  $hasilmerk = $_GET['merk']; 
+
       if($hasilmerk!="all"){
-        $sql .=" and m.merk_id='".$hasilmerk."';";
-        //echo $sql;
-        //echo $hasilmerk;
+        $sql .=" and m.merk_id='".$hasilmerk."'";
+}}
+// Date filter
+if(isset($_POST['but_search'])){
+  $fromDate = $_POST['fromDate'];
+  $endDate = $_POST['endDate'];
+
+  if(!empty($fromDate) && !empty($endDate)){
+    $sql .= " and tanggal_input 
+                  between '".$fromDate."' and '".$endDate."' ";
+  }
 }
-}
-$result = mysqli_query($con,$sql) or die(mysqli_error());
+if (isset($_GET['sort'])){
+  $sql .=" order by";;
+  $hasilsort =$_GET['sort']; 
+  //echo $hasilsort;
+  if($hasilsort=="default"){
+    $sql .=" pw.product_warna_id ";
+  }
+  if($hasilsort=="stok"){
+    $sql .=" pw.stok desc ";
+  }
+  if($hasilsort=="baru"){
+    $sql .=" p.tanggal_input";
+  }}
+$record = mysqli_query($con,$sql) or die(mysqli_error());
+
 $sql1="select * from merk;";
 $merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
-
 while ($row=mysqli_fetch_assoc($merkresult)){
   $merks[]=$row;
 }
 
-
-if (isset($_REQUEST['Tanggal Masuk'])){
-  $hasiltanggal = stripslashes($_REQUEST['Tanggal Masuk']); 
-  $hasiltanggal = mysqli_real_escape_string($con,$hasiltanggal);
- 
-      if($hasiltanggal!="all"){
-        $sql .=" and m.merk_id='".$hasiltanggal."';";
-        //echo $sql;
-        //echo $hasilmerk;
-}
-}
-$hasil = mysqli_query($con,$sql) or die(mysqli_error());
-$tanggal="SELECT day(tanggal_input) as 'tanggal', month(tanggal_input) as 'bulan', year(tanggal_input) as 'tahun'
-FROM product p;";
-$tanggalresult=mysqli_query($con,$tanggal) or die(mysqli_error());
-
-while ($row=mysqli_fetch_assoc($tanggalresult)){
-  $tanggals[]=$row;
-}
-
 $product=null;
 //if($count_all_item>=1){
-  while($row = mysqli_fetch_assoc($result)) {
+  while($row = mysqli_fetch_assoc($record)) {
     $products[] = $row;
 }
 ?>
@@ -72,7 +73,42 @@ $product=null;
 
   <!-- Custom styles for this template-->
   <link href="assets/css/sb-admin.css" rel="stylesheet">
-
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  
+  <!--<script>
+  $( function() {
+    var dateFormat = "dd/mm/yy",
+      from = $( "#from" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          changeYear: true,
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#to" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        changeYear: true,
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script> -->
 </head>
 
 <body id="page-top">
@@ -183,51 +219,93 @@ $product=null;
             <i class="fas fa-table"></i>
             Daftar Barang Baru</div>
           <div class="card-body">
-          <form action='' method='POST' class="pilihan" >
-              <Select class="mb-2" name="merk" >
-                <option value="all"<?php if(!isset($_REQUEST['merk'])){ echo"selected";} ?> >Show All</option>
+          <form action='' method='GET' class="pilihan" >
+          <Select class="mb-2" name="merk" >
+                <option value="all" <?php if(!isset($_GET['merk'])){ echo"selected";} ?><?php if($_GET['merk'] == "all"){ echo"selected";} ?> >Show All</option>
                 <?php foreach ($merks as $merk) { ?>
-                <option value="<?php echo $merk['merk_id']; ?>" <?php if($_REQUEST['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
+                <option value="<?php echo $merk['merk_id']; ?>" <?php if((isset ($_GET['merk'])) && $_GET['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
                 <?php }?>
               </select>
-            <form action='' method='POST' class="pilih" >
-              <Select class="mb-2" name="tanggal" >
-                <option value="all"<?php if(!isset($_REQUEST['Tanggal Masuk'])){ echo"selected";} ?> >Show All</option>
-                <?php foreach ($tanggals as $tgl) { ?>
-                <option value="<?php echo $tgl['tanggal']; ?>" <?php if($_REQUEST['Tanggal Masuk'] == $merk['tanggal']){ echo"selected";} ?>><?php echo $merk['tanggal']; ?></option>
-                <?php }?>
+              <Select class="mb-2" name="sort">
+              <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
+              <option value="stok" <?php if($_GET['sort'] == 'stok'){ echo"selected";} ?>>Stok Terbanyak</option>
+              <option value="baru" <?php if($_GET['sort'] == 'baru'){ echo"selected";}  ?>>Barang Terbaru</option>
               </select>
               <button type="submit">Filter</button>
+              
+              <!--<label for="from">From</label>
+              <input type="text" id="from" name="from">
+              <label for="to">to</label>
+              <input type="text" id="to" name="to">
+              <button type="submit">Search</button>-->
+              
+              <!-- Script -->
+            <link href='jquery-ui.min.css' rel='stylesheet' type='text/css'>
+            <script src='jquery-3.3.1.js' type='text/javascript'></script>
+            <script src='jquery-ui.min.js' type='text/javascript'></script>
+            <script type='text/javascript'>
+            $(document).ready(function(){
+              $('.dateFilter').datepicker({
+                  dateFormat: "yy-mm-dd"
+              });
+            });
+            </script>
+
+            <!-- Search filter -->
+            <br>
+            <form method='post' action=''>
+              Start Date <input type='text' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
+          
+              End Date <input type='text' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
+
+              <input type='submit' name='but_search' value='Search'>
+            </form>
 
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                   <?php
-                  $fields=mysqli_fetch_fields($result);
+                  $fields=mysqli_fetch_fields($record);
                   foreach ($fields as $field) {
                     echo "<th>$field->name</th>";
                   }
                   ?>
                   </tr>
                 </thead>
-        
-                <tbody>
-                <?php
-                foreach ($products as $product) {
-                  $merk=$product['merk'];
-                  $nama=$product['nama'];
-                  $warna=$product['warna'];
-                  $tglmsk=$product['Tanggal Masuk'];
+                    <?php 
+               // echo $emp_query;
+                // Sort
+                //$emp_query .= " ORDER BY tanggal_input DESC";
+               //$hasil= mysqli_num_rows($qhasil);
+
+               $qhasil = mysqli_query($con,$sql);
+                // Check records found or not
+                if (mysqli_num_rows($qhasil) > 0){
+                  while($empRecord = mysqli_fetch_assoc($qhasil)){
+                
+                //foreach ($qhasil as $product) {
+                  $merk=$empRecord['merk'];
+                  $nama=$empRecord['nama'];
+                  $warna=$empRecord['warna'];
+                  $tglmsk=$empRecord['tanggal_input'];
+                
+                  echo "<tr>";
+                  echo "<td>". $merk ."</td>";
+                  echo "<td>". $nama ."</td>";
+                  echo "<td>". $warna ."</td>";
+                 echo "<td>". $tglmsk ."</td>";
+                  echo "</tr>";
+                //}
+                  }
+                }
+                  else{
+                    echo "<tr>";
+                    echo "<td colspan='4'>No record found.</td>";
+                    echo "</tr>"; 
+                }
                 ?>
-                  <tr>
-                    <td><?php echo $merk; ?></td>
-                    <td><?php echo $nama; ?></td>
-                    <td><?php echo $warna; ?></td>
-                    <td><?php echo $tglmsk; ?></td>
-                  </tr>
-                <?php } ?>
-                </tbody>
+                
               </table>
             </div>
             </form>
@@ -280,7 +358,7 @@ $product=null;
   <!-- Bootstrap core JavaScript-->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+  
   <!-- Core plugin JavaScript-->
   <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -291,7 +369,8 @@ $product=null;
 
   <!-- Custom scripts for all pages-->
   <script src="assets/js/sb-admin.min.js"></script>
-
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <!-- Demo scripts for this page-->
   <script src="assets/js/demo/datatables-demo.js"></script>
   <script src="assets/js/demo/chart-area-demo.js"></script>
