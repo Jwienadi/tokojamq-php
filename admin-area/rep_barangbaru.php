@@ -154,7 +154,7 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="rep_transaksi.php">
+        <a class="nav-link" href="rep_barangbaru.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
           <span>Daftar Barang Baru</span>
         </a>
@@ -166,47 +166,24 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-      <a class="nav-link" href="datauser.php">
+      <a class="nav-link" href="rep_pengiriman.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 4</span>
+          <span>Pengiriman Barang</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
+        <a class="nav-link" href="rep_uangtransaksi.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 5</span>
+          <span>Keuangan</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
+        <a class="nav-link" href="rep_penjualan.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 6</span>
+          <span>Penjualan</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 7</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 8</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 9</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 10</span>
-        </a>
-      </li>
+      
     </ul>
        
     <div id="content-wrapper">

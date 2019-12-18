@@ -1,44 +1,56 @@
 <?php 
 session_start();
 require_once('../config.php');
-if (!isset($_GET['merk'])){
- header("Location: indexadmin.php?merk=all&sort=default");
+if (!isset($_GET['show'])){
+ header("Location: rep_penjualan.php?show=all&sort=banyak");
 }
-$sql = "SELECT  pw.product_warna_id as 'foto',nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id";
 
-if (isset($_GET['merk'])){
+
+/*if (isset($_GET['merk'])){
   $hasilmerk = $_GET['merk']; 
 
       if($hasilmerk!="all"){
         $sql .=" and m.merk_id='".$hasilmerk."'";
-}}
+}}*/
+if (isset($_GET['show'])){
+  $hasilshow =$_GET['show']; 
+  //echo $hasilshow;
+  if($hasilshow=="all"){
+    $sql ="SELECT m.nama_merk as 'Merk',p.nama_product as 'Nama',w.warna as 'Warna',sum(bp.jumlah_barang) as 'Jumlah', \"In Cart\" as 'Status'
+    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
+    where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=0 group by bp.product_warna_id
+    union
+    SELECT m.nama_merk as 'Merk',p.nama_product as 'Nama',w.warna as 'Warna',sum(bp.jumlah_barang) as 'Jumlah', \"Bought\" as 'Status'
+    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
+    where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=1 group by bp.product_warna_id";
+  } else if($hasilshow=="cart"){
+    $sql ="SELECT m.nama_merk as 'Merk',p.nama_product as 'Nama',w.warna as 'Warna',sum(bp.jumlah_barang) as 'Jumlah', \"In Cart\" as 'Status'
+    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
+    where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=0 group by bp.product_warna_id";
+  } else if($hasilshow=="bought"){
+    $sql =" SELECT m.nama_merk as 'Merk',p.nama_product as 'Nama',w.warna as 'Warna',sum(bp.jumlah_barang) as 'Jumlah', \"Bought\" as 'Status'
+    from barang_penjualan bp, transaksi_penjualan tp, product_warna pw, product p, warna w, merk m 
+    where pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and bp.product_warna_id=pw.product_warna_id and status=1 group by bp.product_warna_id";
+  } 
+}
 if (isset($_GET['sort'])){
-  $sql .=" order by";;
   $hasilsort =$_GET['sort']; 
-  //echo $hasilsort;
-  if($hasilsort=="default"){
-    $sql .=" pw.product_warna_id ";
-  } else if($hasilsort=="stokbanyak"){
-    $sql .=" pw.stok desc ";
-  } else if($hasilsort=="stokdikit"){
-    $sql .=" pw.stok desc ";
-  } else if($hasilsort=="baru"){
-    $sql .=" p.tanggal_input desc";
-  } else if($hasilsort=="lama"){
-    $sql .=" p.tanggal_input asc";
-  }
+  //echo $hasilshow;
+  if($hasilsort=="banyak"){
+    $sql .=" order by `jumlah` desc";
+  } else if($hasilsort=="dikit"){
+    $sql .=" order by `jumlah` asc";
+  } 
 }
 
 //echo $sql;
 $result = mysqli_query($con,$sql) or die(mysqli_error());
 
-$sql1="select * from merk;";
+/*$sql1="select * from merk;";
 $merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
 while ($row=mysqli_fetch_assoc($merkresult)){
   $merks[]=$row;
-}
+}*/
 //print_r($merks);
 
 //for($i = 0; $i < mysql_num_fields($result); $i++) {
@@ -181,7 +193,7 @@ $product=null;
           <span>Penjualan</span>
         </a>
       </li>
-    
+      
       <!--<li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
@@ -218,21 +230,22 @@ $product=null;
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Stok Barang</div>
+            Penjualan</div>
           <div class="card-body">
             <form action='' method='GET' class="pilihan" >
-              <Select class="mb-2" name="merk" >
-                <option value="all" <?php if(!isset($_GET['merk'])){ echo"selected";} ?><?php if($_GET['merk'] == "all"){ echo"selected";} ?> >Show All</option>
-                <?php foreach ($merks as $merk) { ?>
-                <option value="<?php echo $merk['merk_id']; ?>" <?php if((isset ($_GET['merk'])) && $_GET['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
-                <?php }?>
+            Show:
+              <Select class="mb-2" name="show">
+              <option value="all" <?php if(!isset($_GET['show'])){ echo"selected";} ?>>All</option>
+              <option value="cart" <?php if($_GET['show'] == 'bought'){ echo"selected";} ?>>Barang Cart</option>
+              <option value="bought" <?php if($_GET['show'] == 'bought'){ echo"selected";} ?>>Barang Dibeli</option>
+
               </select>
+              Sort By:
               <Select class="mb-2" name="sort">
-              <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
-              <option value="stokbanyak" <?php if($_GET['sort'] == 'stokbanyak'){ echo"selected";} ?>>Stok Terbanyak</option>
-              <option value="stokdikit" <?php if($_GET['sort'] == 'stokdikit'){ echo"selected";} ?>>Stok Tersedikit</option>
-              <option value="baru" <?php if($_GET['sort'] == 'baru'){ echo"selected";}  ?>>Barang Terbaru</option>
-              <option value="lama" <?php if($_GET['sort'] == 'lama'){ echo"selected";}  ?>>Barang Terlama</option>
+              
+              <option value="banyak" <?php if($_GET['sort'] == 'banyak'){ echo"selected";} ?>>Penjualan Terbanyak</option>
+              <option value="dikit" <?php if($_GET['sort'] == 'dikit'){ echo"selected";} ?>>Penjualan Tersedikit</option>
+
               </select>
               <button type="submit">Filter</button>
 
@@ -280,19 +293,16 @@ $product=null;
                   <tbody>
                     <?php
                 foreach ($products as $product) {
-                  $id=$product['foto'];
-                  $merk=$product['merk'];
-                  $nama=$product['nama'];
-                  $warna=$product['warna'];
-                  $stok=$product['stok'];
+               
 
                 ?>
                     <tr>
-                      <td><img src="../assets/img/products/<?php echo $id;?>.jpg" alt="Image" style="width:60px; height:60px;"></td>
-                      <td><?php echo $merk; ?></td>
-                      <td><?php echo $nama; ?></td>
-                      <td><?php echo $warna; ?></td>
-                      <td><?php echo $stok; ?></td>
+                    <td><?php echo $product['Merk'];?></td>
+                      <td><?php echo $product['Nama'];?></td>
+                      <td><?php echo $product['Warna']; ?></td>
+                      <td><?php echo $product['Jumlah']; ?></td>
+                      <td><?php echo $product['Status']; ?></td>
+                     
                     </tr>
                     <?php } ?>
                   </tbody>
@@ -371,6 +381,12 @@ $product=null;
   function reload(val){
       location.reload(true);
     }
+
+    
+    $('#dataTable').DataTable( {
+        "ordering": false,
+    } );
+
   </script>
 </body>
 

@@ -1,10 +1,10 @@
 <?php 
 session_start();
 require_once('../config.php');
-if (!isset($_GET['sort'])){
- header("Location: indexadmin.php?merk=all&sort=default");
+if (!isset($_GET['show'])){
+ header("Location: rep_pengiriman.php?show=all&sort=tanggalbaru");
 }
-$sql = "SELECT nama_kurir as 'Kurir', jenis_layanan as 'Jenis',no_resi_pengiriman as 'No. Resi',nama_penerima as 'Nama Penerima',no_telp_penerima as 'No. Telp.', if(tanggal_Sampai is null,'BELUM SAMPAI',CAST(tanggal_sampai as date)) as 'Status' 
+$sql = "SELECT CAST(tanggal_pengiriman as date) as 'Tanggal Kirim', nama_kurir as 'Kurir', jenis_layanan as 'Jenis',no_resi_pengiriman as 'No. Resi',nama_penerima as 'Nama Penerima',no_telp_penerima as 'No. Telp.', if(tanggal_Sampai is null,'BELUM SAMPAI',CAST(tanggal_sampai as date)) as 'Status' 
 from detail_pengiriman dp,pengiriman p 
 where dp.pengiriman_id=p.pengiriman_id";
 
@@ -14,13 +14,22 @@ where dp.pengiriman_id=p.pengiriman_id";
       if($hasilmerk!="all"){
         $sql .=" and m.merk_id='".$hasilmerk."'";
 }}*/
+if (isset($_GET['show'])){
+  $hasilshow =$_GET['show']; 
+  //echo $hasilshow;
+  if($hasilshow=="sampai"){
+    $sql .=" and tanggal_sampai is not null";
+  } else if($hasilshow=="blmsampai"){
+    $sql .=" and tanggal_sampai is null";
+  } 
+}
 if (isset($_GET['sort'])){
   $hasilsort =$_GET['sort']; 
-  //echo $hasilsort;
-  if($hasilsort=="sampai"){
-    $sql .=" and tanggal_sampai is not null ";
-  } else if($hasilsort=="blmsampai"){
-    $sql .=" and tanggal_sampai is null";
+  //echo $hasilshow;
+  if($hasilsort=="tanggalbaru"){
+    $sql .=" order by tanggal_pengiriman desc";
+  } else if($hasilsort=="tanggallama"){
+    $sql .=" order by tanggal_pengiriman asc";
   } 
 }
 
@@ -145,9 +154,9 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="rep_uangtransaksi.php">
+        <a class="nav-link" href="rep_barangbaru.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Profit Loss</span>
+          <span>Daftar Barang Baru</span>
         </a>
       </li>
       <li class="nav-item active">
@@ -157,47 +166,24 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
+        <a class="nav-link" href="rep_pengiriman.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 4</span>
+          <span>Pengiriman Barang</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
+        <a class="nav-link" href="rep_uangtransaksi.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 5</span>
+          <span>Keuangan</span>
         </a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
+        <a class="nav-link" href="rep_penjualan.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 6</span>
+          <span>Penjualan</span>
         </a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 7</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 8</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 9</span>
-        </a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="datauser.php">
-          <!--<i class="fas fa-fw fa-table"></i>-->
-          <span>Report 10</span>
-        </a>
-      </li>
+      
       <!--<li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
@@ -237,10 +223,16 @@ $product=null;
             Pengiriman</div>
           <div class="card-body">
             <form action='' method='GET' class="pilihan" >
+              <Select class="mb-2" name="show">
+              <option value="all" <?php if(!isset($_GET['show'])){ echo"selected";} ?>>All</option>
+              <option value="sampai" <?php if($_GET['show'] == 'sampai'){ echo"selected";} ?>>Barang Sampai</option>
+              <option value="blmsampai" <?php if($_GET['show'] == 'blmsampai'){ echo"selected";} ?>>Barang Belum Sampai</option>
+
+              </select>
               <Select class="mb-2" name="sort">
-              <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
-              <option value="sampai" <?php if($_GET['sort'] == 'sampai'){ echo"selected";} ?>>Barang Sampai</option>
-              <option value="blmsampai" <?php if($_GET['sort'] == 'blmsampai'){ echo"selected";} ?>>Barang Belum Sampai</option>
+              
+              <option value="tanggalbaru" <?php if($_GET['sort'] == 'tanggalbaru'){ echo"selected";} ?>>Pengiriman Terbaru</option>
+              <option value="tanggallama" <?php if($_GET['sort'] == 'tanggallama'){ echo"selected";} ?>>Pengiriman Terlama</option>
 
               </select>
               <button type="submit">Filter</button>
@@ -293,7 +285,7 @@ $product=null;
 
                 ?>
                     <tr>
-                  
+                    <td><?php echo $product['Tanggal Kirim'];?></td>
                       <td><?php echo $product['Kurir'];?></td>
                       <td><?php echo $product['Jenis']; ?></td>
                       <td><?php echo $product['No. Resi']; ?></td>
@@ -378,6 +370,12 @@ $product=null;
   function reload(val){
       location.reload(true);
     }
+
+    
+    $('#dataTable').DataTable( {
+        "ordering": false,
+    } );
+
   </script>
 </body>
 
