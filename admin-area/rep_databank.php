@@ -2,8 +2,7 @@
 session_start();
 require_once('../config.php');
 
-$sql = "SELECT bank_name as `Nama Bank`,
-concat(nama_rek, ' / ', no_rek) as `Nama/Nomer Rekening` from bank;";
+$sql = "SELECT bank_name,no_rek, nama_rek from bank;";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
 
 //for($i = 0; $i < mysql_num_fields($result); $i++) {
@@ -196,7 +195,7 @@ $product=null;
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Data User</div>
+            Data Bank</div>
           <div class="card-body">
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -222,19 +221,17 @@ $product=null;
                 <tbody>
                 <?php
                 foreach ($products as $product) {
-                  $iduser=$product['ID User'];
-                  $nama=$product['Nama Lengkap'];
-                  $email=$product['Email'];
-                  $pwd=$product['Password'];
-                  $telp=$product['No. Telp']
+                  $iduser=$product['bank_name'];
+                  $nama=$product['no_rek'];
+                  $email=$product['nama_rek'];
+                 
 
                 ?>
                   <tr>
                     <td><?php echo $iduser; ?></td>
                     <td><?php echo $nama; ?></td>
                     <td><?php echo $email; ?></td>
-                    <td><?php echo $pwd; ?></td>
-                    <td><?php echo $telp; ?></td>
+                    
                   </tr>
                   <?php } ?>
                 </tbody>
