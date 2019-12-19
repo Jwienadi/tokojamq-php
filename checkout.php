@@ -141,7 +141,7 @@ isloggedin($con);
               <div class="col-md-4 order-md-2 mb-4">
                 <h4 class="d-flex justify-content-between align-items-center mb-3">
                   <span class="text-muted">Your cart</span>
-                  <span class="badge badge-secondary badge-pill">3</span>
+                  
                 </h4>
                 <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -386,7 +386,24 @@ isloggedin($con);
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  
+  <script>
+    /* buat dropdown products 
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
   <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function () {
@@ -489,9 +506,11 @@ isloggedin($con);
                 promo:promo
               },
               success: function(data) {
-                if(data !== 0) {
-                  //alert(data);
+                //alert(data);
+                if(data != 0) {
+                  //alert("a");
                   //echo $data;
+                  $('#error_notif').empty();
                   $('#error_notif').append("Promocode applied successfully !");
                   $('#error_notif').css('color','green');
                   $('#nominalpromo').text("-Rp. "+data);
@@ -503,7 +522,9 @@ isloggedin($con);
                   $('#totalsemua').attr("value",total);
               //location.href="index.php";
             } else {
+              //alert("no");
             // show alert or something that user has wrong credentials ...
+            $('#error_notif').empty();
             $('#error_notif').append("Promocode not available!");
             $('#nominalpromo').val("0");
             var total= parseInt($('#subtot').attr("value"))+parseInt($('#ongkir').val())-parseInt($('#nominalpromo').attr("value"));
@@ -515,6 +536,7 @@ isloggedin($con);
     }
     })
     } else{
+      $('#error_notif').empty();
       $('#error_notif').append("Promocode can not be blank .Enter a Valid Promocode !");
     }
     })

@@ -235,7 +235,7 @@ $htot=mysqli_fetch_assoc($qhtot);
                       class="text-muted">Total</strong>
                     <h5 class="font-weight-bold">$400.00</h5>
                   </li>-->
-                </ul><a href="checkout.php" class="btn btn-dark rounded-pill py-2 btn-block">Procceed to checkout</a>
+                </ul><a href="checkout.php" class="btn btn-dark rounded-pill py-2 btn-block <?php if (empty($htot['total_harga'])){ echo "disabled";}?>" >Procceed to checkout</a>
               </div>
             </div>
           </div>
