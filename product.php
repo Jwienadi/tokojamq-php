@@ -18,7 +18,7 @@ include("function.php");
  if(isset($_GET['search'])){
     $cmd = "SELECT product_warna_id, concat(m.nama_merk,' ',p.nama_product,' ',warna) as 'judul_barang',harga_jual as 'harga_barang' 
     FROM product_warna pw, product p,warna w,merk m 
-    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and (m.nama_merk like '%".$_GET['search']."%' or p.nama_product like '%".$_GET['search']."%' or warna like '%".$_GET['search']."%')";
+    WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id and (m.nama_merk like '%".$_GET['search']."%' or p.nama_product like '%".$_GET['search']."%' or warna like '%".$_GET['search']."%' or (concat(m.nama_merk,' ',p.nama_product,' ',warna)) like '%".$_GET['search']."%' )";
     //echo $cmd;
  } else {
      
@@ -28,6 +28,7 @@ include("function.php");
   };
  $all_result 	= mysqli_query($con,$cmd) or die(mysqli_error($con));
  $count_all_item = mysqli_num_rows($all_result);
+
 
  $max_item 		= 12; //Max item in one page
  $page 			= isset($_GET['page'])? (int)$_GET["page"]:1; //contoh IF INLINE
@@ -162,6 +163,9 @@ include("function.php");
                 <!--PRODUK CARD-->
                 <div class='row' style='margin:0px auto;'>
                     <?php 
+                     if (empty($products)){
+                        echo "<div class='col-md-6 p-5 m-5'><h3>No Products Found. Try searching for something else.</h3></div>";
+                    } else {
 					foreach($products as $product){
 						$id = $product['product_warna_id'];
 				?>
@@ -241,7 +245,7 @@ include("function.php");
 						?>
                     </div>
                     <?php
-                    echo "<p>&nbsp;</p>";
+                    echo "<p>&nbsp;</p>";}
                    // echo "Brand = ".$brand_truetype."<br/>";
 					/*echo "Current Page = ".$page."<br/>";
 					echo "Next Page = ".$next_page."<br/>";
@@ -305,7 +309,24 @@ include("function.php");
                         $("#wrapper").toggleClass("toggled");
                     });
                 </script>
-                
+                <script>
+    /* buat dropdown products 
+  /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
                 </style>
 </body>
 </html>
