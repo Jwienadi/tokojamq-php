@@ -1,56 +1,22 @@
 <?php 
 session_start();
 require_once('../config.php');
-if (!isset($_GET['merk'])){
-header("Location: rep_barangbaru.php?merk=all&sort=default");
-}
-$sql = "SELECT m.nama_merk as 'merk',p.nama_product as 'nama',warna, tanggal_input
-FROM product_warna pw, product p,warna w,merk m
-WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
 
-if (isset($_GET['merk'])){
-  $hasilmerk = $_GET['merk']; 
+$sql = "SELECT bank_name,no_rek, nama_rek from bank;";
+$result = mysqli_query($con,$sql) or die(mysqli_error());
 
-      if($hasilmerk!="all"){
-        $sql .=" and m.merk_id='".$hasilmerk."'";
-}}
-// Date filter
-if(isset($_GET['but_search'])){
-  $fromDate = $_GET['fromDate'];
-  $endDate = $_GET['endDate'];
-
-  if(!empty($fromDate) && !empty($endDate)){
-    $sql .= " and tanggal_input 
-                  between '".$fromDate."' and '".$endDate."' ";
-  }
-}
-if (isset($_GET['sort'])){
-  $sql .=" order by";;
-  $hasilsort =$_GET['sort']; 
-  //echo $hasilsort;
-  if($hasilsort=="default"){
-    $sql .=" pw.product_warna_id ";
-  }
-  if($hasilsort=="lama"){
-    $sql .=" p.tanggal_input asc ";
-  }
-  if($hasilsort=="baru"){
-    $sql .=" p.tanggal_input desc";
-  }}
-  //echo $sql;
-$record = mysqli_query($con,$sql) or die(mysqli_error());
-
-$sql1="select * from merk;";
-$merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
-while ($row=mysqli_fetch_assoc($merkresult)){
-  $merks[]=$row;
-}
+//for($i = 0; $i < mysql_num_fields($result); $i++) {
+  //$field_info = mysql_fetch_field($result, $i);
+  //echo "<th>{$field_info}</th>";
+//}
 
 $product=null;
 //if($count_all_item>=1){
-  while($row = mysqli_fetch_assoc($record)) {
+  while($row = mysqli_fetch_assoc($result)) {
     $products[] = $row;
 }
+//}
+// Print the column names as the headers of a tabl
 ?>
 
 <!DOCTYPE html>
@@ -74,42 +40,7 @@ $product=null;
 
   <!-- Custom styles for this template-->
   <link href="assets/css/sb-admin.css" rel="stylesheet">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  
-  <!--<script>
-  $( function() {
-    var dateFormat = "dd/mm/yy",
-      from = $( "#from" )
-        .datepicker({
-          defaultDate: "+1w",
-          changeMonth: true,
-          changeYear: true,
-        })
-        .on( "change", function() {
-          to.datepicker( "option", "minDate", getDate( this ) );
-        }),
-      to = $( "#to" ).datepicker({
-        defaultDate: "+1w",
-        changeMonth: true,
-        changeYear: true,
-      })
-      .on( "change", function() {
-        from.datepicker( "option", "maxDate", getDate( this ) );
-      });
- 
-    function getDate( element ) {
-      var date;
-      try {
-        date = $.datepicker.parseDate( dateFormat, element.value );
-      } catch( error ) {
-        date = null;
-      }
- 
-      return date;
-    }
-  } );
-  </script> -->
+
 </head>
 
 <body id="page-top">
@@ -138,8 +69,39 @@ $product=null;
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link " href="../index.php"  role="button" >
-        <i class="fas fa-globe-americas"></i> GO TO WEBSITE 
+        <i class="fas fa-globe-americas"></i> GO TO WEBSITE
+          
         </a>
+        <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown no-arrow mx-1">
+        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-envelope fa-fw"></i>
+          <span class="badge badge-danger">7</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user-circle fa-fw"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+          <a class="dropdown-item" href="#">Settings</a>
+          <a class="dropdown-item" href="#">Activity Log</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+        </div>
+      </li>-->
     </ul>
 
   </nav>
@@ -167,7 +129,7 @@ $product=null;
         </a>
       </li>
       <li class="nav-item active">
-      <a class="nav-link" href="rep_pengiriman.php">
+        <a class="nav-link" href="rep_pengiriman.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
           <span>Pengiriman Barang</span>
         </a>
@@ -197,8 +159,34 @@ $product=null;
         </a>
       </li>
       
+      <!--<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Pages</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <h6 class="dropdown-header">Login Screens:</h6>
+          <a class="dropdown-item" href="login.html">Login</a>
+          <a class="dropdown-item" href="register.html">Register</a>
+          <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
+          <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header">Other Pages:</h6>
+          <a class="dropdown-item" href="404.html">404 Page</a>
+          <a class="dropdown-item" href="blank.html">Blank Page</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+      </li>-->
     </ul>
-       
+
     <div id="content-wrapper">
 
       <div class="container-fluid">
@@ -207,98 +195,48 @@ $product=null;
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Daftar Barang Baru</div>
+            Data Bank</div>
           <div class="card-body">
-          <form action='' method='GET' class="pilihan" >
-          <Select class="mb-2" name="merk" >
-                <option value="all" <?php if(!isset($_GET['merk'])){ echo"selected";} ?><?php if($_GET['merk'] == "all"){ echo"selected";} ?> >Show All</option>
-                <?php foreach ($merks as $merk) { ?>
-                <option value="<?php echo $merk['merk_id']; ?>" <?php if((isset ($_GET['merk'])) && $_GET['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
-                <?php }?>
-              </select>
-              <Select class="mb-2" name="sort">
-              <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
-              <option value="stok" <?php if($_GET['sort'] == 'lama'){ echo"selected";}  ?>>Barang Terlama</option>
-              <option value="baru" <?php if($_GET['sort'] == 'baru'){ echo"selected";}  ?>>Barang Terbaru</option>
-              </select>
-             <!-- <button type="submit">Filter</button> -->
-              
-              <!--<label for="from">From</label>
-              <input type="text" id="from" name="from">
-              <label for="to">to</label>
-              <input type="text" id="to" name="to">
-              <button type="submit">Search</button>-->
-              
-              <!-- Script -->
-            <link href='jquery-ui.min.css' rel='stylesheet' type='text/css'>
-            <script src='jquery-3.3.1.js' type='text/javascript'></script>
-            <script src='jquery-ui.min.js' type='text/javascript'></script>
-            <script type='text/javascript'>
-            $(document).ready(function(){
-              $('.dateFilter').datepicker({
-                  dateFormat: "yy-mm-dd"
-              });
-            });
-            </script>
-
-            <!-- Search filter -->
-            <br>
-           
-              Start Date <input type='text' class='dateFilter' name='fromDate' value='<?php if(isset($_GET['fromDate'])) echo $_GET['fromDate']; ?>'>
-          
-              End Date <input type='text' class='dateFilter' name='endDate' value='<?php if(isset($_GET['endDate'])) echo $_GET['endDate']; ?>'>
-
-              <input type='submit' name='but_search' value='Search'>
-            
-
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                   <tr>
                   <?php
-                  $fields=mysqli_fetch_fields($record);
+                 /* foreach ($field_info) {
+                    echo "<th>{$field_info}</th>";
+                  }*/
+                  /*for($i = 0; $i < mysqli_num_fields($result); $i++) {
+                    $field_info = mysqli_fetch_field($result, $i);
+                    echo "<th>".$field_info."</th>";*/
+                   /* foreach($row as $field => $value) {
+                      echo '<th>'.htmlentities($field).'</th>';
+                  }*/
+                  $fields=mysqli_fetch_fields($result);
                   foreach ($fields as $field) {
                     echo "<th>$field->name</th>";
                   }
                   ?>
                   </tr>
                 </thead>
-                    <?php 
-               // echo $emp_query;
-                // Sort
-                //$emp_query .= " ORDER BY tanggal_input DESC";
-               //$hasil= mysqli_num_rows($qhasil);
+                <tbody>
+                <?php
+                foreach ($products as $product) {
+                  $iduser=$product['bank_name'];
+                  $nama=$product['no_rek'];
+                  $email=$product['nama_rek'];
+                 
 
-               $qhasil = mysqli_query($con,$sql);
-                // Check records found or not
-                if (mysqli_num_rows($qhasil) > 0){
-                  while($empRecord = mysqli_fetch_assoc($qhasil)){
-                
-                //foreach ($qhasil as $product) {
-                  $merk=$empRecord['merk'];
-                  $nama=$empRecord['nama'];
-                  $warna=$empRecord['warna'];
-                  $tglmsk=$empRecord['tanggal_input'];
-                
-                  echo "<tr>";
-                  echo "<td>". $merk ."</td>";
-                  echo "<td>". $nama ."</td>";
-                  echo "<td>". $warna ."</td>";
-                 echo "<td>". $tglmsk ."</td>";
-                  echo "</tr>";
-                //}
-                  }
-                }
-                  else{
-                    echo "<tr>";
-                    echo "<td colspan='4'>No record found.</td>";
-                    echo "</tr>"; 
-                }
                 ?>
-                
+                  <tr>
+                    <td><?php echo $iduser; ?></td>
+                    <td><?php echo $nama; ?></td>
+                    <td><?php echo $email; ?></td>
+                    
+                  </tr>
+                  <?php } ?>
+                </tbody>
               </table>
             </div>
-            </form>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
@@ -348,7 +286,7 @@ $product=null;
   <!-- Bootstrap core JavaScript-->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
+
   <!-- Core plugin JavaScript-->
   <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
@@ -359,8 +297,7 @@ $product=null;
 
   <!-- Custom scripts for all pages-->
   <script src="assets/js/sb-admin.min.js"></script>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <!-- Demo scripts for this page-->
   <script src="assets/js/demo/datatables-demo.js"></script>
   <script src="assets/js/demo/chart-area-demo.js"></script>

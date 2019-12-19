@@ -184,7 +184,7 @@
               <img class="d-block img-fluid" src="assets/img/wallpaper.jpg" alt="First slide">
             </div>
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="assets/img/wallpaper2.jpg" alt="Second slide">
+              <img class="d-block img-fluid" src="assets/img/promo.jpg" alt="Second slide">
             </div>
             <div class="carousel-item">
               <img class="d-block img-fluid" src="assets/img/wallpaper3.jpg" alt="Third slide">
