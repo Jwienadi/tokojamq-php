@@ -41,6 +41,7 @@ require_once('config.php');
      from transaksi_penjualan tp, barang_penjualan bp, user u, product_warna pw
      where bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and pw.product_warna_id=bp.product_warna_id
      and u.user_id=tp.user_id and tp.user_id=1 and status=0 and status_pembayaran=0;";
+      $jadi=mysqli_query($con,$q1) or die(mysqli_error($con));
 
      $id_bp = $_GET['id_barang_penjualan'];
      $id_tp = $_GET['id_transaksi_penjualan'];
@@ -48,6 +49,10 @@ require_once('config.php');
      $tambah= "INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
           VALUES ('$_GET['id_barang_penjualan']', '$_GET['id_transaksi_penjualan']' , 0, '".$_GET['id']."' ', '".$_GET['stok']."');";
      mysqli_query($con, $tambah);
+     die ();
+
+     $ples="INSERT INTO transaksi_penjualan (user_id, status_pembayaran) values ('$_SESSION['user_id']',0);";
+     mysqli_query($con, $ples);
      die ();
      // $tmp_cmd = "INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
              //     VALUES ('', 1, 0, '".$_GET['id']."' ', '".$_GET['stok']."');";
