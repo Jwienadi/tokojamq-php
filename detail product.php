@@ -220,7 +220,7 @@ isloggedin($con);
                             <input type="number" name="qty" value="1" min="1" max="<?=$product['stok']?>" placeholder="stok" required>
                             <input type="hidden" name="id" value="<?=$product['product_warna_id']?>">
                             <button type="submit">Add To Cart</button>
-                            </form>
+                        </form>
                             
                        <!-- </form> -->
 

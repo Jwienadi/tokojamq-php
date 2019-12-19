@@ -41,7 +41,7 @@ require_once('../config.php');
    //echo $queryselectdetailpengiriman;
    //fetch assoc dulu
    $queryupdatetransaksipenjualan="update transaksi_penjualan tp,barang_penjualan bp set tp.bank_id='$bankid',tp.status_pembayaran=1,tp.detail_pengiriman_id='".$iddp['id']."',tp.tanggal_transaksi=CURRENT_TIMESTAMP,tp.subtotal_transaksi=$subtot,tp.total_transaksi=$tot,tp.kode_promo='$kodepromo' where tp.id_transaksi_penjualan=bp.id_transaksi_penjualan and tp.user_id='".$_SESSION['user_id']."' and bp.status=0 and tp.status_pembayaran=0 and tp.id_transaksi_penjualan=$idtp;";
-   echo $queryupdatetransaksipenjualan;
+   //echo $queryupdatetransaksipenjualan;
    $runupdatetp=mysqli_query($con,$queryupdatetransaksipenjualan) or die(mysqli_error());
    
    //masih ngeBUG
