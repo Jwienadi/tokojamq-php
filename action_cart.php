@@ -40,7 +40,7 @@ require_once('config.php');
      $q1="SELECT bp.id_barang_penjualan, tp.id_transaksi_penjualan, bp.product_warna_id, jumlah_barang, status, tp.user_id, status_pembayaran
      from transaksi_penjualan tp, barang_penjualan bp, user u, product_warna pw
      where bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and pw.product_warna_id=bp.product_warna_id
-     and u.user_id=tp.user_id and tp.user_id=1 and status=0 and status_pembayaran=0";
+     and u.user_id=tp.user_id and tp.user_id=1 and status=0 and status_pembayaran=0;";
 
      $id_bp = $_GET['id_barang_penjualan'];
      $id_tp = $_GET['id_transaksi_penjualan'];
