@@ -37,7 +37,12 @@ require_once('config.php');
       echo $sql;
       $createsql=mysqli_query($con,$sql) or die(mysqli_error($con));
      // }
-     $tambah= "INSERT INTO transaksi_penjualan(user_id,status_pembayaran) values ('".$_SESSION['user_id']."',0);"
+     $q1="SELECT tp.id_transaksi_penjualan, bp.product_warna_id, jumlah_barang, status, tp.user_id, status_pembayaran
+     from transaksi_penjualan tp, barang_penjualan bp, user u, product_warna pw
+     where bp.id_transaksi_penjualan=tp.id_transaksi_penjualan and pw.product_warna_id=bp.product_warna_id
+     and u.user_id=tp.user_id and tp.user_id=1 and status=0 and status_pembayaran=0";
+
+     $tambah= "INSERT INTO transaksi_penjualan(user_id,status_pembayaran) values ('".$_SESSION['user_id']."',0);";
      // $tmp_cmd = "INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
              //     VALUES ('', 1, 0, '".$_GET['id']."' ', '".$_GET['stok']."');";
      // echo $tmp_cmd;
