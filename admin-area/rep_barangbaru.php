@@ -1,12 +1,12 @@
 <?php 
 session_start();
 require_once('../config.php');
-//if (!isset($_GET['merk'])){
-//header("Location: rep_barangbaru.php?merk=all&sort=default");
-//}
+if (!isset($_GET['merk'])){
+header("Location: rep_barangbaru.php?merk=all&sort=default");
+}
 $sql = "SELECT m.nama_merk as 'merk',p.nama_product as 'nama',warna, tanggal_input
 FROM product_warna pw, product p,warna w,merk m
-WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id;";
+WHERE pw.product_id=p.product_id and pw.warna_id=w.warna_id and p.merk_id=m.merk_id";
 
 if (isset($_GET['merk'])){
   $hasilmerk = $_GET['merk']; 
@@ -37,6 +37,7 @@ if (isset($_GET['sort'])){
   if($hasilsort=="baru"){
     $sql .=" p.tanggal_input";
   }}
+  //echo $sql;
 $record = mysqli_query($con,$sql) or die(mysqli_error());
 
 $sql1="select * from merk;";
@@ -181,6 +182,12 @@ $product=null;
         <a class="nav-link" href="rep_penjualan.php">
           <!--<i class="fas fa-fw fa-table"></i>-->
           <span>Penjualan</span>
+        </a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="rep_topspender.php">
+          <!--<i class="fas fa-fw fa-table"></i>-->
+          <span>Top Spender</span>
         </a>
       </li>
       

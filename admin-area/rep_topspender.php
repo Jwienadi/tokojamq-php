@@ -1,45 +1,9 @@
 <?php 
 session_start();
 require_once('../config.php');
-if (!isset($_GET['merk'])){
- header("Location: indexadmin.php?merk=all&sort=default");
-}
-$sql = "SELECT  pw.product_warna_id as 'foto',nama_merk as 'merk',nama_product as 'nama',warna,stok 
-from product_warna pw,product p,warna w,merk m 
-where pw.product_id=p.product_id and m.merk_id=p.merk_id and w.warna_id=pw.warna_id";
 
-if (isset($_GET['merk'])){
-  $hasilmerk = $_GET['merk']; 
-
-      if($hasilmerk!="all"){
-        $sql .=" and m.merk_id='".$hasilmerk."'";
-}}
-if (isset($_GET['sort'])){
-  $sql .=" order by";;
-  $hasilsort =$_GET['sort']; 
-  //echo $hasilsort;
-  if($hasilsort=="default"){
-    $sql .=" pw.product_warna_id ";
-  } else if($hasilsort=="stokbanyak"){
-    $sql .=" pw.stok desc ";
-  } else if($hasilsort=="stokdikit"){
-    $sql .=" pw.stok asc ";
-  } else if($hasilsort=="baru"){
-    $sql .=" p.tanggal_input desc";
-  } else if($hasilsort=="lama"){
-    $sql .=" p.tanggal_input asc";
-  }
-}
-
-//echo $sql;
+$sql = "select concat(first_name,' ',last_name) as 'Name',email,if(sum(total_transaksi) is null,0,sum(total_transaksi)) as 'Total Spent' from user u left join transaksi_penjualan tp on u.user_id=tp.user_Id group by u.user_id order by `Total Spent` desc";
 $result = mysqli_query($con,$sql) or die(mysqli_error());
-
-$sql1="select * from merk;";
-$merkresult=mysqli_query($con,$sql1) or die(mysqli_error());
-while ($row=mysqli_fetch_assoc($merkresult)){
-  $merks[]=$row;
-}
-//print_r($merks);
 
 //for($i = 0; $i < mysql_num_fields($result); $i++) {
   //$field_info = mysql_fetch_field($result, $i);
@@ -51,7 +15,8 @@ $product=null;
   while($row = mysqli_fetch_assoc($result)) {
     $products[] = $row;
 }
-
+//}
+// Print the column names as the headers of a tabl
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +54,7 @@ $product=null;
     </button>-->
 
     <!-- Navbar Search -->
-    <!--<form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">-->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
       <!--<div class="input-group">
         <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
         <div class="input-group-append">
@@ -98,14 +63,14 @@ $product=null;
           </button>
         </div>
       </div>-->
-    <!--</form>-->
+    </form>
 
     <!-- Navbar -->
     <ul class="navbar-nav ml-auto ml-md-0">
       <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link " href="../index.php" role="button">
-          <i class="fas fa-globe-americas"></i> GO TO WEBSITE
-
+        <a class="nav-link " href="../index.php"  role="button" >
+        <i class="fas fa-globe-americas"></i> GO TO WEBSITE
+          
         </a>
         <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
           <a class="dropdown-item" href="#">Action</a>
@@ -187,7 +152,7 @@ $product=null;
           <span>Top Spender</span>
         </a>
       </li>
-    
+      
       <!--<li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
@@ -224,29 +189,13 @@ $product=null;
         <div class="card mb-3">
           <div class="card-header">
             <i class="fas fa-table"></i>
-            Stok Barang</div>
+            Top Spender</div>
           <div class="card-body">
-            <form action='' method='GET' class="pilihan" >
-              <Select class="mb-2" name="merk" >
-                <option value="all" <?php if(!isset($_GET['merk'])){ echo"selected";} ?><?php if($_GET['merk'] == "all"){ echo"selected";} ?> >Show All</option>
-                <?php foreach ($merks as $merk) { ?>
-                <option value="<?php echo $merk['merk_id']; ?>" <?php if((isset ($_GET['merk'])) && $_GET['merk'] == $merk['merk_id']){ echo"selected";} ?>><?php echo $merk['nama_merk']; ?></option>
-                <?php }?>
-              </select>
-              <Select class="mb-2" name="sort">
-              <option value="default" <?php if(!isset($_GET['sort'])){ echo"selected";} ?>>Default</option>
-              <option value="stokbanyak" <?php if($_GET['sort'] == 'stokbanyak'){ echo"selected";} ?>>Stok Terbanyak</option>
-              <option value="stokdikit" <?php if($_GET['sort'] == 'stokdikit'){ echo"selected";} ?>>Stok Tersedikit</option>
-              <option value="baru" <?php if($_GET['sort'] == 'baru'){ echo"selected";}  ?>>Barang Terbaru</option>
-              <option value="lama" <?php if($_GET['sort'] == 'lama'){ echo"selected";}  ?>>Barang Terlama</option>
-              </select>
-              <button type="submit">Filter</button>
-
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr> 
-                      <?php
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <tr>
+                  <?php
                  /* foreach ($field_info) {
                     echo "<th>{$field_info}</th>";
                   }*/
@@ -256,58 +205,31 @@ $product=null;
                    /* foreach($row as $field => $value) {
                       echo '<th>'.htmlentities($field).'</th>';
                   }*/
-                
                   $fields=mysqli_fetch_fields($result);
                   foreach ($fields as $field) {
                     echo "<th>$field->name</th>";
                   }
-                
                   ?>
-                      <!--<th>
-                    <th>Position</th>
-                    <th>Id product</th>
-                    <th>Nama Product</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>-->
-                    </tr>
-                  </thead>
-                  <!--<tfoot>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
                   </tr>
-                </tfoot> -->
-                  <tbody>
-                    <?php
+                </thead>
+                <tbody>
+                <?php
                 foreach ($products as $product) {
-                  $id=$product['foto'];
-                  $merk=$product['merk'];
-                  $nama=$product['nama'];
-                  $warna=$product['warna'];
-                  $stok=$product['stok'];
+               
 
                 ?>
-                    <tr>
-                      <td><img src="../assets/img/products/<?php echo $id;?>.jpg" alt="Image" style="width:60px; height:60px;"></td>
-                      <td><?php echo $merk; ?></td>
-                      <td><?php echo $nama; ?></td>
-                      <td><?php echo $warna; ?></td>
-                      <td><?php echo $stok; ?></td>
-                    </tr>
-                    <?php } ?>
-                  </tbody>
-                </table>
-              </div>
-              </form>
+                  <tr>
+                    <td><?php echo $product['Name']; ?></td>
+                    <td><?php echo $product['email']; ?></td>
+                    <td><?php echo $product['Total Spent']; ?></td>
+                 
+                  </tr>
+                  <?php } ?>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          
         </div>
 
       </div>
@@ -334,8 +256,7 @@ $product=null;
   </a>
 
   <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -371,16 +292,14 @@ $product=null;
   <!-- Demo scripts for this page-->
   <script src="assets/js/demo/datatables-demo.js"></script>
   <script src="assets/js/demo/chart-area-demo.js"></script>
-
   <script>
-
-  function reload(val){
-      location.reload(true);
-    }
-    $('#dataTable').DataTable( {
+  $('#dataTable').DataTable( {
         "ordering": false,
     } );
   </script>
+
+  
+
 </body>
 
 </html>
