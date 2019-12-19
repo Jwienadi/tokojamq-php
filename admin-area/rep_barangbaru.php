@@ -15,9 +15,9 @@ if (isset($_GET['merk'])){
         $sql .=" and m.merk_id='".$hasilmerk."'";
 }}
 // Date filter
-if(isset($_POST['but_search'])){
-  $fromDate = $_POST['fromDate'];
-  $endDate = $_POST['endDate'];
+if(isset($_GET['but_search'])){
+  $fromDate = $_GET['fromDate'];
+  $endDate = $_GET['endDate'];
 
   if(!empty($fromDate) && !empty($endDate)){
     $sql .= " and tanggal_input 
@@ -237,13 +237,13 @@ $product=null;
 
             <!-- Search filter -->
             <br>
-            <form method='post' action=''>
-              Start Date <input type='text' class='dateFilter' name='fromDate' value='<?php if(isset($_POST['fromDate'])) echo $_POST['fromDate']; ?>'>
+           
+              Start Date <input type='text' class='dateFilter' name='fromDate' value='<?php if(isset($_GET['fromDate'])) echo $_GET['fromDate']; ?>'>
           
-              End Date <input type='text' class='dateFilter' name='endDate' value='<?php if(isset($_POST['endDate'])) echo $_POST['endDate']; ?>'>
+              End Date <input type='text' class='dateFilter' name='endDate' value='<?php if(isset($_GET['endDate'])) echo $_GET['endDate']; ?>'>
 
               <input type='submit' name='but_search' value='Search'>
-            </form>
+            
 
             <div class="table-responsive">
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
