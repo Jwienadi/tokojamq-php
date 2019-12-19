@@ -37,6 +37,7 @@ require_once('config.php');
       echo $sql;
       $createsql=mysqli_query($con,$sql) or die(mysqli_error($con));
      // }
+     $tambah= "INSERT INTO transaksi_penjualan(user_id,status_pembayaran) values ('".$_SESSION['user_id']."',0);"
      // $tmp_cmd = "INSERT INTO barang_penjualan(id_barang_penjualan,id_transaksi_penjualan,`status`,product_warna_id,jumlah_barang)
              //     VALUES ('', 1, 0, '".$_GET['id']."' ', '".$_GET['stok']."');";
      // echo $tmp_cmd;
