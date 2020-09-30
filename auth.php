@@ -6,5 +6,4 @@
         exit(); 
     }*/
     testing
-    testing 123
 ?>
