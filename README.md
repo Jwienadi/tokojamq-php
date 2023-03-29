@@ -2,7 +2,9 @@
 
 An e-commerce website made by me and a teammate, based on a real wall-clock shop owned by a friend. This website was made as part of the Web Development and UX Design Coursework project in undergraduate program. Currently hosted on a free web hosting service, link: http://tokojamq.000webhostapp.com
 <br />
+<br />
 Disclaimer: This website uses static products and does not include payment feature during checkout.
+<br />
 <br />
 Below are some highlight of my contribution to this website.<br />
 • Database Design<br />
