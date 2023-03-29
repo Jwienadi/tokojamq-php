@@ -14,5 +14,5 @@ Design the UI of the website while also considering the UX. Create mockup of the
 •Bulding the front-end<br />
 Create header, sidebar, homepage, user registration, log-in, log-out, cart, and checkout page, with the help of bootstrap. Customize the layout, colors, fonts, etc.<br />
 •Building the back-end<br />
-Handle the user registration, log-in and log-out, search bar, add to cart, cart page (add quantity, delete item,etc.), checkout page (calculate total, rajaongkir API, etc.)
+Handle the user registration, log-in and log-out, search bar, add to cart, cart page (add quantity, delete item,etc.), checkout page (calculate total, rajaongkir API, etc.)<br />
 • Hosting the website<br />
